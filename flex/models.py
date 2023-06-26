@@ -13,6 +13,7 @@ class FlexPage(Page):
         [
             ("title_and_text", blocks.TitleAndTextBlock()),
             ("full_rich_text", blocks.RichTextBlock()),
+            ("simple_rich_text", blocks.SimpleTextBlock()),
             ("meeting_point", blocks.MeetingPoint()),
             ("material_publication", blocks.MaterialPublication()),
             ("raffle", blocks.Raffle()),

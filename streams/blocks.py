@@ -17,6 +17,31 @@ class RichTextBlock(blocks.RichTextBlock):
         icon = "edit"
         label = "Rich Text"
 
+class SimpleTextBlock(blocks.RichTextBlock):
+
+    def __init__(
+        self,
+        required=True,
+        help_text=None,
+        editor="default",
+        features=None,
+        max_length=None,
+        validators=(),
+        **kwargs,
+    ):
+        super().__init__(**kwargs)
+        self.features = [
+            "bold",
+            "italic",
+            "link",
+        ]
+        
+
+    class Meta:
+        template = "streams/rich_text_block.html"
+        icon = "edit"
+        label = "Simple Text"
+
 class MeetingPoint(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text="Nombre punto de encuentro")
     text = blocks.CharBlock(required=True, help_text="Dirección punto de encuentro")
