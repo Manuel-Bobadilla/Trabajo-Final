@@ -65,10 +65,12 @@ class MaterialPublication(blocks.StructBlock):
 
 class Raffle(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text="Titulo Rifa")
-    price = blocks.DecimalBlock(required=True, help_text="Precio")
-    prizes = blocks.StreamBlock([
-        ("prize", blocks.CharBlock(required=True, help_text="Premios")),
-    ])
+    price = blocks.CharBlock(required=True, help_text="Precio")
+    prizes = blocks.ListBlock(
+        blocks.StructBlock([
+            ("prize", blocks.CharBlock(required=True, help_text="Premios")),
+        ])
+    )
 
     class Meta:
         template = "streams/raffle.html"
