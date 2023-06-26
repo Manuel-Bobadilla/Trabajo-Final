@@ -7,4 +7,14 @@
         <div class = "lead"> {{ self.banner_subtitle|richtext }} </div>
         <a class="btn btn-primary btn-lg" href="#" role="button">chancla</a>
     </div>
+    {% if settings.site_settings.SocialMediaSettings.whatsapp %}
+        <i class="fa-brands fa-whatsapp"></i>
+    {% endif %}
+    {% if settings.site_settings.SocialMediaSettings.instagram %}
+        <i class="fa-brands fa-instagram"></i>
+    {% endif %}
+    {% if settings.site_settings.SocialMediaSettings.email %}
+        <i class="fa-regular fa-envelope"></i>
+    {% endif %}
+    
 {% endblock %}
