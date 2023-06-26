@@ -3,10 +3,14 @@
 
 {% block content %}
 
-    <h2>{{ self.subtitle }}</h2>
+    <div class="container">
+        <h2>{{ self.subtitle }}</h2>
 
-    {% for block in page.content %}
-        {% include_block block %}
-    {% endfor %}
+    
+        {% for block in page.content %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+    
 
 {% endblock %}
