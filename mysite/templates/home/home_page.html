@@ -8,13 +8,19 @@
         <a class="btn btn-primary btn-lg" href="#" role="button">chancla</a>
     </div>
     {% if settings.site_settings.SocialMediaSettings.whatsapp %}
-        <i class="fa-brands fa-whatsapp"></i>
+        <a href="{{ settings.site_settings.SocialMediaSettings.whatsapp }}">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
     {% endif %}
     {% if settings.site_settings.SocialMediaSettings.instagram %}
-        <i class="fa-brands fa-instagram"></i>
+        <a href="{{ settings.site_settings.SocialMediaSettings.instagram }}">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
     {% endif %}
     {% if settings.site_settings.SocialMediaSettings.email %}
-        <i class="fa-regular fa-envelope"></i>
+        <a href="{{ settings.site_settings.SocialMediaSettings.email }}">
+            <i class="fa-regular fa-envelope"></i>
+        </a>
     {% endif %}
     
 {% endblock %}
