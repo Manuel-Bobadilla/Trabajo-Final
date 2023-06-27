@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class Users(models.Model):
+class User(models.Model):
 
     name = models.CharField(blank=False, null=False, max_length=80, help_text="first and last name")
     address = models.CharField(blank=False, null=False, max_length=80, help_text="user home address")
