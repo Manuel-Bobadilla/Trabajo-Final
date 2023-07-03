@@ -51,15 +51,11 @@
                   <li class="nav-item">
                     <a class="nav-link" href="/about/">About</a>
                   </li>
-                </ul>
-                <ul class="navbar-nav">
                   <li class="nav-item">
                     {% if request.user.is_authenticated %}
-                      Hola {{ request.user.username }},
-                      <a href="{% url 'account_logout' %}" class="nav-link d-inline">Logout?</a>
+                      <a class="nav-link" href="{% url 'account_logout' %}" class="nav-link d-inline">Logout</a>
                     {% else %}
-                      Hola!
-                      <a href="{% url 'account_login' %}" class="nav-link d-inline">Login?</a>
+                      <a class="nav-link" href="{% url 'account_login' %}" class="nav-link d-inline">Login</a>
                     {% endif %}
                   </li>
                 </ul>
