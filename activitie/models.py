@@ -1,10 +1,12 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
 
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 
 from streams import blocks
+from users.models import Volunteer
 
 # Create your models here.
 class ActivitieListingPage(Page):
@@ -19,11 +21,13 @@ class ActivitieListingPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = ActivitieDetailPage.objects.live().public()
+        context["volunteer"] = get_object_or_404(Volunteer, id=request.user.id)
         return context
 
 
 class ActivitieDetailPage(Page):
     custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
+    volunteers = models.ManyToManyField(Volunteer)
     activitie_image = models.ForeignKey(
         "wagtailimages.Image",
         blank=False, 
@@ -51,5 +55,6 @@ class ActivitieDetailPage(Page):
         FieldPanel("activitie_image"),
         FieldPanel("content"),
     ]
+    
 
 
