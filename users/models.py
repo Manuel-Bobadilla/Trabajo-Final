@@ -1,8 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class User(models.Model):
+class Volunteer(models.Model):
 
     name = models.CharField(blank=False, null=False, max_length=80, help_text="first and last name")
     address = models.CharField(blank=False, null=False, max_length=80, help_text="user home address")

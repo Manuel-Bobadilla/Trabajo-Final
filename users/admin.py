@@ -1,9 +1,9 @@
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-from .models import User
+from .models import Volunteer
 
 
 class UserAdmin(ModelAdmin):
-    model = User
+    model = Volunteer
     menu_label = "Users"
     menu_icon = "placeholder"
     add_to_settings_menu = False
