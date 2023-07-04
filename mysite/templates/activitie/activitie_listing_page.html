@@ -14,11 +14,12 @@
                         <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}">
                     </a>
                 </div>
-                <div class="col-sm-9">
-                    <a href=" {{ post.url }} ">
-                        {{ post.custom_title }}
-                    </a>
-                </div>
+                <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                        inscribirse
+                    </button>
+                </form>
             </div>
             
             {% for block in post.content %}
