@@ -6,7 +6,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 
 from streams import blocks
-from users.models import Volunteer
+from users.models import Volunteer, User
 
 # Create your models here.
 class ActivitieListingPage(Page):
@@ -22,7 +22,11 @@ class ActivitieListingPage(Page):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = ActivitieDetailPage.objects.live().public()
         if request.user.id:
-            volunteer = get_object_or_404(Volunteer, id=request.user.id)
+            user = User(id=request.user.id)
+            volunteer = Volunteer.objects.get(user = user)
+            activities = ActivitieDetailPage.objects.filter(volunteers = volunteer)
+            #verificar que pasa si tengo más de un voluntario inscripto a una actividad
+            context["activities"] = activities
             context["volunteer"] = volunteer
         return context
 

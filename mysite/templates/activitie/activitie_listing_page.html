@@ -6,7 +6,7 @@
 
     <div class="container">
         {% for post in posts %}
-            
+
             <div class="row">
                 <div class="col-sm-3">
                     {% image post.activitie_image fill-250x250 as activitie_img %}
@@ -17,12 +17,15 @@
                 <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                     {% csrf_token %}
                     <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                        inscribirse
-                        {{ volunteer }}
+                        {% if post in activities %}
+                            Desinscribirse
+                        {% else %}
+                            Inscribirse
+                        {% endif %} 
                     </button>
                 </form>
             </div>
-            
+
             {% for block in post.content %}
                 {% include_block block %}
             {% endfor %}
