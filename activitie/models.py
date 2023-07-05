@@ -25,7 +25,6 @@ class ActivitieListingPage(Page):
             user = User(id=request.user.id)
             volunteer = Volunteer.objects.get(user = user)
             activities = ActivitieDetailPage.objects.filter(volunteers = volunteer)
-            #verificar que pasa si tengo más de un voluntario inscripto a una actividad
             context["activities"] = activities
             context["volunteer"] = volunteer
         return context
