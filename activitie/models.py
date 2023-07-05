@@ -21,7 +21,9 @@ class ActivitieListingPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = ActivitieDetailPage.objects.live().public()
-        context["volunteer"] = get_object_or_404(Volunteer, id=request.user.id)
+        if request.user.id:
+            volunteer = get_object_or_404(Volunteer, id=request.user.id)
+            context["volunteer"] = volunteer
         return context
 
 
