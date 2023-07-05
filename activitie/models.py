@@ -22,7 +22,7 @@ class ActivitieListingPage(Page):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = ActivitieDetailPage.objects.live().public()
         if request.user.id:
-            user = User(id=request.user.id)
+            user = User.objects.get(id=request.user.id)
             volunteer = Volunteer.objects.get(user = user)
             activities = ActivitieDetailPage.objects.filter(volunteers = volunteer)
             context["activities"] = activities
