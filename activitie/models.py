@@ -8,7 +8,6 @@ from wagtail.fields import StreamField
 from streams import blocks
 from users.models import Volunteer, User
 
-# Create your models here.
 class ActivitieListingPage(Page):
     custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
     
