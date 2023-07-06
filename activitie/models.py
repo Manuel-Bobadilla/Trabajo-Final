@@ -27,6 +27,8 @@ class ActivitieListingPage(Page):
             activities = ActivitieDetailPage.objects.filter(volunteers = volunteer)
             context["activities"] = activities
             context["volunteer"] = volunteer
+        else:
+            context["volunteer"] = None
         return context
 
 

@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "site_settings",
     "users",
     "activitie",
+    "vehicles",
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",

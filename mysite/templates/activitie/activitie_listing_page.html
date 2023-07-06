@@ -14,6 +14,7 @@
                         <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}">
                     </a>
                 </div>
+                {% if volunteer %}
                 <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                     {% csrf_token %}
                     <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
@@ -24,6 +25,11 @@
                         {% endif %} 
                     </button>
                 </form>
+                {% else %}
+                    <form>
+                        <button class="btn btn-primary"> Inicia Sesión </button>
+                    </form>
+                {% endif %}
             </div>
 
             {% for block in post.content %}
