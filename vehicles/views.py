@@ -13,5 +13,17 @@ def VehiclesView(request):
                       "volunteer":volunteer,
                       "vehicles":vehicles,
                   },)
+
+def AddVehicleView(request):
+    user = User.objects.get(id = request.user.id)
+    volunteer = Volunteer.objects.get(user = user)
+    brand = request.POST.get("brand")
+    model = request.POST.get("model")
+    domain = request.POST.get("domain")
+
+    vehicle = Vehicle(domain=domain, brand=brand, model=model, proprietary=volunteer)
+    vehicle.save()
+
+    return VehiclesView(request)
     
 # Create your views here.
