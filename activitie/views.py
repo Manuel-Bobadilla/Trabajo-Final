@@ -12,5 +12,5 @@ def InscripcionView(request, pk):
     else:
         activitie.volunteers.add(volunteer)
 
-    return redirect("http://localhost:8000/") #cambiar esto a mantenerse en la pagina
+    return redirect("http://localhost:8000/activitie/") #cambiar para que determine la url de retorno de manera dinamica
 
