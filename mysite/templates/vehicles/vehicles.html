@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+hola
+{{ volunteer }}
+
+{% if vehicles %}
+    tienes vehiculos
+{% else %}
+    no tienes vehiculos
+{% endif %}
+
+{% endblock %}
