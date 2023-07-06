@@ -25,5 +25,10 @@ def AddVehicleView(request):
     vehicle.save()
 
     return VehiclesView(request)
+
+def DeleteVehicleView(request):
+    Vehicle.objects.get(id=request.POST.get("vehicle_id")).delete()
+
+    return VehiclesView(request)
     
 # Create your views here.
