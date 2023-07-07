@@ -25,19 +25,23 @@
                             {% endif %} 
                         </button>
                     </form>
-                    <form action="{% url 'select_vehicle' %}" method="POST">
-                        <label for="vehiculos">Seleccione algun vehículo:</label> 
-                        <select name="vehicle_option" id="vehicle_option"> 
-                            <option>Ninguno</option>
-                            {% for vehicle in vehicles %}
-                                <option value="{{ vehicle }}">{{ vehicle }}</option> 
-                            {% endfor %}
-                        </select>
-                        {% csrf_token %}
-                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                            Seleccionar
-                        </button>
-                    </form>
+                    {% if post in activities %}
+
+                        <form action="{% url 'select_vehicle' %}" method="POST">
+                            <label for="vehiculos">Seleccione algun vehículo:</label> 
+                            <select name="vehicle_option" id="vehicle_option"> 
+                                <option>Ninguno</option>
+                                {% for vehicle in vehicles %}
+                                    <option value="{{ vehicle }}">{{ vehicle }}</option> 
+                                {% endfor %}
+                            </select>
+                            {% csrf_token %}
+                            <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                Seleccionar
+                            </button>
+                        </form>
+
+                    {% endif %} 
                     
                 {% else %}
                     <form>

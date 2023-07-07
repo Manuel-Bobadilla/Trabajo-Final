@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from vehicles.models import Vehicle, Volunteer, ActivitieDetailPage
 from users.models import User
@@ -47,6 +47,7 @@ def SelectVehicleView(request):
         vehicle.activitie = activitie
         vehicle.save(force_update=True)
         
-    return VehiclesView(request)
+    return redirect("http://localhost:8000/activitie/") #cambiar para que determine la url de retorno de manera dinamica
+
     
 # Create your views here.
