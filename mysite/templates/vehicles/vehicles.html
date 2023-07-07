@@ -7,6 +7,11 @@
         {{ vehicle.domain }}
         {{ vehicle.brand }}
         {{ vehicle.model }}
+        {% if vehicle.activitie %}
+            inscripto en la actividad {{ vehicle.activitie.custom_title }}
+        {% else %}
+            No esta inscripto en ninguna actividad
+        {% endif %}
         <form action="{% url 'delete_vehicle' %}" method="POST">
             {% csrf_token %}
             <button type="submit", name="vehicle_id" value="{{ vehicle.id }}", class="btn btn-primary">
