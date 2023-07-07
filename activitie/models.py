@@ -24,6 +24,8 @@ class ActivitieListingPage(Page):
             user = User.objects.get(id=request.user.id)
             volunteer = Volunteer.objects.get(user = user)
             activities = ActivitieDetailPage.objects.filter(volunteers = volunteer)
+            vehicles = volunteer.vehicles.all()
+            context["vehicles"] = vehicles
             context["activities"] = activities
             context["volunteer"] = volunteer
         else:

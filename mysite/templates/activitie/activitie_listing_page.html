@@ -30,6 +30,13 @@
                         <button class="btn btn-primary"> Inicia Sesión </button>
                     </form>
                 {% endif %}
+                <label for="vehiculos">Seleccione algun vehículo:</label> 
+                <select name="vehiculos" id="vehiculos"> 
+                    <option value="rigatoni">Ninguno</option>
+                    {% for vehicle in vehicles %}
+                        <option value="{{ vehicle }}">{{ vehicle }}</option> 
+                    {% endfor %}
+                </select>
             </div>
 
             {% for block in post.content %}
