@@ -15,28 +15,35 @@
                     </a>
                 </div>
                 {% if volunteer %}
-                <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                        {% if post in activities %}
-                            Desinscribirse
-                        {% else %}
-                            Inscribirse
-                        {% endif %} 
-                    </button>
-                </form>
+                    <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                            {% if post in activities %}
+                                Desinscribirse
+                            {% else %}
+                                Inscribirse
+                            {% endif %} 
+                        </button>
+                    </form>
+                    <form action="{% url 'select_vehicle' %}" method="POST">
+                        <label for="vehiculos">Seleccione algun vehículo:</label> 
+                        <select name="vehicle_option" id="vehicle_option"> 
+                            <option>Ninguno</option>
+                            {% for vehicle in vehicles %}
+                                <option value="{{ vehicle }}">{{ vehicle }}</option> 
+                            {% endfor %}
+                        </select>
+                        {% csrf_token %}
+                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                            Seleccionar
+                        </button>
+                    </form>
+                    
                 {% else %}
                     <form>
                         <button class="btn btn-primary"> Inicia Sesión </button>
                     </form>
                 {% endif %}
-                <label for="vehiculos">Seleccione algun vehículo:</label> 
-                <select name="vehiculos" id="vehiculos"> 
-                    <option value="rigatoni">Ninguno</option>
-                    {% for vehicle in vehicles %}
-                        <option value="{{ vehicle }}">{{ vehicle }}</option> 
-                    {% endfor %}
-                </select>
             </div>
 
             {% for block in post.content %}
