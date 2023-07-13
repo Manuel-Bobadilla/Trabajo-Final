@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% load wagtailimages_tags wagtailcore_tags %}
-
 {% block content %}
 
     <div class="container">
@@ -11,18 +9,17 @@
                 <div class="col-sm-3">
                     {% image post.activitie_image fill-250x250 as activitie_img %}
                     <a href="{{ post.url }}">
-                        <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}">
+                    <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}">
                     </a>
                 </div>
                 {% if request.user.is_staff %}
-                <form action="{% url 'ver_inscriptos' %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                        Ver Inscriptos
-                    </button>
-                </form>
+                    <form action="{% url 'ver_inscriptos' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                            Ver Inscriptos
+                        </button>
+                    </form>
                 {% else %}
-
                     {% if volunteer %}
                         <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                             {% csrf_token %}
@@ -35,7 +32,6 @@
                             </button>
                         </form>
                         {% if post in activities %}
-
                             <form action="{% url 'select_vehicle' %}" method="POST">
                                 <label for="vehiculos">Seleccione algun vehículo:</label> 
                                 <select name="vehicle_option" id="vehicle_option"> 
@@ -49,24 +45,17 @@
                                     Seleccionar
                                 </button>
                             </form>
-
                         {% endif %} 
-                        
                     {% else %}
                         <form>
                             <button class="btn btn-primary"> Inicia Sesión </button>
                         </form>
                     {% endif %}
-
-            {% endif %}
-
-                
+                {% endif %}
             </div>
-
             {% for block in post.content %}
                 {% include_block block %}
             {% endfor %}
-
         {% endfor %}
     </div>
 
