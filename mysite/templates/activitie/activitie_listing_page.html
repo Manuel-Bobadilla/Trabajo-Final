@@ -14,40 +14,53 @@
                         <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}">
                     </a>
                 </div>
-                {% if volunteer %}
-                    <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                            {% if post in activities %}
-                                Desinscribirse
-                            {% else %}
-                                Inscribirse
-                            {% endif %} 
-                        </button>
-                    </form>
-                    {% if post in activities %}
+                {% if request.user.is_staff %}
+                <form action="{% url 'ver_inscriptos' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                        Ver Inscriptos
+                    </button>
+                </form>
+                {% else %}
 
-                        <form action="{% url 'select_vehicle' %}" method="POST">
-                            <label for="vehiculos">Seleccione algun vehículo:</label> 
-                            <select name="vehicle_option" id="vehicle_option"> 
-                                <option>Ninguno</option>
-                                {% for vehicle in vehicles %}
-                                    <option value="{{ vehicle }}">{{ vehicle }}</option> 
-                                {% endfor %}
-                            </select>
+                    {% if volunteer %}
+                        <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                             {% csrf_token %}
                             <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                Seleccionar
+                                {% if post in activities %}
+                                    Desinscribirse
+                                {% else %}
+                                    Inscribirse
+                                {% endif %} 
                             </button>
                         </form>
+                        {% if post in activities %}
 
-                    {% endif %} 
-                    
-                {% else %}
-                    <form>
-                        <button class="btn btn-primary"> Inicia Sesión </button>
-                    </form>
-                {% endif %}
+                            <form action="{% url 'select_vehicle' %}" method="POST">
+                                <label for="vehiculos">Seleccione algun vehículo:</label> 
+                                <select name="vehicle_option" id="vehicle_option"> 
+                                    <option>Ninguno</option>
+                                    {% for vehicle in vehicles %}
+                                        <option value="{{ vehicle }}">{{ vehicle }}</option> 
+                                    {% endfor %}
+                                </select>
+                                {% csrf_token %}
+                                <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                    Seleccionar
+                                </button>
+                            </form>
+
+                        {% endif %} 
+                        
+                    {% else %}
+                        <form>
+                            <button class="btn btn-primary"> Inicia Sesión </button>
+                        </form>
+                    {% endif %}
+
+            {% endif %}
+
+                
             </div>
 
             {% for block in post.content %}

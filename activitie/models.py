@@ -35,7 +35,7 @@ class ActivitieListingPage(Page):
 
 class ActivitieDetailPage(Page):
     custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
-    volunteers = models.ManyToManyField(Volunteer)
+    volunteers = models.ManyToManyField(Volunteer, related_name="activities")
     activitie_image = models.ForeignKey(
         "wagtailimages.Image",
         blank=False, 

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+    {% if volunteers %}
+        {% for volunteer in volunteers %}
+            {{ volunteer }}
+            {{ volunteer.phone }}
+            {{ volunteer.address }}
+            {% for vehicle in vehicles %}
+                {% if vehicle.proprietary == volunteer %}
+                    {{ vehicle }}
+                {% endif %}
+            {% endfor %}
+            <br>
+        {% endfor %}
+    {% else %}
+        No hay voluntarios inscriptos
+    {% endif %}
+
+{% endblock %}
