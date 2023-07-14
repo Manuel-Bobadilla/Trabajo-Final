@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% block content %}
+
+    <div class="container">
+        {% if self.content %}
+            {% for bulletin in self.content %}
+                {{ bulletin }}
+            {% endfor %}
+        {% else %}
+            No hay ninguna novedad!
+        {% endif %}
+    </div>
+
+{% endblock content %}

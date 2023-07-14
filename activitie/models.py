@@ -1,5 +1,4 @@
 from django.db import models
-from django.shortcuts import get_object_or_404
 
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
