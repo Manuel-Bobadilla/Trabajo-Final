@@ -23,24 +23,3 @@ class BulletinListingPage(Page):
             FieldPanel("content")
         ]
     
-class BulletinDetailPage(Page):
-    custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
-
-    content = StreamField(
-        [
-            ("title_and_text", blocks.TitleAndTextBlock()),
-            ("full_rich_text", blocks.RichTextBlock()),
-            ("simple_rich_text", blocks.SimpleTextBlock()),
-            ("meeting_point", blocks.MeetingPoint()),
-            ("material_publication", blocks.MaterialPublication()),
-            ("raffle", blocks.Raffle()),
-            ("contacts", blocks.Contacts()),
-            ("images", blocks.ImagePost()),
-            ("bulletins", blocks.Bulletin()),
-        ],
-        null=True, blank=True, use_json_field=True)
-    
-    content_panels = Page.content_panels + [
-        FieldPanel("custom_title"),
-        FieldPanel("content"),
-    ]
