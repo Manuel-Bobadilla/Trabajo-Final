@@ -47,8 +47,11 @@
                             </form>
                         {% endif %} 
                     {% else %}
-                        <form>
-                            <button class="btn btn-primary"> Inicia Sesión </button>
+                        <form action="{% url 'account_login' %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit", class="btn btn-primary">
+                                Inicia Sesión
+                            </button>
                         </form>
                     {% endif %}
                 {% endif %}
