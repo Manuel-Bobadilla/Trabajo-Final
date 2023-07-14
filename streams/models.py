@@ -5,6 +5,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 
 from streams import blocks
+from users.models import User, Volunteer
 
 # Create your models here.
 class BulletinListingPage(Page):
@@ -22,4 +23,11 @@ class BulletinListingPage(Page):
             FieldPanel("custom_title"),
             FieldPanel("content")
         ]
+    
+    def get_context(self, request, *args, **kwargs):
+        #en caso de que el ususario no este logueado, se va a generar un error, no podrá ver la página
+        context = super().get_context(request, *args, **kwargs)
+        user = User.objects.get(id=request.user.id)
+        volunteer = Volunteer.objects.get(user = user)
+        return context
     
