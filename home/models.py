@@ -33,5 +33,5 @@ class HomePage(Page):
     ]
 
     class Meta:
-        verbose_name = "CKACHA HOME PAGE"
-        verbose_name_plural = "CKACHA HOME PAGES"
+        verbose_name = "HOME PAGE"
+        verbose_name_plural = "HOME PAGES"
