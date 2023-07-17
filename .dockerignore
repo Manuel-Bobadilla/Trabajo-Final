@@ -1,6 +1,7 @@
 # Django project
 /media/
 /static/
+# *.sqlite3 Descomentar para no importar la base de datos cargada al contenedor
 
 # Python and others
 __pycache__
