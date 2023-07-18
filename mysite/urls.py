@@ -6,7 +6,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
-from activitie.views import InscripcionView, VisualizeEnrolledView
+from activitie.views import InscriptionView, VisualizeEnrolledView
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
 
 from search import views as search_views
@@ -18,7 +18,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path("sitemap.xml", sitemap),
-    path("inscripcion/<int:pk>", InscripcionView, name="inscripcion_post"),
+    path("inscripcion/<int:pk>", InscriptionView, name="inscripcion_post"),
     path("vehiculos/", VehiclesView, name="account_vehicle"),
     path("agregarvehiculo/", AddVehicleView, name="add_vehicle"),
     path("eliminarvehiculo/", DeleteVehicleView, name="delete_vehicle"),

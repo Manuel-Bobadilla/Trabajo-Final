@@ -49,5 +49,4 @@ def SelectVehicleView(request):
         
     return redirect("http://localhost:8000/activitie/") #cambiar para que determine la url de retorno de manera dinamica
 
-    
-# Create your views here.
+
