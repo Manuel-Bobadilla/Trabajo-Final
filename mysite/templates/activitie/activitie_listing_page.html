@@ -32,8 +32,14 @@
                             </button>
                         </form>
                         {% if post in activities %}
+
+                            {% for vehicle in vehicles %}
+                                {% if vehicle.activitie == post %}
+                                    Vehiculo seleccionado {{ vehicle }}
+                                {% endif %}
+                            {% endfor %}
                             <form action="{% url 'select_vehicle' %}" method="POST">
-                                <label for="vehiculos">Seleccione algun vehículo:</label> 
+                                <label for="vehiculos">Seleccionar vehículo:</label> 
                                 <select name="vehicle_option" id="vehicle_option"> 
                                     <option>Ninguno</option>
                                     {% for vehicle in vehicles %}
@@ -46,6 +52,7 @@
                                 </button>
                             </form>
                         {% endif %} 
+
                     {% else %}
                         <form action="{% url 'account_login' %}" method="GET">
                             {% csrf_token %}
