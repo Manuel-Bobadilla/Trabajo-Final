@@ -7,78 +7,38 @@
         <div class = "lead"> {{ self.banner_subtitle|richtext }} </div>
         <a class="btn btn-primary btn-lg" href="#" role="button">chancla</a>
     </div>
-    {% if settings.site_settings.SocialMediaSettings.whatsapp %}
-        <a href="{{ settings.site_settings.SocialMediaSettings.whatsapp }}">
-            <i class="fa-brands fa-whatsapp"></i>
-        </a>
-    {% endif %}
-    {% if settings.site_settings.SocialMediaSettings.instagram %}
-        <a href="{{ settings.site_settings.SocialMediaSettings.instagram }}">
-            <i class="fa-brands fa-instagram"></i>
-        </a>
-    {% endif %}
-    {% if settings.site_settings.SocialMediaSettings.email %}
-        <a href="{{ settings.site_settings.SocialMediaSettings.email }}">
-            <i class="fa-regular fa-envelope"></i>
-        </a>
-    {% endif %}
-    <footer class="text-center text-white" style="background-color: #f1f1f1;">
+    <footer class="text-center text-white fixed-bottom" style="background-color: #f1f1f1;">
         <!-- Grid container -->
         <div class="container pt-4">
           <!-- Section: Social media -->
           <section class="mb-4">
-            <!-- Facebook -->
-            <a
-              class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
-              role="button"
-              data-mdb-ripple-color="dark"
-              ><i class="fab fa-facebook-f"></i
-            ></a>
-      
-            <!-- Twitter -->
-            <a
-              class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
-              role="button"
-              data-mdb-ripple-color="dark"
-              ><i class="fab fa-twitter"></i
-            ></a>
-      
-            <!-- Google -->
-            <a
-              class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
-              role="button"
-              data-mdb-ripple-color="dark"
-              ><i class="fab fa-google"></i
-            ></a>
-      
-            <!-- Instagram -->
-            <a
-              class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
-              role="button"
-              data-mdb-ripple-color="dark"
-              ><i class="fab fa-instagram"></i
-            ></a>
-      
-            <!-- Linkedin -->
-            <a
-              class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
-              role="button"
-              data-mdb-ripple-color="dark"
-              ><i class="fab fa-linkedin"></i
-            ></a>
-            <!-- Github -->
-            <a
-              class="btn btn-link btn-floating btn-lg text-dark m-1"
-              href="#!"
-              role="button"
-              data-mdb-ripple-color="dark"
-              ><i class="fab fa-github"></i
-            ></a>
+            {% if settings.site_settings.SocialMediaSettings.whatsapp %}
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="{{ settings.site_settings.SocialMediaSettings.whatsapp }}"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-whatsapp"></i
+                ></a>
+            {% endif %}
+            {% if settings.site_settings.SocialMediaSettings.instagram %}
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="{{ settings.site_settings.SocialMediaSettings.instagram }}"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-instagram"></i
+                ></a>
+            {% endif %}
+            {% if settings.site_settings.SocialMediaSettings.email %}
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="{{ settings.site_settings.SocialMediaSettings.email }}"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fa-regular fa-envelope"></i
+                ></a>
+            {% endif %}
           </section>
           <!-- Section: Social media -->
         </div>
@@ -86,8 +46,7 @@
       
         <!-- Copyright -->
         <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2020 Copyright:
-          <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+          Voluntariado barrio el milagro
         </div>
         <!-- Copyright -->
       </footer>
