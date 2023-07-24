@@ -34,7 +34,7 @@
                                     {% endif %}
                                 {% endfor %}
                                 <form action="{% url 'select_vehicle' %}" method="POST">
-                                    <label for="vehiculos">Seleccionar vehículo:</label> 
+                                    <label for="vehiculos">Seleccionar vehículo</label> 
                                     <select name="vehicle_option" id="vehicle_option"> 
                                         <option>Ninguno</option>
                                         {% for vehicle in vehicles %}
