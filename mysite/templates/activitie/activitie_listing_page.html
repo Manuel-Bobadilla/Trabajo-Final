@@ -33,31 +33,39 @@
                                         Vehiculo seleccionado {{ vehicle }}
                                     {% endif %}
                                 {% endfor %}
-                                <form action="{% url 'select_vehicle' %}" method="POST">
-                                    <label for="vehiculos">Seleccionar vehículo</label> 
-                                    <select name="vehicle_option" id="vehicle_option"> 
-                                        <option>Ninguno</option>
-                                        {% for vehicle in vehicles %}
-                                            <option value="{{ vehicle }}">{{ vehicle }}</option> 
-                                        {% endfor %}
-                                    </select>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <form action="{% url 'select_vehicle' %}" method="POST">
+                                            <label for="vehiculos">Seleccionar vehículo</label> 
+                                            <select class="form-control-sm" name="vehicle_option" id="vehicle_option"> 
+                                                <option>Ninguno</option>
+                                                {% for vehicle in vehicles %}
+                                                    <option value="{{ vehicle }}">{{ vehicle }}</option> 
+                                                {% endfor %}
+                                            </select>
+                                            {% csrf_token %}
+                                            <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                                Seleccionar
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm">
+                                        <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                                            {% csrf_token %}
+                                            <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                                    Desinscribirse
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% else %} 
+                                <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                     {% csrf_token %}
                                     <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                        Seleccionar
+                                            Inscribirse
                                     </button>
                                 </form>
-                            {% endif %} 
-                            <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                    {% if post in activities %}
-                                        Desinscribirse
-                                    {% else %}
-                                        Inscribirse
-                                    {% endif %} 
-                                </button>
-                            </form>
-
+                            {% endif %}
                         {% else %}
                             <form action="{% url 'account_login' %}" method="GET">
                                 {% csrf_token %}
