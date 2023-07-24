@@ -3,12 +3,12 @@
 {% block content %}
 
     <div class="container">
-        {% for post in posts %}
 
+        {% for post in posts %}
 
             <div class="card">
                 <div class="card-img-top">
-                    {% image post.activitie_image fill-250x250 as activitie_img %}
+                    {% image post.activitie_image fill-300x300 as activitie_img %}
                     <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}" class="img-fluid"/>
                 </div>
                 <div class="card-body">
@@ -27,18 +27,7 @@
                         </form>
                     {% else %}
                         {% if volunteer %}
-                            <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                    {% if post in activities %}
-                                        Desinscribirse
-                                    {% else %}
-                                        Inscribirse
-                                    {% endif %} 
-                                </button>
-                            </form>
                             {% if post in activities %}
-
                                 {% for vehicle in vehicles %}
                                     {% if vehicle.activitie == post %}
                                         Vehiculo seleccionado {{ vehicle }}
@@ -58,6 +47,16 @@
                                     </button>
                                 </form>
                             {% endif %} 
+                            <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                    {% if post in activities %}
+                                        Desinscribirse
+                                    {% else %}
+                                        Inscribirse
+                                    {% endif %} 
+                                </button>
+                            </form>
 
                         {% else %}
                             <form action="{% url 'account_login' %}" method="GET">
