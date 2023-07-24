@@ -5,67 +5,72 @@
     <div class="container">
         {% for post in posts %}
 
-            <div class="row">
-                <div class="col-sm-3">
+
+            <div class="card">
+                <div class="card-img-top">
                     {% image post.activitie_image fill-250x250 as activitie_img %}
-                    <a href="{{ post.url }}">
-                    <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}">
-                    </a>
+                    <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}" class="img-fluid"/>
                 </div>
-                {% if request.user.is_staff %}
-                    <form action="{% url 'ver_inscriptos' %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                            Ver Inscriptos
-                        </button>
-                    </form>
-                {% else %}
-                    {% if volunteer %}
-                        <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                <div class="card-body">
+                    <h5 class="card-title">Actividad</h5>
+                    <p class="card-text">
+                        {% for block in post.content %}
+                            {% include_block block %}
+                        {% endfor %}
+                    </p>
+                    {% if request.user.is_staff %}
+                        <form action="{% url 'ver_inscriptos' %}" method="POST">
                             {% csrf_token %}
                             <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                {% if post in activities %}
-                                    Desinscribirse
-                                {% else %}
-                                    Inscribirse
-                                {% endif %} 
+                                Ver Inscriptos
                             </button>
                         </form>
-                        {% if post in activities %}
-
-                            {% for vehicle in vehicles %}
-                                {% if vehicle.activitie == post %}
-                                    Vehiculo seleccionado {{ vehicle }}
-                                {% endif %}
-                            {% endfor %}
-                            <form action="{% url 'select_vehicle' %}" method="POST">
-                                <label for="vehiculos">Seleccionar vehículo:</label> 
-                                <select name="vehicle_option" id="vehicle_option"> 
-                                    <option>Ninguno</option>
-                                    {% for vehicle in vehicles %}
-                                        <option value="{{ vehicle }}">{{ vehicle }}</option> 
-                                    {% endfor %}
-                                </select>
+                    {% else %}
+                        {% if volunteer %}
+                            <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                    Seleccionar
+                                    {% if post in activities %}
+                                        Desinscribirse
+                                    {% else %}
+                                        Inscribirse
+                                    {% endif %} 
                                 </button>
                             </form>
-                        {% endif %} 
+                            {% if post in activities %}
 
-                    {% else %}
-                        <form action="{% url 'account_login' %}" method="GET">
-                            {% csrf_token %}
-                            <button type="submit", class="btn btn-primary">
-                                Inicia Sesión
-                            </button>
-                        </form>
+                                {% for vehicle in vehicles %}
+                                    {% if vehicle.activitie == post %}
+                                        Vehiculo seleccionado {{ vehicle }}
+                                    {% endif %}
+                                {% endfor %}
+                                <form action="{% url 'select_vehicle' %}" method="POST">
+                                    <label for="vehiculos">Seleccionar vehículo:</label> 
+                                    <select name="vehicle_option" id="vehicle_option"> 
+                                        <option>Ninguno</option>
+                                        {% for vehicle in vehicles %}
+                                            <option value="{{ vehicle }}">{{ vehicle }}</option> 
+                                        {% endfor %}
+                                    </select>
+                                    {% csrf_token %}
+                                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                        Seleccionar
+                                    </button>
+                                </form>
+                            {% endif %} 
+
+                        {% else %}
+                            <form action="{% url 'account_login' %}" method="GET">
+                                {% csrf_token %}
+                                <button type="submit", class="btn btn-primary">
+                                    Inicia Sesión
+                                </button>
+                            </form>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
-            {% for block in post.content %}
-                {% include_block block %}
-            {% endfor %}
+            
         {% endfor %}
     </div>
 
