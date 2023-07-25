@@ -35,8 +35,8 @@
                                 {% endfor %}
                                 <div class="form-group">
                                     <form action="{% url 'select_vehicle' %}" method="POST">
-                                        <label class="mt-4 form-label" for="vehiculos">Seleccionar vehículo</label> 
-                                        <select class="form-select" name="vehicle_option" id="vehicle_option"> 
+                                        <select class="form-select mt-4" name="vehicle_option" id="vehicle_option">
+                                            <option disabled selected hidden>Seleccionar un vehiculo</option> 
                                             <option>Ninguno</option>
                                             {% for vehicle in vehicles %}
                                                 <option value="{{ vehicle }}">{{ vehicle }}</option> 
