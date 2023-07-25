@@ -21,11 +21,15 @@
                         <th scope="row">{{ volunteer }}</th>
                         <td>{{ volunteer.phone }}</td>
                         <td>{{ volunteer.address }}</td>
-                        {% for vehicle in vehicles %}
-                            {% if vehicle.proprietary == volunteer %}
-                                <td>{{ vehicle.brand }}, {{ vehicle.model }}</td>
-                            {% endif %}
-                        {% endfor %}
+                        {% if volunteer in volunteersWithVehicle %}
+                            {% for vehicle in vehicles %}
+                                {% if vehicle.proprietary == volunteer %}
+                                    <td>{{ vehicle.brand }}, {{ vehicle.model }}</td>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <td></td>
+                        {% endif %}
                 {% endfor %}
             </tbody>
         </table>

@@ -20,11 +20,13 @@ def VisualizeEnrolledView(request):
     activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
     vehicles = Vehicle.objects.filter(activitie = activitie)
+    volunteersWithVehicle = Volunteer.objects.filter(vehicles__in=vehicles)
 
     return render(request,"activitie/activitie_enrolled.html",
                   {
                       "volunteers":volunteers,
                       "vehicles":vehicles,
+                      "volunteersWithVehicle": volunteersWithVehicle,
                   },)
 
 
