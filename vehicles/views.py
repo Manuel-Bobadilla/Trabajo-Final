@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from vehicles.models import Vehicle, Volunteer, ActivitieDetailPage
 from users.models import User
+import json
 
 def VehiclesView(request):
     user = User.objects.get(id = request.user.id)
@@ -34,16 +35,16 @@ def DeleteVehicleView(request):
 def SelectVehicleView(request):
     user = User.objects.get(id = request.user.id)
     volunteer = Volunteer.objects.get(user = user)
-    activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    activitieAndVehicle = json.loads(request.POST.get("vehicle_option"))
+    activitie = get_object_or_404(ActivitieDetailPage, id=activitieAndVehicle["post_id"])
     vehicle = volunteer.vehicles.filter(activitie = activitie)
     if vehicle:
         vehicle[0].activitie = None
         vehicle[0].save(force_update=True)
 
-    if request.POST.get("vehicle_option") != "Ninguno":
-        vehicle_domain = request.POST.get("vehicle_option")
+    if activitieAndVehicle["vehicle"] != "Ninguno":
+        vehicle_domain = activitieAndVehicle["vehicle"]
         vehicle = Vehicle.objects.get(domain=vehicle_domain)
-        activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
         vehicle.activitie = activitie
         vehicle.save(force_update=True)
         
