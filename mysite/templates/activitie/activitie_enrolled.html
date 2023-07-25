@@ -2,20 +2,36 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
+
+<div class="container">
     {% if volunteers %}
-        {% for volunteer in volunteers %}
-            {{ volunteer }}
-            {{ volunteer.phone }}
-            {{ volunteer.address }}
-            {% for vehicle in vehicles %}
-                {% if vehicle.proprietary == volunteer %}
-                    {{ vehicle }}
-                {% endif %}
-            {% endfor %}
-            <br>
-        {% endfor %}
+        <h2>Inscriptos</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Direcció </th>
+                    <th scope="col">Vehículo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                    <tr class="table-primary">
+                        <th scope="row">{{ volunteer }}</th>
+                        <td>{{ volunteer.phone }}</td>
+                        <td>{{ volunteer.address }}</td>
+                        {% for vehicle in vehicles %}
+                            {% if vehicle.proprietary == volunteer %}
+                                <td>{{ vehicle.brand }}, {{ vehicle.model }}</td>
+                            {% endif %}
+                        {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
     {% else %}
-        No hay voluntarios inscriptos
+        No hay inscriptos
     {% endif %}
+</div>
 
 {% endblock %}
