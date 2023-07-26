@@ -7,9 +7,11 @@
             Hola {{ request.user }}, Bienvenido!
         </h3>
         {% if self.content %}
+
             {% for bulletin in self.content %}
                 {{ bulletin }}
             {% endfor %}
+
         {% else %}
             No hay ninguna novedad!
         {% endif %}
