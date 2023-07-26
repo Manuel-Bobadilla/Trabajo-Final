@@ -94,7 +94,9 @@ class ImagePost(ImageChooserBlock):
         icon = "edit"
         label = "Imagen"
 
-class Bulletin(blocks.RichTextBlock):
+class Bulletin(blocks.StructBlock):
+    content = blocks.RichTextBlock(required=True, help_text="Contenido")
+    date = blocks.DateBlock(required=True)
 
     class Meta:
         template = "streams/bulletin.html"

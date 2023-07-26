@@ -1,7 +1,8 @@
 
 <div class="card">
     <div class="card-body">
-        {{ self }}
+        {{ self.content }}
+        {{ self.date|date:"d m Y" }}
     </div>
 </div>
 
