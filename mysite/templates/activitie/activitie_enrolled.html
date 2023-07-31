@@ -18,7 +18,7 @@
             <tbody>
                 {% for volunteer in volunteers %}
                     <tr class="table-primary">
-                        <th scope="row">{{ volunteer }}</th>
+                        <td>{{ volunteer }}</td>
                         <td>{{ volunteer.phone }}</td>
                         <td>{{ volunteer.address }}</td>
                         {% if volunteer in volunteersWithVehicle %}
