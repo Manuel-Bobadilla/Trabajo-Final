@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container mt-3">
     {% if volunteers %}
         <h2>Inscriptos</h2>
         <table class="table table-hover">
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 {% for volunteer in volunteers %}
-                    <tr class="table-primary">
+                    <tr class="table-default">
                         <td>{{ volunteer }}</td>
                         <td>{{ volunteer.phone }}</td>
                         <td>{{ volunteer.address }}</td>
