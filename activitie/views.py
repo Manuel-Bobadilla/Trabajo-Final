@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from activitie.models import Volunteer, ActivitieDetailPage
+from activitie.models import Volunteer, ActivitieDetailPage, User
 from vehicles.models import Vehicle
 
 def InscriptionView(request, pk):
+    user = get_object_or_404(User, id=request.user.id)
     activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
-    volunteer = get_object_or_404(Volunteer, id=request.user.id)
+    volunteer = get_object_or_404(Volunteer, user=user)
     if activitie.volunteers.filter(id=volunteer.id).exists():
         activitie.volunteers.remove(volunteer)
         vehicle = volunteer.vehicles.filter(activitie = activitie)
