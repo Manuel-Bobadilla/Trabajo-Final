@@ -3,16 +3,17 @@
 {% block content %}
 
     <div class="container">
-
+        <div class="row justify-content-center">
         {% for post in posts %}
-
+        
+            <div class="col-4">
             <div class="card mt-4">
                 <div class="card-img-top">
-                    {% image post.activitie_image fill-300x300 as activitie_img %}
+                    {% image post.activitie_image fill-500x500 as activitie_img %}
                     <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}" class="img-fluid"/>
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Actividad</h5>
+                    <h5 class="card-title">{{ post.custom_title }}</h5>
                     <p class="card-text">
                         {% for block in post.content %}
                             {% include_block block %}
@@ -80,8 +81,10 @@
                     {% endif %}
                 </div>
             </div>
-            
+        </div>
+        
         {% endfor %}
+    </div>
     </div>
 
 {% endblock content %}
