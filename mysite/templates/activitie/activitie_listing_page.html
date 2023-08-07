@@ -5,7 +5,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             {% for post in posts %}
-                <div class="col-4 d-flex">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-9 col-10 d-flex">
                     <div class="card">
                         <div class="card-img-top">
                             {% image post.activitie_image fill-500x500 as activitie_img %}
@@ -38,18 +38,16 @@
                                             </div>
                                         {% endif %}
                                     {% endfor %}
-                                    <div class="form-group">
-                                        <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
-                                            {% csrf_token %}
-                                            <select class="form-select" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
-                                                <option disabled selected hidden>Seleccionar un vehiculo</option> 
-                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
-                                                {% for vehicle in vehicles %}
-                                                    <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
-                                                {% endfor %}
-                                            </select>
-                                        </form>
-                                    </div>
+                                    <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
+                                        {% csrf_token %}
+                                        <select class="form-select" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
+                                            <option disabled selected hidden>Seleccionar un vehiculo</option> 
+                                            <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
+                                            {% for vehicle in vehicles %}
+                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
+                                            {% endfor %}
+                                        </select>
+                                    </form>
                                     <div class="card-footer">
                                         <div class="row">
                                             <div class="col">
@@ -74,7 +72,7 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>  
+                                    </div>
                                 {% endif %}
                             {% else %}
                                 <div class="card-footer">
