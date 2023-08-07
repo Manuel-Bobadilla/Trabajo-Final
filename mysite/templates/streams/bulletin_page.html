@@ -4,7 +4,13 @@
 
     <div class="container">
         <h4 class="mt-3">
-            Hola {{ request.user }}, Bienvenido!
+            Hola
+                {% if request.user.is_staff %} 
+                    coordinador, 
+                {% else %}
+                    voluntario, 
+                {% endif %}
+                Bienvenido!
         </h4>
         {% if self.content %}
 
