@@ -2,11 +2,11 @@
 {% load wagtailimages_tags wagtailcore_tags %}
 {% block content %}
 
-    <div class="container">
+    <div class="container mt-4">
         <div class="row justify-content-center">
             {% for post in posts %}
-                <div class="col-4">
-                    <div class="card mt-4">
+                <div class="col-4 d-flex">
+                    <div class="card">
                         <div class="card-img-top">
                             {% image post.activitie_image fill-500x500 as activitie_img %}
                             <img src="{{ activitie_img.url }}" alt="{{ activitie_img.alt }}" class="img-fluid"/>
@@ -18,33 +18,39 @@
                                     {% include_block block %}
                                 {% endfor %}
                             </p>
-                            {% if request.user.is_staff %}
+                        </div>
+                        {% if request.user.is_staff %}
+                            <div class="card-footer">
                                 <form action="{% url 'ver_inscriptos' %}" method="POST">
                                     {% csrf_token %}
                                     <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                         Ver Inscriptos
                                     </button>
                                 </form>
-                            {% else %}
-                                {% if volunteer %}
-                                    {% if post in activities %}
-                                        {% for vehicle in vehicles %}
-                                            {% if vehicle.activitie == post %}
+                            </div>
+                        {% else %}
+                            {% if volunteer %}
+                                {% if post in activities %}
+                                    {% for vehicle in vehicles %}
+                                        {% if vehicle.activitie == post %}
+                                            <div class="card-body">
                                                 Vehiculo seleccionado {{ vehicle }}
-                                            {% endif %}
-                                        {% endfor %}
-                                        <div class="form-group">
-                                            <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
-                                                {% csrf_token %}
-                                                <select class="form-select mt-4" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
-                                                    <option disabled selected hidden>Seleccionar un vehiculo</option> 
-                                                    <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
-                                                    {% for vehicle in vehicles %}
-                                                        <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}' autor="manuel">{{ vehicle }}</option> 
-                                                    {% endfor %}
-                                                </select>
-                                            </form>
-                                        </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div class="form-group">
+                                        <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
+                                            {% csrf_token %}
+                                            <select class="form-select mt-4" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
+                                                <option disabled selected hidden>Seleccionar un vehiculo</option> 
+                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
+                                                {% for vehicle in vehicles %}
+                                                    <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}' autor="manuel">{{ vehicle }}</option> 
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
                                         <div class="form-group">
                                             <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                                 {% csrf_token %}
@@ -52,8 +58,10 @@
                                                         Desinscribirse
                                                 </button>
                                             </form>
-                                        </div>  
-                                    {% else %} 
+                                        </div>
+                                    </div>
+                                {% else %} 
+                                    <div class="card-footer">
                                         <div class="row">
                                             <div class="col">
                                                 <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
@@ -63,9 +71,11 @@
                                                     </button>
                                                 </form>
                                             </div>
-                                        </div>  
-                                    {% endif %}
-                                {% else %}
+                                        </div>
+                                    </div>  
+                                {% endif %}
+                            {% else %}
+                                <div class="card-footer">
                                     <div class="row">
                                         <div class="col">
                                             <form action="{% url 'account_login' %}" method="GET">
@@ -76,12 +86,11 @@
                                             </form>
                                         </div>
                                     </div>
-                                {% endif %}
+                                </div>
                             {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
-            
             {% endfor %}
         </div>
     </div>
