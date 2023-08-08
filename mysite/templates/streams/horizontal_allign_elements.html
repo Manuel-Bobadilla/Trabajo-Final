@@ -1,0 +1,19 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+
+<div class="container mt-4">
+    <div class="row row-cols-2 row-cols-md-2 g-4">
+        {% for card in self.elements %}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    {% image card.element.image fill-500x500 as img %}
+                    <img src="{{ img.url }}" class="card-img-top"/>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ card.element.text }}</h5>
+                        <a href="{{ self.link }}" class="btn btn-primary">ver</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

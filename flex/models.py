@@ -20,6 +20,7 @@ class FlexPage(Page):
             ("contacts", blocks.Contacts()),
             ("images", blocks.ImagePost()),
             ("bulletins", blocks.Bulletin()),
+            ("horizontal_allign_elements", blocks.HorizontalAllignElements()),
         ],
         null=True, blank=True, use_json_field=True)
 

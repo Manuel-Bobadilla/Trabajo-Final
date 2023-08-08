@@ -102,3 +102,28 @@ class Bulletin(blocks.StructBlock):
         template = "streams/bulletin.html"
         icon = "edit"
         label = "Boletin"
+
+class CardElement(blocks.StructBlock):
+    image = ImageChooserBlock(required=True, help_text="imagen")
+    text = blocks.RichTextBlock(required=True, help_text="Contenido")
+    link = blocks.URLBlock(required=False, help_text="URL, si es necesario")
+
+    class Meta:
+        template ="streams/card_element.html"
+        icon = "edit"
+        label = "Tarjeta"
+
+class HorizontalAllignElements(blocks.StructBlock):
+    itemsQuantity = blocks.IntegerBlock(required=True, help_text="cantidad de elementos")
+    elements = blocks.ListBlock(
+        blocks.StructBlock([
+            ("element", CardElement()),
+        ])
+    )
+
+    class Meta:
+        template ="streams/horizontal_allign_elements.html"
+        icon = "edit"
+        label = "Elementos Horizontales"
+
+
