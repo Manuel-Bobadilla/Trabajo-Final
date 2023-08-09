@@ -126,3 +126,16 @@ class HorizontalAllignElements(blocks.StructBlock):
         label = "Elementos Horizontales"
 
 
+class FAQ(blocks.StructBlock):
+    number = blocks.IntegerBlock(required=True, help_text="Número de pregunta, asegurese de que no se repita")
+    question = blocks.CharBlock(required=True, help_text="Pregunta")
+    elements = blocks.ListBlock(
+        blocks.StructBlock([
+            ("response", blocks.CharBlock(required=True, help_text="Respuesta")),
+        ])
+    )
+
+    class Meta:
+        template = "streams/faq.html"
+        icon = "edit"
+        label = "Preguntas frecuentes"

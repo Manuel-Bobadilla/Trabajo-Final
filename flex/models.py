@@ -21,6 +21,7 @@ class FlexPage(Page):
             ("images", blocks.ImagePost()),
             ("bulletins", blocks.Bulletin()),
             ("horizontal_allign_elements", blocks.HorizontalAllignElements()),
+            ("faq", blocks.FAQ()),
         ],
         null=True, blank=True, use_json_field=True)
 
