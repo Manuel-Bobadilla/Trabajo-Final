@@ -114,7 +114,6 @@ class CardElement(blocks.StructBlock):
         label = "Tarjeta"
 
 class HorizontalAllignElements(blocks.StructBlock):
-    itemsQuantity = blocks.IntegerBlock(required=True, help_text="cantidad de elementos")
     elements = blocks.ListBlock(
         blocks.StructBlock([
             ("element", CardElement()),
