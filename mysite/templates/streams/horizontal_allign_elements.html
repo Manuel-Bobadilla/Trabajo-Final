@@ -2,19 +2,19 @@
 
 
 
-    <div class="row justify-content-around mt-4">
-        {% for card in self.elements %}
-            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-8 d-flex">
-                <div class="card border-0 text-center">
-                    {% image card.element.image fill-512x512 as img %}
-                    <img src="{{ img.url }}" class="card-img-top"/>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ card.element.text }}</h5>
-                    </div>
-                    <div class="card-footer bg-transparent border-0">
-                        <a href="{{ card.element.link }}" class="btn btn-primary">Ver aquí</a>
-                    </div>
+<div class="row justify-content-around mt-4">
+    {% for card in self.elements %}
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-8 d-flex">
+            <div class="card border-0 text-center">
+                {% image card.element.image fill-512x512 as img %}
+                <img src="{{ img.url }}" class="card-img-top"/>
+                <div class="card-body">
+                    <h5 class="card-title">{{ card.element.text }}</h5>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="{{ card.element.link }}" class="btn btn-primary">Ver aquí</a>
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
+</div>

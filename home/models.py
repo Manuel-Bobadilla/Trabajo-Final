@@ -1,37 +1,36 @@
 from django.db import models
 
 from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel, PageChooserPanel
-from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+
+from streams import blocks
 
 class HomePage(Page):
     template = "home/home_page.html"
-    max_count = 1
 
-    banner = models.CharField(max_length=100, blank=False, null=True)
-    banner_subtitle = RichTextField(features=["bold", "italic"])
-    banner_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null = True,
-        blank = False,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
-    banner_cta = models.ForeignKey(
-        "wagtailcore.Page",
-        null = True,
-        blank = True,
-        on_delete = models.SET_NULL,
-        related_name = "+"
-    )
+    content = StreamField(
+        [
+            ("title_and_text", blocks.TitleAndTextBlock()),
+            ("full_rich_text", blocks.RichTextBlock()),
+            ("simple_rich_text", blocks.SimpleTextBlock()),
+            ("meeting_point", blocks.MeetingPoint()),
+            ("material_publication", blocks.MaterialPublication()),
+            ("raffle", blocks.Raffle()),
+            ("contacts", blocks.Contacts()),
+            ("images", blocks.ImagePost()),
+            ("bulletins", blocks.Bulletin()),
+            ("horizontal_allign_elements", blocks.HorizontalAllignElements()),
+        ],
+        null=True, blank=True, use_json_field=True)
+
+    subtitle = models.CharField(max_length=100,null=True,blank=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel("banner"),
-        FieldPanel("banner_subtitle"),
-        FieldPanel("banner_image"),
-        PageChooserPanel("banner_cta")
+        FieldPanel("subtitle"),
+        FieldPanel("content"),
     ]
 
     class Meta:
-        verbose_name = "HOME PAGE"
-        verbose_name_plural = "HOME PAGES"
+        verbose_name = "Home Page"
+        verbose_name_plural = "Home Pages"
