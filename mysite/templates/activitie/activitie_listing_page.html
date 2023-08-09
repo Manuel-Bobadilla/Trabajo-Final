@@ -20,7 +20,7 @@
                             </p>
                         </div>
                         {% if request.user.is_staff %}
-                            <div class="card-footer">
+                            <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'ver_inscriptos' %}" method="POST">
                                     {% csrf_token %}
                                     <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
@@ -48,7 +48,7 @@
                                             {% endfor %}
                                         </select>
                                     </form>
-                                    <div class="card-footer">
+                                    <div class="card-footer bg-transparent border-0">
                                         <div class="row">
                                             <div class="col">
                                                 <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                 {% else %} 
-                                    <div class="card-footer">
+                                    <div class="card-footer bg-transparent border-0">
                                         <div class="row">
                                             <div class="col">
                                                 <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
@@ -75,7 +75,7 @@
                                     </div>
                                 {% endif %}
                             {% else %}
-                                <div class="card-footer">
+                                <div class="card-footer bg-transparent border-0">
                                     <div class="row">
                                         <div class="col">
                                             <form action="{% url 'account_login' %}" method="GET">

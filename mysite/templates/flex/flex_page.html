@@ -3,12 +3,55 @@
 
 {% block content %}
 
-    <div class="container mx-4 mt-4">
-        <h2>{{ self.subtitle }}</h2>    
+    <div class="container mt-4">
+        <h3>{{ self.subtitle }}</h3>    
         {% for block in page.content %}
             {% include_block block %}
         {% endfor %}
     </div>
+    <footer class="text-center text-white mt-4" style="background-color: #f1f1f1;">
+        <!-- Grid container -->
+        <div class="container pt-4">
+          <!-- Section: Social media -->
+          <section class="mb-4">
+            {% if settings.site_settings.SocialMediaSettings.whatsapp %}
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="{{ settings.site_settings.SocialMediaSettings.whatsapp }}"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-whatsapp"></i
+                ></a>
+            {% endif %}
+            {% if settings.site_settings.SocialMediaSettings.instagram %}
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="{{ settings.site_settings.SocialMediaSettings.instagram }}"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fab fa-instagram"></i
+                ></a>
+            {% endif %}
+            {% if settings.site_settings.SocialMediaSettings.email %}
+                <a
+                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                    href="{{ settings.site_settings.SocialMediaSettings.email }}"
+                    role="button"
+                    data-mdb-ripple-color="dark"
+                    ><i class="fa-regular fa-envelope"></i
+                ></a>
+            {% endif %}
+          </section>
+          <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+      
+        <!-- Copyright -->
+        <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          Voluntariado barrio el milagro
+        </div>
+        <!-- Copyright -->
+      </footer>
     
 
 {% endblock %}
