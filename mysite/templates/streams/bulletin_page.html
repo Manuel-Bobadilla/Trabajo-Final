@@ -5,13 +5,17 @@
     <div class="container">
         <h4 class="mt-3">
             Hola
-                {% if request.user.is_staff %} 
-                    coordinador, 
+                {% if request.user.is_superuser %} 
+                    coordinador, Bienvenido!
                 {% else %}
-                    voluntario, 
+                    {% if volunteer %}
+                        voluntario, Bienvenido!
+                    {% else %}
+                        , su cuenta no ha sido verificada por un coordinador.
+                    {% endif %}
                 {% endif %}
-                Bienvenido!
         </h4>
+        {% if volunteer %}
         {% if self.content %}
 
             {% for bulletin in self.content %}
@@ -24,6 +28,7 @@
 
         {% else %}
             No hay ninguna novedad!
+        {% endif %}
         {% endif %}
     </div>
 

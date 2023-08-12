@@ -19,7 +19,7 @@
                                 {% endfor %}
                             </p>
                         </div>
-                        {% if request.user.is_staff %}
+                        {% if request.user.is_superuser %}
                             <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'ver_inscriptos' %}" method="POST">
                                     {% csrf_token %}

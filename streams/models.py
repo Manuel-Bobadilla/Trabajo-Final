@@ -28,6 +28,7 @@ class BulletinListingPage(Page):
         #en caso de que el ususario no este logueado, se va a generar un error, no podrá ver la página
         context = super().get_context(request, *args, **kwargs)
         user = User.objects.get(id=request.user.id)
-        volunteer = Volunteer.objects.get(user = user)
+        volunteer = Volunteer.objects.filter(user = user)
+        context["volunteer"] = volunteer
         return context
     
