@@ -11,9 +11,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ card.element.text }}</h5>
                 </div>
-                <div class="card-footer bg-transparent border-0">
-                    <a href="{{ card.element.link }}" class="btn btn-primary">Ver aquí</a>
-                </div>
+                {% if card.element.link %}
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="{{ card.element.link }}" class="btn btn-primary">Ver aquí</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
