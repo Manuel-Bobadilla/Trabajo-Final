@@ -12,8 +12,15 @@ class ActivitieListingPage(Page):
     
     template = "activitie/activitie_listing_page.html"
 
+    related_document = models.ForeignKey(
+        'wagtaildocs.Document', blank=True, null=True,
+         on_delete=models.SET_NULL, related_name='+'
+    )
+
+
     content_panels = Page.content_panels + [
             FieldPanel("custom_title"),
+            FieldPanel("related_document"),
         ]
 
     def get_context(self, request, *args, **kwargs):
