@@ -149,3 +149,26 @@ class FAQ(blocks.StructBlock):
         template = "streams/faq.html"
         icon = "edit"
         label = "Preguntas Frecuentes"
+
+class Column(blocks.StructBlock):
+    elements = blocks.StreamBlock([
+        ("horizontal_allign_elements",HorizontalAllignElements()),
+        ("material_publication", MaterialPublication()),
+        ("meeting_point",MeetingPoint()),
+        ("card_element", CardElement()),
+    ])
+
+    class Meta:
+        template = "streams/column.html"
+        icon = "edit"
+        label = "Columna"
+
+class ColumnElements(blocks.StructBlock):
+    elements = blocks.ListBlock(
+        Column()
+    )
+
+    class Meta:
+        template = "streams/column_elements.html"
+        icon = "edit"
+        label = "Columnas"

@@ -1,0 +1,14 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+<div class="card border-0 text-center">
+    {% image self.image fill-512x512 as img %}
+    <img src="{{ img.url }}" class="card-img-top"/>
+    <div class="card-body">
+        <h5 class="card-title">{{ self.text }}</h5>
+    </div>
+    {% if self.link %}
+        <div class="card-footer bg-transparent border-0">
+            <a href="{{ self.link }}" class="btn btn-primary">Ver aquí</a>
+        </div>
+    {% endif %}
+</div>

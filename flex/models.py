@@ -22,6 +22,7 @@ class FlexPage(Page):
             ("bulletins", blocks.Bulletin()),
             ("horizontal_allign_elements", blocks.HorizontalAllignElements()),
             ("faq", blocks.FAQ()),
+            ("column_elements", blocks.ColumnElements()),
         ],
         null=True, blank=True, use_json_field=True)
 
