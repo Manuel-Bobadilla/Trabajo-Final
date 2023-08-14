@@ -1,9 +1,9 @@
 {% load wagtailimages_tags wagtailcore_tags %}
 
 
-<div class="row justify-content-around" style="margin-top: 5vh;">
+<div class="row justify-content-around d-flex" style="margin-top: 5vh;">
     {% for element in self.elements %}
-        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-8 d-flex">
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-4 col-8">
             {% include_block element %}
         </div>
     {% endfor %}
