@@ -4,6 +4,7 @@ from attendances.models import Attendance
 from vehicles.models import Vehicle
 import datetime
 import json
+from django.http import HttpResponseRedirect
 
 def InscriptionView(request, pk):
     user = get_object_or_404(User, id=request.user.id)
@@ -37,7 +38,7 @@ def VisualizeEnrolledView(request):
 def TakeAttendance(request):
     activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
-    dateAttendance = Attendance.objects.filter(volunteer__in=volunteers, activity = activitie, date = datetime.date.today())
+    dateAttendance = Attendance.objects.filter(activity = activitie, date = datetime.date.today())
     volunteersPresent = set()
     for attendance in dateAttendance:
         volunteersPresent.add(attendance.volunteer)
@@ -48,11 +49,11 @@ def TakeAttendance(request):
                       "volunteers":volunteers,
                       "activity":activitie,
                       "volunteersPresentList": volunteersPresentList,
+
                   },)
 
 def AddAttendance(request):
-    activityAndVolunteer = json.loads(request.POST.get("hola"))
-    print(activityAndVolunteer)
+    activityAndVolunteer = json.loads(request.POST.get("attendance"))
     activity = get_object_or_404(ActivitieDetailPage, id=activityAndVolunteer["activity_id"])
     volunteer = get_object_or_404(Volunteer, id=activityAndVolunteer["volunteer"])
     record = Attendance.objects.filter(volunteer = volunteer, activity = activity, date = datetime.date.today())
@@ -64,7 +65,7 @@ def AddAttendance(request):
         record.volunteer = volunteer
         record.date = datetime.date.today()
         record.save()
-
-    return redirect("http://localhost:8000/")
+    
+    return TakeAttendance(request)
 
 

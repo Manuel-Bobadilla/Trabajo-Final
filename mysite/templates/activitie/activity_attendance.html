@@ -21,11 +21,13 @@
                             <form action="{% url 'add_attendance' %}" method="POST">
                             {% if volunteer in volunteersPresentList %}
                                     {% csrf_token %}
-                                    <input checked onclick="this.form.submit()" name="hola" class="form-check-input" type="checkbox" value='{"activity_id": "hola", "volunteer": "hola"}'>
+                                    <input checked="checked" onclick="this.form.submit()" name="volunteer_id" class="form-check-input" type="checkbox">
                             {% else %}
                                     {% csrf_token %}
-                                    <input onclick="this.form.submit()" name="volunteer_id" class="form-check-input" type="checkbox" value='{"activity_id": "{{ activity.id }}", "volunteer": "{{ volunteer.id }}"}'>
+                                    <input onclick="this.form.submit()" name="volunteer_id" class="form-check-input" type="checkbox">
                             {% endif %}
+                                <input type="hidden" name="attendance" value='{"activity_id": "{{ activity.id }}", "volunteer": "{{ volunteer.id }}", "url": "{{ page.path }}"}' />
+                                <input type="hidden" name="actividad_id" value='{{ activity.id }}' />
                             </form>
                         </td>
                     </tr>
