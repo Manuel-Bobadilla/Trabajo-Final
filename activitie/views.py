@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from activitie.models import Volunteer, ActivitieDetailPage, User
+from attendances.models import Attendance
 from vehicles.models import Vehicle
 import datetime
+import json
 
 def InscriptionView(request, pk):
     user = get_object_or_404(User, id=request.user.id)
@@ -35,14 +37,34 @@ def VisualizeEnrolledView(request):
 def TakeAttendance(request):
     activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
+    dateAttendance = Attendance.objects.filter(volunteer__in=volunteers, activity = activitie, date = datetime.date.today())
+    volunteersPresent = set()
+    for attendance in dateAttendance:
+        volunteersPresent.add(attendance.volunteer)
+    volunteersPresentList = list(volunteersPresent)
 
     return render(request, "activitie/activity_attendance.html",
                   {
                       "volunteers":volunteers,
+                      "activity":activitie,
+                      "volunteersPresentList": volunteersPresentList,
                   },)
 
 def AddAttendance(request):
+    activityAndVolunteer = json.loads(request.POST.get("hola"))
+    print(activityAndVolunteer)
+    activity = get_object_or_404(ActivitieDetailPage, id=activityAndVolunteer["activity_id"])
+    volunteer = get_object_or_404(Volunteer, id=activityAndVolunteer["volunteer"])
+    record = Attendance.objects.filter(volunteer = volunteer, activity = activity, date = datetime.date.today())
+    if record:
+        record.delete()
+    else:
+        record = Attendance()
+        record.activity = activity
+        record.volunteer = volunteer
+        record.date = datetime.date.today()
+        record.save()
 
-    return
+    return redirect("http://localhost:8000/")
 
 
