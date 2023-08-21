@@ -53,13 +53,20 @@ def TakeAttendance(request):
                   },)
 
 def AddAttendance(request):
-    activityAndVolunteer = json.loads(request.POST.get("attendance"))
-    activity = get_object_or_404(ActivitieDetailPage, id=activityAndVolunteer["activity_id"])
-    volunteer = get_object_or_404(Volunteer, id=activityAndVolunteer["volunteer"])
-    record = Attendance.objects.filter(volunteer = volunteer, activity = activity, date = datetime.date.today())
-    if record:
-        record.delete()
-    else:
+    volunteersPresentId = set()
+    for attendance in request.POST:
+        if attendance != "actividad_id" and attendance != "csrfmiddlewaretoken":
+            volunteersPresentId.add(attendance)
+    volunteersPresentIdList = list(volunteersPresentId)
+    volunteersPresent = Volunteer.objects.filter(id__in = volunteersPresentIdList)
+    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    volunteers = Volunteer.objects.filter(activities = activity)
+    records = Attendance.objects.filter(volunteer__in = volunteers, activity = activity, date = datetime.date.today())
+    for record in records:
+        if record.volunteer.id not in volunteersPresentIdList:
+            record.delete()
+
+    for volunteer in volunteersPresent:
         record = Attendance()
         record.activity = activity
         record.volunteer = volunteer
