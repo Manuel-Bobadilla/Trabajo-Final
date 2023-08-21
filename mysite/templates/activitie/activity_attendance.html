@@ -5,16 +5,16 @@
 
 <div class="container mt-3">
     {% if volunteers %}
-        <h2>Inscriptos</h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Asistió</th>
-                </tr>
-            </thead>
-            <tbody>
-                <form action="{% url 'add_attendance' %}" method="POST">
+        <form action="{% url 'add_attendance' %}" method="POST">
+            <h2>Inscriptos</h2>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Asistió</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <input type="hidden" name="actividad_id" value='{{ activity.id }}' />
                     {% for volunteer in volunteers %}
                         <tr class="table-default">
@@ -29,12 +29,12 @@
                         </tr>
                     {% endfor %}
                     {% csrf_token %}
-                    <button type="submit", class="btn btn-primary">
-                        Guardar
-                    </button>
-                </form>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+            <button type="submit", class="btn btn-primary">
+                Guardar
+            </button>
+        </form>
     {% else %}
         <div class="row justify-content-center">
             <div class="col-4">
