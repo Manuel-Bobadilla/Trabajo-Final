@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3> {{ activity }} </h3> 
+    {% for recordDay in recordsDaysList %}
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{recordDay|date:'dmY'}}" aria-expanded="false" aria-controls="collapse{{recordDay|date:'dmY'}}">
+                        {{ recordDay }}
+                    </button>
+                </h2>
+                <div id="collapse{{recordDay|date:'dmY'}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        {% for record in records %}
+                            {% if record.date == recordDay %}
+                                <p>
+                                    <strong>• {{ record.volunteer }}</strong>
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

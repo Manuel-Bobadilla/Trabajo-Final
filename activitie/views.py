@@ -3,8 +3,6 @@ from activitie.models import Volunteer, ActivitieDetailPage, User
 from attendances.models import Attendance
 from vehicles.models import Vehicle
 import datetime
-import json
-from django.http import HttpResponseRedirect
 
 def InscriptionView(request, pk):
     user = get_object_or_404(User, id=request.user.id)
@@ -76,3 +74,18 @@ def AddAttendance(request):
     return TakeAttendance(request)
 
 
+def AttendanceRecord(request):
+    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    records = Attendance.objects.filter(activity = activity)
+    recordsDaysList = list()
+    for record in records:
+        if record.date not in recordsDaysList:
+            recordsDaysList.append(record.date)
+    
+
+    return render(request, "activitie/attendance_record.html",
+                  {
+                      "records":records,
+                      "recordsDaysList": recordsDaysList,
+                      "activity": activity.title
+                  },)
