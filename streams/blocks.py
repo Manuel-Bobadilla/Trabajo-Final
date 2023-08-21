@@ -156,6 +156,7 @@ class Column(blocks.StructBlock):
         ("material_publication", MaterialPublication()),
         ("meeting_point",MeetingPoint()),
         ("card_element", CardElement()),
+        ("rich_text_box", RichTextBlock()),
     ])
 
     class Meta:

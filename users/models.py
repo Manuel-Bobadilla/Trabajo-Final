@@ -8,5 +8,5 @@ class Volunteer(models.Model):
     phone = models.CharField(blank=False, null=False, max_length=20, help_text="user phone number")
 
     def __str__(self):
-        return str(self.user)
+        return str(self.user.first_name + " " + self.user.last_name)
     
