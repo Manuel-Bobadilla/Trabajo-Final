@@ -3,6 +3,7 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
+from wagtail import blocks as blck
 
 from streams import blocks
 from users.models import Volunteer, User
@@ -49,6 +50,9 @@ class ActivitieDetailPage(Page):
         related_name="+",
         on_delete=models.SET_NULL,
     )
+    
+    activity_start_date = blck.DateBlock(required=True, help_text="fecha inicio de vigencia del post de la actividad")
+    activity_end_date = blck.DateBlock(required=True, help_text="fecha fin de vigencia del post de la actividad")
 
     content = StreamField(
         [
