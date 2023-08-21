@@ -6,7 +6,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
-from activitie.views import InscriptionView, VisualizeEnrolledView
+from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
 
 from search import views as search_views
@@ -24,6 +24,8 @@ urlpatterns = [
     path("eliminarvehiculo/", DeleteVehicleView, name="delete_vehicle"),
     path("seleccionarvehiculo/", SelectVehicleView, name="select_vehicle"),
     path("verinscriptos/", VisualizeEnrolledView, name="ver_inscriptos"),
+    path("tomarasistencia/", TakeAttendance, name="tomar_asistencia"),
+    path("agregarasistencia/", AddAttendance, name="add_attendance"),
 ]
 
 

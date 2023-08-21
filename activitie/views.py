@@ -32,4 +32,17 @@ def VisualizeEnrolledView(request):
                       "volunteersWithVehicle": volunteersWithVehicle,
                   },)
 
+def TakeAttendance(request):
+    activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    volunteers = Volunteer.objects.filter(activities = activitie)
+
+    return render(request, "activitie/activity_attendance.html",
+                  {
+                      "volunteers":volunteers,
+                  },)
+
+def AddAttendance(request):
+
+    return
+
 
