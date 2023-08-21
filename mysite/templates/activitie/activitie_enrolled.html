@@ -12,6 +12,9 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Teléfono</th>
                     <th scope="col">Dirección</th>
+                    <th scope="col">Barrio</th>
+                    <th scope="col">Universidad</th>
+                    <th scope="col">Legajo</th>
                     <th scope="col">Vehículo</th>
                 </tr>
             </thead>
@@ -21,6 +24,9 @@
                         <td>{{ volunteer }}</td>
                         <td>{{ volunteer.phone }}</td>
                         <td>{{ volunteer.address }}</td>
+                        <td>{{ volunteer.neighborhood }}</td>
+                        <td>{{ volunteer.university }}</td>
+                        <td>{{ volunteer.university_file }}</td>
                         {% if volunteer in volunteersWithVehicle %}
                             {% for vehicle in vehicles %}
                                 {% if vehicle.proprietary == volunteer %}
