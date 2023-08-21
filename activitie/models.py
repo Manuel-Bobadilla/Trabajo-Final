@@ -1,9 +1,9 @@
 from django.db import models
+import datetime
 
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
-from wagtail import blocks as blck
 
 from streams import blocks
 from users.models import Volunteer, User
@@ -27,6 +27,7 @@ class ActivitieListingPage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = ActivitieDetailPage.objects.live().public()
+        context["current_date"] = datetime.date.today()
         if request.user.id:
             user = User.objects.get(id=request.user.id)
             volunteer = Volunteer.objects.get(user = user)

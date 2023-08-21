@@ -17,6 +17,8 @@
                                 {% for block in post.content %}
                                     {% include_block block %}
                                 {% endfor %}
+                                <p>Inicio actividad: {{ post.activity_start_date|date:"d m Y" }}</p>
+                                <p>Fin actividad: {{ post.activity_end_date|date:"d m Y" }}</p>
                             </p>
                         </div>
                         {% if request.user.is_superuser %}
@@ -61,32 +63,56 @@
                                         </div>
                                     </div>
                                 {% else %} 
+                                    {% if post.activity_start_date <= current_date and post.activity_end_date > current_date %}
+                                        <div class="card-footer bg-transparent border-0">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                                                Inscribirse
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="card-footer bg-transparent border-0">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="button", class="btn btn-secondary">
+                                                            No disponible
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if post.activity_start_date <= current_date and post.activity_end_date > current_date %}
                                     <div class="card-footer bg-transparent border-0">
                                         <div class="row">
                                             <div class="col">
-                                                <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                                                <form action="{% url 'account_login' %}" method="GET">
                                                     {% csrf_token %}
-                                                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                                            Inscribirse
+                                                    <button type="submit", class="btn btn-primary">
+                                                        Inicia Sesión
                                                     </button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                {% endif %}
-                            {% else %}
-                                <div class="card-footer bg-transparent border-0">
-                                    <div class="row">
-                                        <div class="col">
-                                            <form action="{% url 'account_login' %}" method="GET">
-                                                {% csrf_token %}
-                                                <button type="submit", class="btn btn-primary">
-                                                    Inicia Sesión
+                                {% else %}
+                                    <div class="card-footer bg-transparent border-0">
+                                        <div class="row">
+                                            <div class="col">
+                                                <button type="button", class="btn btn-secondary">
+                                                        No disponible
                                                 </button>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     </div>
