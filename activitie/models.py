@@ -50,9 +50,9 @@ class ActivitieDetailPage(Page):
         related_name="+",
         on_delete=models.SET_NULL,
     )
-    
-    activity_start_date = blck.DateBlock(required=True, help_text="fecha inicio de vigencia del post de la actividad")
-    activity_end_date = blck.DateBlock(required=True, help_text="fecha fin de vigencia del post de la actividad")
+
+    activity_start_date = models.DateField(blank=True, null=True, help_text="fecha inicio de vigencia del post de la actividad")
+    activity_end_date = models.DateField(blank=True, null=True, help_text="fecha inicio de vigencia del post de la actividad")
 
     content = StreamField(
         [
@@ -71,6 +71,8 @@ class ActivitieDetailPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("custom_title"),
         FieldPanel("activitie_image"),
+        FieldPanel("activity_start_date"),
+        FieldPanel("activity_end_date"),
         FieldPanel("content"),
     ]
     
