@@ -10,7 +10,7 @@
                 <th scope="col">Patente</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
-                <th scope="col">Plazas</th>
+                <th scope="col">Plazas disponibles</th>
                 <th scope="col">Agregar</th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@
                     <td><input type="text" class="form-control  form-control-sm" id="domain" name="domain" placeholder="Patente"></td>
                     <td><input type="text" class="form-control  form-control-sm" id="brand" name="brand" placeholder="Marca"></td>
                     <td><input type="text" class="form-control  form-control-sm" id="model" name="model" placeholder="Modelo"></td>
-                    <td><input type="text" class="form-control  form-control-sm" id="room" name="room" placeholder="Plazas"></td>
+                    <td><input type="text" class="form-control  form-control-sm" id="room" name="room" placeholder="Plazas disponibles"></td>
                     {% csrf_token %}
                     <td>
                         <button type="submit", class="btn btn-primary">+</button>
@@ -31,13 +31,13 @@
     </table>
 
     {% if vehicles %}
-        <table class="table table-hover mt-4">
+        <table class="table table-hover mt-4 text-center">
             <thead>
                 <tr>
                     <th scope="col">Patente</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Modelo</th>
-                    <th scope="col">Plazas</th>
+                    <th scope="col">Plazas disponibles</th>
                     <th scope="col">Actividad</th>
                     <th scope="col">Eliminar</th>
                 </tr>
