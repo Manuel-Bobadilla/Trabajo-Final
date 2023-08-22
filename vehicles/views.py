@@ -21,8 +21,9 @@ def AddVehicleView(request):
     brand = request.POST.get("brand")
     model = request.POST.get("model")
     domain = request.POST.get("domain")
+    room = request.POST.get("room")
 
-    vehicle = Vehicle(domain=domain, brand=brand, model=model, proprietary=volunteer)
+    vehicle = Vehicle(domain=domain, brand=brand, model=model, proprietary=volunteer, room=room)
     vehicle.save()
 
     return VehiclesView(request)
