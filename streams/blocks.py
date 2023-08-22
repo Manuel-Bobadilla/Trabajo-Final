@@ -1,5 +1,6 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from datetime import date
 
 class TitleAndTextBlock(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text="Add a title")
@@ -96,7 +97,7 @@ class ImagePost(ImageChooserBlock):
 
 class Bulletin(blocks.StructBlock):
     content = blocks.RichTextBlock(required=True, help_text="Contenido")
-    date = blocks.DateBlock(required=True)
+    date = blocks.DateBlock(required=True, default=date.today())
 
     class Meta:
         template = "streams/bulletin.html"

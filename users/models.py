@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 
 class Volunteer(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    address = models.CharField(blank=False, null=False, max_length=80, help_text="volunteer's home address")
-    phone = models.CharField(blank=False, null=False, max_length=20, help_text="volunteer's phone number")
-    neighborhood = models.CharField(blank=False, null=False, max_length=80, help_text="volunteer's neighborhood")
-    university = models.CharField(blank=False, null=False, max_length=80, help_text="volunteer's university")
-    university_file = models.CharField(blank=False, null=False, max_length=20, help_text="volunteer's university file")
+    address = models.CharField(blank=False, null=False, max_length=80, help_text="Direccon")
+    phone = models.CharField(blank=False, null=False, max_length=20, help_text="Telefono")
+    neighborhood = models.CharField(blank=False, null=False, max_length=80, help_text="Barrio")
+    university = models.CharField(blank=False, null=False, max_length=80, help_text="Universidad")
+    university_file = models.CharField(blank=False, null=False, max_length=20, help_text="Legajo universidad")
+    career = models.CharField(blank=True, null=True, max_length=30, help_text="Carrera")
+    birthdate = models.DateField(blank=False, null=True, help_text="Fecha de nacimiento")
+    dni = models.CharField(blank=False, null=False, max_length=20, help_text="DNI")
 
     def __str__(self):
         return str(self.user.first_name + " " + self.user.last_name)
