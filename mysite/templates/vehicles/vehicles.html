@@ -4,72 +4,72 @@
 
 <div class="container mt-4">
 
-    <div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Patente</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
-                <th scope="col">Plazas</th>
-                <th scope="col">Agregar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-default">
-                <form action="{% url 'add_vehicle' %}" method="POST">
-                    <td><input type="text" class="form-control  form-control-sm" id="domain" name="domain" placeholder="Patente"></td>
-                    <td><input type="text" class="form-control  form-control-sm" id="brand" name="brand" placeholder="Marca"></td>
-                    <td><input type="text" class="form-control  form-control-sm" id="model" name="model" placeholder="Modelo"></td>
-                    <td><input type="text" class="form-control  form-control-sm" id="room" name="room" placeholder="Plazas"></td>
-                    {% csrf_token %}
-                    <td>
-                        <button type="submit", class="btn btn-primary">+</button>
-                    </td>
-                </form>
-            </tr>
-        </tbody>
-    </table>
-    </div>
-
-    {% if vehicles %}
-    <div class="overflow-x-scroll mt-4">
-        <table class="table table-hover text-center">
+    <div class="overflow-x-scroll">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">Patente</th>
                     <th scope="col">Marca</th>
                     <th scope="col">Modelo</th>
                     <th scope="col">Plazas</th>
-                    <th scope="col">Actividad</th>
-                    <th scope="col">Eliminar</th>
+                    <th scope="col">Agregar</th>
                 </tr>
             </thead>
             <tbody>
-                {% for vehicle in vehicles %}
-                    <tr class="table-active">
-                        <th scope="row">{{ vehicle.domain }}</th>
-                        <td>{{ vehicle.brand }}</td>
-                        <td>{{ vehicle.model }}</td>
-                        <td>{{ vehicle.room }}</td>
-                        {% if vehicle.activitie %}
-                            <td>Inscripto en {{ vehicle.activitie.custom_title }}</td>
-                        {% else %}
-                            <td>No esta inscripto en ninguna actividad</td>
-                        {% endif %}
-                        <td> 
-                            <form action="{% url 'delete_vehicle' %}" method="POST">
-                                {% csrf_token %}
-                                <button type="submit", name="vehicle_id" value="{{ vehicle.id }}", class="btn btn-primary">
-                                    -
-                                </button>
-                            </form>  
+                <tr class="table-default">
+                    <form action="{% url 'add_vehicle' %}" method="POST">
+                        <td><input type="text" class="form-control  form-control-sm" id="domain" name="domain" placeholder="Patente"></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="brand" name="brand" placeholder="Marca"></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="model" name="model" placeholder="Modelo"></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="room" name="room" placeholder="Plazas"></td>
+                        {% csrf_token %}
+                        <td>
+                            <button type="submit", class="btn btn-primary">+</button>
                         </td>
-                    </tr>
-                {% endfor %}
+                    </form>
+                </tr>
             </tbody>
         </table>
     </div>
+
+    {% if vehicles %}
+        <div class="overflow-x-scroll mt-4">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Patente</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Plazas</th>
+                        <th scope="col">Actividad</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vehicle in vehicles %}
+                        <tr class="table-active">
+                            <th scope="row">{{ vehicle.domain }}</th>
+                            <td>{{ vehicle.brand }}</td>
+                            <td>{{ vehicle.model }}</td>
+                            <td>{{ vehicle.room }}</td>
+                            {% if vehicle.activitie %}
+                                <td>Inscripto en {{ vehicle.activitie.custom_title }}</td>
+                            {% else %}
+                                <td>No esta inscripto en ninguna actividad</td>
+                            {% endif %}
+                            <td> 
+                                <form action="{% url 'delete_vehicle' %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit", name="vehicle_id" value="{{ vehicle.id }}", class="btn btn-primary">
+                                        -
+                                    </button>
+                                </form>  
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
     
     
