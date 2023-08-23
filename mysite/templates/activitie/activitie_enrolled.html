@@ -3,10 +3,10 @@
 {% block content %}
 
 
-<div class="container mt-3">
+<div class="container mt-4 overflow-x-scroll">
     {% if volunteers %}
         <h2>Inscriptos</h2>
-        <table class="table table-hover">
+        <table class="table table-hover text-center">
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>
@@ -28,7 +28,7 @@
                         {% if volunteer in volunteersWithVehicle %}
                             {% for vehicle in vehicles %}
                                 {% if vehicle.proprietary == volunteer %}
-                                    <td>{{ vehicle.brand }}, {{ vehicle.model }}</td>
+                                    <td>{{ vehicle.brand }} {{ vehicle.model }}<br>{{ vehicle.room }} plazas</td>
                                 {% endif %}
                             {% endfor %}
                         {% else %}
