@@ -30,14 +30,16 @@ class ActivitieListingPage(Page):
         context["current_date"] = datetime.date.today()
         if request.user.id:
             user = User.objects.get(id=request.user.id)
-            volunteer = Volunteer.objects.get(user = user)
-            activities = ActivitieDetailPage.objects.filter(volunteers = volunteer)
-            vehicles = volunteer.vehicles.all()
-            context["vehicles"] = vehicles
-            context["activities"] = activities
-            context["volunteer"] = volunteer
-        else:
-            context["volunteer"] = None
+            volunteer = Volunteer.objects.filter(user = user)
+            if volunteer:
+                activities = ActivitieDetailPage.objects.filter(volunteers = volunteer[0])
+                vehicles = volunteer[0].vehicles.all()
+                context["vehicles"] = vehicles
+                context["activities"] = activities
+                context["volunteer"] = volunteer[0]
+                return context
+        
+        context["volunteer"] = None
         return context
 
 

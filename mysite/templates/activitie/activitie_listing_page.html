@@ -106,18 +106,30 @@
                                 {% endif %}
                             {% else %}
                                 {% if post.activity_start_date <= current_date and post.activity_end_date > current_date %}
-                                    <div class="card-footer bg-transparent border-0">
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="{% url 'account_login' %}" method="GET">
-                                                    {% csrf_token %}
-                                                    <button type="submit", class="btn btn-primary">
-                                                        Inicia Sesión
+                                    {% if request.user %}
+                                        <div class="card-footer bg-transparent border-0">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <button type="submit", class="btn btn-secondary">
+                                                        Cuenta no verificada
                                                     </button>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% else %}
+                                        <div class="card-footer bg-transparent border-0">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <form action="{% url 'account_login' %}" method="GET">
+                                                        {% csrf_token %}
+                                                        <button type="submit", class="btn btn-primary">
+                                                            Inicia Sesión
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 {% else %}
                                     <div class="card-footer bg-transparent border-0">
                                         <div class="row">

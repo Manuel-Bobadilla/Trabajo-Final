@@ -6,12 +6,16 @@ import json
 
 def VehiclesView(request):
     user = User.objects.get(id = request.user.id)
-    volunteer = Volunteer.objects.get(user = user)
-    vehicles = Vehicle.objects.filter(proprietary = volunteer)
+    volunteer = Volunteer.objects.filter(user = user)
 
+    if not volunteer:
+        return render(request, "redirections/user_not_confirmed.html")
+    
+    vehicles = Vehicle.objects.filter(proprietary = volunteer[0])
+    
     return render(request,"vehicles/vehicles.html",
                   {
-                      "volunteer":volunteer,
+                      "volunteer":volunteer[0],
                       "vehicles":vehicles,
                   },)
 
