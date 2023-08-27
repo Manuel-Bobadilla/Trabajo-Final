@@ -106,7 +106,7 @@
                                 {% endif %}
                             {% else %}
                                 {% if post.activity_start_date <= current_date and post.activity_end_date > current_date %}
-                                    {% if request.user %}
+                                    {% if request.user.is_authenticated %}
                                         <div class="card-footer bg-transparent border-0">
                                             <div class="row">
                                                 <div class="col">
