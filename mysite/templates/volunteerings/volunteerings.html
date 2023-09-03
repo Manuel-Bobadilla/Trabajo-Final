@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+    {% for volunteering in volunteerings %}
+        {{ volunteering }}
+    {% endfor %}
+
+{% endblock %}

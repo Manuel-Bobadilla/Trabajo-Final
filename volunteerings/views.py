@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from volunteerings.models import Volunteering
 
-# Create your views here.
+def Volunteerings(request):
+    volunteerings = Volunteering.objects.all()
+
+    return render(request, "volunteerings/volunteerings.html",{"volunteerings":volunteerings,})
