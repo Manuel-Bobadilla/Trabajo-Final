@@ -4,7 +4,7 @@ from .models import Volunteer
 
 class UserAdmin(ModelAdmin):
     model = Volunteer
-    menu_label = "Users"
+    menu_label = "Voluntarios"
     menu_icon = "placeholder"
     add_to_settings_menu = False
     exclude_from_explorer = False

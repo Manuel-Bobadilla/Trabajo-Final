@@ -7,6 +7,7 @@ from wagtail.fields import StreamField
 
 from streams import blocks
 from users.models import Volunteer, User
+from volunteerings.models import Volunteering
 
 class ActivitieListingPage(Page):
     custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
@@ -46,6 +47,7 @@ class ActivitieListingPage(Page):
 class ActivitieDetailPage(Page):
     custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
     volunteers = models.ManyToManyField(Volunteer, related_name="activities")
+    volunteering = models.ForeignKey(Volunteering, related_name="activities", on_delete=models.SET_NULL, null=True)
     activitie_image = models.ForeignKey(
         "wagtailimages.Image",
         blank=False, 
