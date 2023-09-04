@@ -76,6 +76,7 @@ class ActivitieDetailPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel("custom_title"),
         FieldPanel("activitie_image"),
+        FieldPanel("volunteering"),
         FieldPanel("activity_start_date"),
         FieldPanel("activity_end_date"),
         FieldPanel("content"),
