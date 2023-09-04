@@ -12,7 +12,6 @@ def Volunteerings(request):
 def ViewVolunteering(request):
     volunteering = Volunteering.objects.get(id=request.POST.get("volunteering_id"))
     posts = ActivitieDetailPage.objects.filter(volunteering=volunteering)
-    print(posts)
     current_date = datetime.date.today()
     if request.user.id:
             user = User.objects.get(id=request.user.id)
