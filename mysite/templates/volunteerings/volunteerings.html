@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
-
-    {% for volunteering in volunteerings %}
-            <div class="card mb-3" style="max-width: 75%;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{ volunteering.image.url }}" class="img-fluid rounded-start" alt="...">
+    <div class="container">
+        {% for volunteering in volunteerings %}
+            <div class="row align-items-center rounded border border-1 border-primary" style="margin-top: 5%;">
+                <div class="col-2">
+                    <img src="{{ volunteering.image.url }}" height="75">
+                </div>
+                <div class="col-8">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ volunteering.name }}</h5>
+                    <p class="card-text">{{ volunteering.description }}</p>
                     </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                        <h5 class="card-title">{{ volunteering.name }}</h5>
-                        <p class="card-text">{{ volunteering.description }}</p>
-                        </div>
-                    </div>
-                    <form action="{% url 'ver_voluntariado' %}" method="POST">
+                </div>
+                <div class="col-2">
+                    <form action="{% url 'ver_voluntariado' %}" class="d-flex justify-content-center" method="POST">
                         {% csrf_token %}
                         <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
-                            Ver actividades
+                            Ver
                         </button>
                     </form>
                 </div>
             </div>
-    {% endfor %}
-
+        {% endfor %}
+    </div>
 {% endblock %}
