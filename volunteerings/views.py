@@ -10,6 +10,7 @@ def Volunteerings(request):
     return render(request, "volunteerings/volunteerings.html",{"volunteerings":volunteerings,})
 
 def ViewVolunteering(request):
+    print(request.POST.get("volunteering_id"))
     volunteering = Volunteering.objects.get(id=request.POST.get("volunteering_id"))
     posts = ActivitieDetailPage.objects.filter(volunteering=volunteering)
     current_date = datetime.date.today()
@@ -33,10 +34,12 @@ def ViewVolunteering(request):
                     "activities":activities,
                     "volunteer":volunteer,
                     "inscripted":inscripted,
+                    "volunteering":volunteering,
             })
     volunteer = None
     return render(request, "activitie/activitie_listing_page.html",{
          "posts":posts,
          "current_date":current_date,
          "volunteer":volunteer,
+         "volunteering":volunteering,
     })

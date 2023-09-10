@@ -82,6 +82,7 @@
                                                 <div class="col">
                                                     <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                                         {% csrf_token %}
+                                                        <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
                                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                                                 Desinscribirse
                                                         </button>
@@ -96,6 +97,7 @@
                                                     <div class="col">
                                                         <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                                             {% csrf_token %}
+                                                            <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
                                                             <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                                                     Inscribirse
                                                             </button>

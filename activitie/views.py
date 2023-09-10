@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from activitie.models import Volunteer, ActivitieDetailPage, User
 from attendances.models import Attendance
 from vehicles.models import Vehicle
+from volunteerings.views import ViewVolunteering
 import datetime
 
 def InscriptionView(request, pk):
@@ -18,7 +19,7 @@ def InscriptionView(request, pk):
         else:
             activitie.volunteers.add(volunteer)
 
-    return redirect("http://localhost:8000/activitie/") #cambiar para que determine la url de retorno de manera dinamica
+    return ViewVolunteering(request) #cambiar para que determine la url de retorno de manera dinamica
 
 def VisualizeEnrolledView(request):
     activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
