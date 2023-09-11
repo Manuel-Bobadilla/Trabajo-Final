@@ -17,12 +17,23 @@
         </h4>
 
         {% if volunteer %}
-            <h5>Inscripto a</h5>
-
             {% for volunteering in volunteerings %}
-                {{ volunteering }}
+                <div class="container col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5">
+                    <div class="card shadow">
+                        <div class="row justify-content-center">
+                            <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
+                        </div>
+                        <div class="row">
+                            <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="POST">
+                                {% csrf_token %}
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
+                                    Ver
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-
             {% if self.content %}
 
                 {% for bulletin in self.content %}
