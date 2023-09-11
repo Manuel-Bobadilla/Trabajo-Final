@@ -17,23 +17,25 @@
         </h4>
 
         {% if volunteer %}
-            {% for volunteering in volunteerings %}
-                <div class="container col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5">
-                    <div class="card shadow">
-                        <div class="row justify-content-center">
-                            <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
-                        </div>
-                        <div class="row">
-                            <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="POST">
-                                {% csrf_token %}
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
-                                    Ver
-                                </button>
-                            </form>
+            <div class="container row justify-content-center" style="margin-bottom: 3%; margin-top: 3%;">
+                {% for volunteering in volunteerings %}
+                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5">
+                        <div class="card shadow">
+                            <div class="row justify-content-center">
+                                <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
+                            </div>
+                            <div class="row">
+                                <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
+                                        Ver
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
             {% if self.content %}
 
                 {% for bulletin in self.content %}
