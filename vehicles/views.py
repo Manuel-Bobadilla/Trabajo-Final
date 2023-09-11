@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from vehicles.models import Vehicle, Volunteer, ActivitieDetailPage
+from volunteerings.views import ViewVolunteering
 from users.models import User
 import json
 
@@ -52,6 +53,6 @@ def SelectVehicleView(request):
         vehicle.activitie = activitie
         vehicle.save(force_update=True)
         
-    return redirect("http://localhost:8000/activitie/") #cambiar para que determine la url de retorno de manera dinamica
+    return ViewVolunteering(request) #cambiar para que determine la url de retorno de manera dinamica
 
 

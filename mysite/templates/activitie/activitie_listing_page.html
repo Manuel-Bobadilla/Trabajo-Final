@@ -69,6 +69,7 @@
                                         {% endfor %}
                                         <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
                                             {% csrf_token %}
+                                            <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
                                             <select class="form-select" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
                                                 <option disabled selected hidden>Seleccionar un vehiculo</option> 
                                                 <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>

@@ -10,7 +10,6 @@ def Volunteerings(request):
     return render(request, "volunteerings/volunteerings.html",{"volunteerings":volunteerings,})
 
 def ViewVolunteering(request):
-    print(request.POST.get("volunteering_id"))
     volunteering = Volunteering.objects.get(id=request.POST.get("volunteering_id"))
     posts = ActivitieDetailPage.objects.filter(volunteering=volunteering)
     current_date = datetime.date.today()
