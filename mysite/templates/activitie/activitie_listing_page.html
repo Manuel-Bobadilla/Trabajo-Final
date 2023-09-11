@@ -5,7 +5,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             {% for post in posts %}
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-9 col-10 mt-4 d-flex">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-9 col-10 mt-4 d-flex" style="margin-bottom: 3%;">
                     <div class="card shadow">
                         <div class="card-img-top">
                             {% image post.activitie_image fill-500x500 as activitie_img %}
@@ -25,25 +25,31 @@
                             <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'ver_inscriptos' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                        Ver Inscriptos
-                                    </button>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                            Ver Inscriptos
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                             <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'tomar_asistencia' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                        Tomar Asistencia
-                                    </button>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                            Tomar Asistencia
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                             <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'historial_asistencia' %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                        Historial Asistencia
-                                    </button>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                            Historial Asistencia
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         {% else %}
@@ -52,9 +58,11 @@
                                     <div class="card-footer bg-transparent border-0">
                                         <div class="row">
                                             <div class="col">
-                                                <button type="button", class="btn btn-secondary">
-                                                        No inscripto
-                                                </button>
+                                                <div class="d-grid gap-2">
+                                                    <button type="button", class="btn btn-secondary">
+                                                            No inscripto
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -83,10 +91,12 @@
                                                 <div class="col">
                                                     <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
-                                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                                                Desinscribirse
-                                                        </button>
+                                                        <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
+                                                        <div class="d-grid gap-2">
+                                                            <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                                                    Desinscribirse
+                                                            </button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -99,9 +109,11 @@
                                                         <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
-                                                            <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
-                                                                    Inscribirse
-                                                            </button>
+                                                            <div class="d-grid gap-2">
+                                                                <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                                                        Inscribirse
+                                                                </button>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -110,9 +122,11 @@
                                             <div class="card-footer bg-transparent border-0">
                                                 <div class="row">
                                                     <div class="col">
-                                                        <button type="button", class="btn btn-secondary">
-                                                                No disponible
-                                                        </button>
+                                                        <div class="d-grid gap-2">
+                                                            <button type="button", class="btn btn-secondary">
+                                                                    No disponible
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,9 +139,11 @@
                                         <div class="card-footer bg-transparent border-0">
                                             <div class="row">
                                                 <div class="col">
-                                                    <button type="submit", class="btn btn-secondary">
-                                                        Cuenta no verificada
-                                                    </button>
+                                                    <div class="d-grid gap-2">
+                                                        <button type="submit", class="btn btn-secondary">
+                                                            Cuenta no verificada
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -137,9 +153,11 @@
                                                 <div class="col">
                                                     <form action="{% url 'account_login' %}" method="GET">
                                                         {% csrf_token %}
-                                                        <button type="submit", class="btn btn-primary">
-                                                            Inicia Sesión
-                                                        </button>
+                                                        <div class="d-grid gap-2">
+                                                            <button type="submit", class="btn btn-primary">
+                                                                Inicia Sesión
+                                                            </button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
@@ -149,9 +167,11 @@
                                     <div class="card-footer bg-transparent border-0">
                                         <div class="row">
                                             <div class="col">
-                                                <button type="button", class="btn btn-secondary">
+                                                <div class="d-grid gap-2">
+                                                    <button type="button", class="btn btn-secondary">
                                                         No disponible
-                                                </button>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
