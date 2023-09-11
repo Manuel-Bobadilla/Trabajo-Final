@@ -5,30 +5,37 @@
     <div class="container">
         <h4 class="mt-3">
             Hola
-                {% if request.user.is_superuser %} 
-                    coordinador, Bienvenido!
+            {% if request.user.is_superuser %} 
+                coordinador, Bienvenido!
+            {% else %}
+                {% if volunteer %}
+                    voluntario, Bienvenido!
                 {% else %}
-                    {% if volunteer %}
-                        voluntario, Bienvenido!
-                    {% else %}
-                        bienvenido! Su cuenta todavia no ha sido verificada por un coordinador.
-                    {% endif %}
+                    bienvenido! Su cuenta todavia no ha sido verificada por un coordinador.
                 {% endif %}
+            {% endif %}
         </h4>
-        {% if volunteer %}
-        {% if self.content %}
 
-            {% for bulletin in self.content %}
-                <div class="row justify-content-center">
-                    <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-10 col-10 mt-2">
-                        {{ bulletin }}
-                    </div>
-                </div>
+        {% if volunteer %}
+            <h5>Inscripto a</h5>
+
+            {% for volunteering in volunteerings %}
+                {{ volunteering }}
             {% endfor %}
 
-        {% else %}
-            No hay ninguna novedad!
-        {% endif %}
+            {% if self.content %}
+
+                {% for bulletin in self.content %}
+                    <div class="row justify-content-center">
+                        <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-10 col-10 mt-2">
+                            {{ bulletin }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% else %}
+                No hay ninguna novedad!
+            {% endif %}
         {% endif %}
     </div>
 

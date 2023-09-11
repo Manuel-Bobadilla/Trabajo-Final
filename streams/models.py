@@ -6,6 +6,7 @@ from wagtail.fields import StreamField
 
 from streams import blocks
 from users.models import User, Volunteer
+from volunteerings.models import Volunteering
 
 # Create your models here.
 class BulletinListingPage(Page):
@@ -29,6 +30,8 @@ class BulletinListingPage(Page):
         context = super().get_context(request, *args, **kwargs)
         user = User.objects.get(id=request.user.id)
         volunteer = Volunteer.objects.filter(user = user)
+        volunteerings = Volunteering.objects.filter(volunteers__in = volunteer)
         context["volunteer"] = volunteer
+        context["volunteerings"] = volunteerings
         return context
     
