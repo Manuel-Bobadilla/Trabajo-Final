@@ -1,3 +1,7 @@
 #image_navbar {
     width: 50px;
 }
+
+p {
+    font-family: var(--bs-body-font-family);
+}
