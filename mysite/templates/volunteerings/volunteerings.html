@@ -13,7 +13,7 @@
                         <p class="card-text d-md-block d-none">{{ volunteering.description }}</p>
                     </div>
                 </div>
-                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-xs-2 col-*">
+                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-*">
                     <form action="{% url 'ver_voluntariado' %}" class="d-flex justify-content-center" method="POST">
                         {% csrf_token %}
                         <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
