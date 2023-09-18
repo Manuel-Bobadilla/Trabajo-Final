@@ -21,7 +21,7 @@
                                 <p>Fin actividad: {{ post.activity_end_date|date:"d m Y" }}</p>
                             </p>
                         </div>
-                        {% if request.user.is_superuser %}
+                        {% if request.user.is_superuser and inscripted == True %}
                             <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'ver_inscriptos' %}" method="POST">
                                     {% csrf_token %}
