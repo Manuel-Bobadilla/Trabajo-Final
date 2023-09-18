@@ -53,6 +53,6 @@ def SelectVehicleView(request):
         vehicle.activitie = activitie
         vehicle.save(force_update=True)
         
-    return ViewVolunteering(request) #cambiar para que determine la url de retorno de manera dinamica
+    return ViewVolunteering(request)
 
 
