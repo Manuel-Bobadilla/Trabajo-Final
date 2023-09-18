@@ -4,16 +4,16 @@
     <div class="container">
         {% for volunteering in volunteerings %}
             <div class="row align-items-center rounded border border-1 border-primary shadow" style="margin-top: 5%;">
-                <div class="col-2">
+                <div class="col-1">
                     <img src="{{ volunteering.image.url }}" height="75">
                 </div>
-                <div class="col-8">
+                <div class="col-10">
                     <div class="card-body">
                     <h5 class="card-title">{{ volunteering.name }}</h5>
                     <p class="card-text">{{ volunteering.description }}</p>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-1">
                     <form action="{% url 'ver_voluntariado' %}" class="d-flex justify-content-center" method="POST">
                         {% csrf_token %}
                         <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
