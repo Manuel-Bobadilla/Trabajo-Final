@@ -9,6 +9,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance, AttendanceRecord
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
 from volunteerings.views import Volunteerings, ViewVolunteering
+from django.views.static import serve
+from django.urls import re_path
 
 from search import views as search_views
 
@@ -44,9 +46,6 @@ if settings.DEBUG:
     urlpatterns = urlpatterns + [
         path('__debug__/', include('debug_toolbar.urls')),
     ] 
-
-from django.views.static import serve
-from django.urls import re_path
 
 urlpatterns += [
     re_path(r'^media/(?P<path>.*)$', serve, {
