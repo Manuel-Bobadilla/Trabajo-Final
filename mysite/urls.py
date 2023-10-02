@@ -36,7 +36,6 @@ urlpatterns = [
 if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -45,6 +44,15 @@ if settings.DEBUG:
     urlpatterns = urlpatterns + [
         path('__debug__/', include('debug_toolbar.urls')),
     ] 
+
+from django.views.static import serve
+from django.urls import re_path
+
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
+]
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
