@@ -9,7 +9,7 @@ class CustomSignupForm(SignupForm):
                                   )
     last_name = forms.CharField(max_length=25,
                                  label='Last Name',
-                                 widget=forms.TextInput(attrs={"placeholder":("Nombre"),}),
+                                 widget=forms.TextInput(attrs={"placeholder":("Apellido"),}),
                                  )
 
     def save(self, request):
