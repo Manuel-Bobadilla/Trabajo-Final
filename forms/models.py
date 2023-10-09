@@ -1,6 +1,7 @@
 from django.db import models
 from allauth.account.forms import SignupForm
 from django import forms
+from users.models import Volunteer
 
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=25,
@@ -17,4 +18,19 @@ class CustomSignupForm(SignupForm):
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
         user.save()
+        self.createVolunteer(user, request)
+
         return user
+    
+    def createVolunteer(self, user, request):
+        volunteer = Volunteer(user=user,
+                              address="calle1",
+                              phone="3211231231",
+                              neighborhood="barrio",
+                              university="UCC",
+                              university_file="0000000",
+                              career="carrera",
+                              birthdate=None,
+                              dni="11111111")
+        volunteer.save()
+    
