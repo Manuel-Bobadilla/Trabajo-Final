@@ -12,6 +12,7 @@ class Volunteer(models.Model):
     career = models.CharField(blank=True, null=True, max_length=30, help_text="Carrera")
     birthdate = models.DateField(blank=False, null=True, help_text="Fecha de nacimiento")
     dni = models.CharField(blank=False, null=False, max_length=20, help_text="DNI")
+    validated = models.BooleanField(blank=False, null=False, help_text="Voluntario validado")
 
     def __str__(self):
         return str(self.user.first_name + " " + self.user.last_name)
