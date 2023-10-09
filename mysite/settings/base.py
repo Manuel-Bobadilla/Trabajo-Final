@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "vehicles",
     "attendances",
     "volunteerings",
+    "forms",
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
