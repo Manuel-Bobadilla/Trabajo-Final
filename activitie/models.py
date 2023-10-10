@@ -32,7 +32,7 @@ class ActivitieListingPage(Page):
         if request.user.id:
             user = User.objects.get(id=request.user.id)
             volunteer = Volunteer.objects.filter(user = user)
-            if volunteer:
+            if volunteer[0].validated:
                 activities = ActivitieDetailPage.objects.filter(volunteers = volunteer[0])
                 vehicles = volunteer[0].vehicles.all()
                 context["vehicles"] = vehicles

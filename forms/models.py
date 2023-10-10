@@ -31,6 +31,7 @@ class CustomSignupForm(SignupForm):
                               university_file="0000000",
                               career="carrera",
                               birthdate=None,
-                              dni="11111111")
+                              dni="11111111",
+                              validated=False)
         volunteer.save()
     
