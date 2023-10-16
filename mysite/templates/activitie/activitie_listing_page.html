@@ -52,6 +52,16 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <form action="{% url 'historial_asistencia_voluntario' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="d-grid gap-2">
+                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
+                                            Asistencia por Voluntario
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         {% else %}
                             {% if volunteer %}
                                 {% if inscripted == False %}

@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from users.models import User, Volunteer
 from attendances.models import Attendance
-from activitie.models import ActivitieDetailPage
 
 def VolunteerAttendanceView(request):
     user = User.objects.get(id = request.user.id)

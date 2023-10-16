@@ -90,3 +90,19 @@ def AttendanceRecord(request):
                       "recordsDaysList": recordsDaysList,
                       "activity": activity.title
                   },)
+
+def VolunteerAttendanceRecord(request):
+    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    records = Attendance.objects.filter(activity = activity)
+    recordsVolunteersList = list()
+    for record in records:
+        if record.volunteer not in recordsVolunteersList:
+            recordsVolunteersList.append(record.volunteer)
+    
+
+    return render(request, "activitie/volunteer_attendance_record.html",
+                  {
+                      "records":records,
+                      "recordsVolunteersList": recordsVolunteersList,
+                      "activity": activity.title
+                  },)
