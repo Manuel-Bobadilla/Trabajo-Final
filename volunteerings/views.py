@@ -20,7 +20,7 @@ def ViewVolunteering(request):
         volunteeringsOfVolunteer = Volunteering.objects.filter(volunteers__in = volunteer)
         if volunteering in volunteeringsOfVolunteer:
                 inscripted = True
-        if volunteer:
+        if volunteer[0].validated:
             activities = ActivitieDetailPage.objects.filter(volunteers = volunteer[0])
             vehicles = volunteer[0].vehicles.all()
             vehicles = vehicles

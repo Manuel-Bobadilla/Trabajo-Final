@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "vehicles",
     "attendances",
     "volunteerings",
+    "forms",
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -213,3 +214,6 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_FORMS = {
+    'signup': 'forms.models.CustomSignupForm',
+}

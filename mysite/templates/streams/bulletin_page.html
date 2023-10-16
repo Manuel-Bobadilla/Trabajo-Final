@@ -6,17 +6,17 @@
         <h4 class="mt-3">
             Hola
             {% if request.user.is_superuser %} 
-                coordinador, Bienvenido!
+                coordinador, bienvenido!
             {% else %}
-                {% if volunteer %}
-                    voluntario, Bienvenido!
+                {% if volunteer.validated %}
+                    voluntario, bienvenido!
                 {% else %}
                     bienvenido! Su cuenta todavia no ha sido verificada por un coordinador.
                 {% endif %}
             {% endif %}
         </h4>
 
-        {% if volunteer %}
+        {% if volunteer.validated %}
             <div class="row justify-content-center" style="margin-bottom: 3%; margin-top: 3%;">
                 {% for volunteering in volunteerings %}
                     <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5">
