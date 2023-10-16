@@ -94,15 +94,22 @@ def AttendanceRecord(request):
 def VolunteerAttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     records = Attendance.objects.filter(activity = activity)
-    recordsVolunteersList = list()
+    recordsVolunteersDict = {}
+
     for record in records:
-        if record.volunteer not in recordsVolunteersList:
-            recordsVolunteersList.append(record.volunteer)
+        if record.volunteer in recordsVolunteersDict:
+            recordsVolunteersDict[record.volunteer] += 1
+        else:
+            recordsVolunteersDict[record.volunteer] = 1
+
+    print(recordsVolunteersDict)
+    for record in recordsVolunteersDict:
+        print(record)
     
 
     return render(request, "activitie/volunteer_attendance_record.html",
                   {
                       "records":records,
-                      "recordsVolunteersList": recordsVolunteersList,
+                      "recordsVolunteersDict": recordsVolunteersDict,
                       "activity": activity.title
                   },)
