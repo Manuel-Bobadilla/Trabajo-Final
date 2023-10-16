@@ -9,6 +9,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance, AttendanceRecord
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
 from volunteerings.views import Volunteerings, ViewVolunteering
+from users.views import VolunteerAttendanceView
 from django.views.static import serve
 from django.urls import re_path
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path("historialasistencia/", AttendanceRecord, name="historial_asistencia"),
     path("voluntariados/", Volunteerings),
     path("voluntariado/", ViewVolunteering, name="ver_voluntariado"),
+    path("asistencia/", VolunteerAttendanceView, name="user_attendance"),
 ]
 
 
