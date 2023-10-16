@@ -31,7 +31,7 @@ class BulletinListingPage(Page):
         user = User.objects.get(id=request.user.id)
         volunteer = Volunteer.objects.filter(user = user)
         volunteerings = Volunteering.objects.filter(volunteers__in = volunteer)
-        context["volunteer"] = volunteer
+        context["volunteer"] = volunteer[0]
         context["volunteerings"] = volunteerings
         return context
     
