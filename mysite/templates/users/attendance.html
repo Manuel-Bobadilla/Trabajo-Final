@@ -2,9 +2,25 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
-{% for record in records %}
-    {{ record }}
-{% endfor %}
+<div class="container d-inline-flex justify-content-center">
+    <div>
+    {% for recordActivity in recordsActivityList %}
+        <div class="row" style="margin-top: 5%;">
+            <h4>{{ recordActivity }}</h4>
+        </div>
+        {% for record in records %}
+            {% if record.activity == recordActivity %}
+                <div class="row" style="margin-top: 3%;">
+                    <span class="badge rounded-pill text-bg-primary">
+                        {{ record.date|date:'d/m/Y' }}
+                    </span>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% endfor %}
+    </div>
+</div>
 
 
 {% endblock %}
