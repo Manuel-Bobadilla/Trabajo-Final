@@ -5,7 +5,7 @@ from attendances.models import Attendance
 def VolunteerAttendanceView(request):
     user = User.objects.get(id = request.user.id)
     volunteer = Volunteer.objects.get(user = user)
-    records = Attendance.objects.filter(volunteer = volunteer)
+    records = Attendance.objects.filter(volunteer = volunteer).order_by('-date')
     recordsActivityList = list()
 
     for record in records:

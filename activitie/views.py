@@ -93,7 +93,7 @@ def AttendanceRecord(request):
 
 def VolunteerAttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
-    records = Attendance.objects.filter(activity = activity)
+    records = Attendance.objects.filter(activity = activity).order_by('-date')
     recordsVolunteersDict = {}
 
     for record in records:
@@ -101,10 +101,6 @@ def VolunteerAttendanceRecord(request):
             recordsVolunteersDict[record.volunteer] += 1
         else:
             recordsVolunteersDict[record.volunteer] = 1
-
-    print(recordsVolunteersDict)
-    for record in recordsVolunteersDict:
-        print(record)
     
 
     return render(request, "activitie/volunteer_attendance_record.html",
