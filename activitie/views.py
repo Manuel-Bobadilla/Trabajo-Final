@@ -90,3 +90,26 @@ def AttendanceRecord(request):
                       "recordsDaysList": recordsDaysList,
                       "activity": activity.title
                   },)
+
+def VolunteerAttendanceRecord(request):
+    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    records = Attendance.objects.filter(activity = activity)
+    recordsVolunteersDict = {}
+
+    for record in records:
+        if record.volunteer in recordsVolunteersDict:
+            recordsVolunteersDict[record.volunteer] += 1
+        else:
+            recordsVolunteersDict[record.volunteer] = 1
+
+    print(recordsVolunteersDict)
+    for record in recordsVolunteersDict:
+        print(record)
+    
+
+    return render(request, "activitie/volunteer_attendance_record.html",
+                  {
+                      "records":records,
+                      "recordsVolunteersDict": recordsVolunteersDict,
+                      "activity": activity.title
+                  },)
