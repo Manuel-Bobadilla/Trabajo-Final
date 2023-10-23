@@ -15,5 +15,5 @@ class Volunteer(models.Model):
     validated = models.BooleanField(blank=False, null=False, help_text="Voluntario validado")
 
     def __str__(self):
-        return str(self.user.first_name + " " + self.user.last_name)
+        return str(self.user.last_name + " " + self.user.first_name)
     
