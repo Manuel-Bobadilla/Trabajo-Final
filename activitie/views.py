@@ -77,7 +77,7 @@ def AddAttendance(request):
 
 def AttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
-    records = Attendance.objects.filter(activity = activity)
+    records = Attendance.objects.filter(activity = activity).order_by('-date')
     recordsDaysList = list()
     for record in records:
         if record.date not in recordsDaysList:
