@@ -6,11 +6,13 @@ def VolunteerAttendanceView(request):
     user = User.objects.get(id = request.user.id)
     volunteer = Volunteer.objects.get(user = user)
     records = Attendance.objects.filter(volunteer = volunteer).order_by('-date')
-    recordsActivityList = list()
+    recordsActivityList = {}
 
     for record in records:
-        if record.activity not in recordsActivityList:
-            recordsActivityList.append(record.activity)
+        if record.activity in recordsActivityList:
+            recordsActivityList[record.activity] += 1
+        else:
+            recordsActivityList[record.activity] = 1
 
     return render(request, "users/attendance.html",
                   {
