@@ -77,7 +77,7 @@ def AddAttendance(request):
 
 def AttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
-    records = Attendance.objects.filter(activity = activity)
+    records = Attendance.objects.filter(activity = activity).order_by('-date', "volunteer__user__last_name")
     recordsDaysList = list()
     for record in records:
         if record.date not in recordsDaysList:
@@ -93,7 +93,7 @@ def AttendanceRecord(request):
 
 def VolunteerAttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
-    records = Attendance.objects.filter(activity = activity).order_by('-date')
+    records = Attendance.objects.filter(activity = activity).order_by("volunteer__user__last_name", '-date')
     recordsVolunteersDict = {}
 
     for record in records:
