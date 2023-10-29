@@ -18,10 +18,10 @@
             <tbody>
                 <tr class="table-default">
                     <form action="{% url 'add_vehicle' %}" method="POST">
-                        <td><input type="text" class="form-control  form-control-sm" id="domain" name="domain" placeholder="Patente"></td>
-                        <td><input type="text" class="form-control  form-control-sm" id="brand" name="brand" placeholder="Marca"></td>
-                        <td><input type="text" class="form-control  form-control-sm" id="model" name="model" placeholder="Modelo"></td>
-                        <td><input type="text" class="form-control  form-control-sm" id="room" name="room" placeholder="Plazas"></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="domain" name="domain" placeholder="Patente" required></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="brand" name="brand" placeholder="Marca" required></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="model" name="model" placeholder="Modelo" required></td>
+                        <td><input type="text" class="form-control  form-control-sm" id="room" name="room" placeholder="Plazas" required></td>
                         {% csrf_token %}
                         <td>
                             <button type="submit", class="btn btn-primary">+</button>
