@@ -34,6 +34,7 @@ def ViewVolunteering(request):
                     "volunteer":volunteer,
                     "inscripted":inscripted,
                     "volunteering":volunteering,
+                    "day_number": current_date.weekday(),
             })
     volunteer = None
     return render(request, "activitie/activitie_listing_page.html",{
