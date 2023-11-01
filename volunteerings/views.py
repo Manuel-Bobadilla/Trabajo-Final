@@ -55,3 +55,6 @@ def ViewVolunteersVolunteeing(request):
          "volunteeringVolunteers":volunteeringVolunteers,
          "restOfVolunteers":restOfVolunteers,
     })
+
+def InscriptionVolunteering(request):
+     return
