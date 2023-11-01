@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from volunteerings.models import Volunteering
 from activitie.models import ActivitieDetailPage
 from users.models import Volunteer, User
@@ -57,4 +57,21 @@ def ViewVolunteersVolunteeing(request):
     })
 
 def InscriptionVolunteering(request):
-     return
+    volunteersInscriptedId = set()
+    for attendance in request.POST:
+        if attendance != "volunteering_id" and attendance != "csrfmiddlewaretoken":
+            volunteersInscriptedId.add(attendance)
+    volunteersInscriptedIdList = list(volunteersInscriptedId)
+    volunteersInscripted = Volunteer.objects.filter(id__in = volunteersInscriptedIdList)
+    volunteering = get_object_or_404(Volunteering, id=request.POST.get("volunteering_id"))
+    volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
+
+    for volunteer in volunteeringVolunteers:
+        if volunteer.id not in volunteersInscriptedIdList:
+            volunteering.volunteers.remove(volunteer)
+    
+    for volunteer in volunteersInscripted:
+        if not volunteering.volunteers.filter(id=volunteer.id).exists():
+            volunteering.volunteers.add(volunteer)
+
+    return ViewVolunteersVolunteeing(request)
