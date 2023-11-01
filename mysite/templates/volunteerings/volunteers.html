@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+    <div class="container">
+        <h5>{{ volunteering.name }}</h5>
+        <br>
+        <h5>Voluntarios inscriptos</h5>
+        {% for volunteer in volunteeringVolunteers %}
+            <p>
+                {{ volunteer }}
+            </p>
+        {% endfor %}
+        <br>
+        <h5>Voluntarios no inscriptos</h5>
+        {% for volunteer in restOfVolunteers %}
+            <p>
+                {{ volunteer }}
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from volunteerings.models import Volunteering
 from activitie.models import ActivitieDetailPage
 from users.models import Volunteer, User
+from django.db.models import Q
 import datetime
 
 def Volunteerings(request):
@@ -42,4 +43,15 @@ def ViewVolunteering(request):
          "current_date":current_date,
          "volunteer":volunteer,
          "volunteering":volunteering,
+    })
+
+def ViewVolunteersVolunteeing(request):
+    volunteering = Volunteering.objects.get(id=request.POST.get("volunteering_id"))
+    volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
+    restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(validated=False)).order_by("user__last_name")
+
+    return render(request, "volunteerings/volunteers.html",{
+         "volunteering":volunteering,
+         "volunteeringVolunteers":volunteeringVolunteers,
+         "restOfVolunteers":restOfVolunteers,
     })

@@ -14,6 +14,14 @@
                     </div>
                 </div>
                 <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-*">
+                    {% if request.user.is_superuser %}
+                    <form action="{% url 'inscriptos_voluntariado' %}" class="d-flex justify-content-center" method="POST">
+                        {% csrf_token %}
+                        <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
+                            Inscriptos
+                        </button>
+                    </form>
+                    {% endif %}
                     <form action="{% url 'ver_voluntariado' %}" class="d-flex justify-content-center" method="POST">
                         {% csrf_token %}
                         <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
