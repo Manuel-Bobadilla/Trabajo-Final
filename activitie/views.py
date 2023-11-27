@@ -70,6 +70,7 @@ def AddAttendance(request):
         record.activity = activity
         record.volunteer = volunteer
         record.date = datetime.date.today()
+        record.activity_title = activity.custom_title
         record.save()
     
     return TakeAttendance(request)

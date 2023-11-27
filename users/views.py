@@ -9,10 +9,15 @@ def VolunteerAttendanceView(request):
     recordsActivityList = {}
 
     for record in records:
-        if record.activity in recordsActivityList:
-            recordsActivityList[record.activity] += 1
+        activity = None
+        if record.activity:
+            activity = record.activity
         else:
-            recordsActivityList[record.activity] = 1
+            activity = record.activity_title
+        if activity in recordsActivityList:
+            recordsActivityList[activity] += 1
+        else:
+            recordsActivityList[activity] = 1
 
     return render(request, "users/attendance.html",
                   {
