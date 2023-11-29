@@ -7,8 +7,11 @@ import datetime
 
 def Volunteerings(request):
     volunteerings = Volunteering.objects.all()
-    user = User.objects.get(id = request.user.id)
-    volunteer = Volunteer.objects.get(user = user)
+    volunteer = None
+
+    if request.user.id:
+        user = User.objects.get(id = request.user.id)
+        volunteer = Volunteer.objects.get(user = user)
 
     return render(request, "volunteerings/volunteerings.html",{"volunteerings":volunteerings,
                                                                "volunteer": volunteer,})
