@@ -7,13 +7,13 @@
                 <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-3">
                     <img src="{{ volunteering.image.url }}" style="height: 5em; aspect-ratio: 1 / 1; padding: 5%;">
                 </div>
-                <div class="col-xxl-10 col-xl-10 col-lg-9 col-md-8 col-sm-10 col-9">
+                <div class="col-xxl-10 col-xl-10 col-lg-9 col-md-8 col-sm-7 col-9">
                     <div class="card-body">
                         <h5 class="card-title">{{ volunteering.name }}</h5>
                         <p class="card-text d-md-block d-none">{{ volunteering.description }}</p>
                     </div>
                 </div>
-                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-* col-*">
+                <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-*">
                     {% if request.user.is_superuser and volunteer in volunteering.volunteers.all %}
                         <form action="{% url 'inscriptos_voluntariado' %}" method="POST">
                             {% csrf_token %}
