@@ -3,30 +3,34 @@
 {% block content %}
     <div class="container" style="max-width: 95%;">
         {% for volunteering in volunteerings %}
-            <div class="row align-items-center rounded border border-1 border-primary shadow justify-content-start" style="margin-top: 5%;">
-                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-2">
-                    <img src="{{ volunteering.image.url }}" style="height: 5em; aspect-ratio: 1 / 1; padding: 3%;">
+            <div class="row align-items-center rounded border border-1 border-primary shadow" style="margin-top: 5%;">
+                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-3">
+                    <img src="{{ volunteering.image.url }}" style="height: 5em; aspect-ratio: 1 / 1; padding: 5%;">
                 </div>
-                <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-8 col-sm-8 col-7">
+                <div class="col-xxl-10 col-xl-9 col-lg-9 col-md-8 col-sm-8 col-9">
                     <div class="card-body">
                         <h5 class="card-title">{{ volunteering.name }}</h5>
                         <p class="card-text d-md-block d-none">{{ volunteering.description }}</p>
                     </div>
                 </div>
-                <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-3">
+                <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-2 col-sm-2 col-*">
                     {% if request.user.is_superuser and volunteer in volunteering.volunteers.all %}
-                        <form action="{% url 'inscriptos_voluntariado' %}" class="d-flex justify-content-center" method="POST">
+                        <form action="{% url 'inscriptos_voluntariado' %}" method="POST">
                             {% csrf_token %}
-                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
-                                Inscriptos
-                            </button>
+                            <div class="d-grid mx-auto">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
+                                    Inscriptos
+                                </button>
+                            </div>
                         </form>
                     {% endif %}
-                    <form action="{% url 'ver_voluntariado' %}" class="d-flex justify-content-center" method="POST">
+                    <form action="{% url 'ver_voluntariado' %}" method="POST">
                         {% csrf_token %}
-                        <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
-                            Ver
-                        </button>
+                        <div class="d-grid mx-auto">
+                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;">
+                                Ver
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
