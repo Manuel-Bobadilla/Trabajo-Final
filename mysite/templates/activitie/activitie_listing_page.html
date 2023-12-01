@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                 {% else %}
-                                    {% if post in activities and day_number < 4 %}
+                                    {% if post in activities %}
                                         {% for vehicle in vehicles %}
                                             {% if vehicle.activitie == post %}
                                                 <div class="card-body">
@@ -125,7 +125,7 @@
                                             </div>
                                         </div>
                                     {% else %} 
-                                        {% if post.activity_start_date <= current_date and post.activity_end_date > current_date and day_number < 4 %}
+                                        {% if post.activity_start_date <= current_date and post.activity_end_date > current_date %}
                                             <div class="card-footer bg-transparent border-0">
                                                 <div class="row">
                                                     <div class="col">
