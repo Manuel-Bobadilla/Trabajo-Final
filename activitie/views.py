@@ -113,6 +113,12 @@ def VolunteerAttendanceRecord(request):
 
 def RestartInscription(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    vehicles = Vehicle.objects.filter(activitie = activity)
+
     activity.volunteers.clear()
+    
+    for vehicle in vehicles:
+        vehicle.activitie = None
+        vehicle.save()
 
     return ViewVolunteering(request)
