@@ -110,3 +110,9 @@ def VolunteerAttendanceRecord(request):
                       "recordsVolunteersDict": recordsVolunteersDict,
                       "activity": activity.title
                   },)
+
+def RestartInscription(request):
+    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    activity.volunteers.clear()
+
+    return ViewVolunteering(request)

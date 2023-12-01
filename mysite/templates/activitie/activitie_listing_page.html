@@ -62,6 +62,17 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="card-footer bg-transparent border-0">
+                                <form action="{% url 'reiniciar_inscripciones' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
+                                    <div class="d-grid gap-2">
+                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-danger">
+                                            Reiniciar inscripciones
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         {% else %}
                             {% if volunteer %}
                                 {% if inscripted == False %}
