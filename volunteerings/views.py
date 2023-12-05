@@ -17,7 +17,7 @@ def Volunteerings(request):
                                                                "volunteer": volunteer,})
 
 def ViewVolunteering(request):
-    volunteering = Volunteering.objects.get(id=request.POST.get("volunteering_id"))
+    volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
     posts = ActivitieDetailPage.objects.filter(volunteering=volunteering)
     current_date = datetime.date.today()
     inscripted = False
@@ -52,7 +52,7 @@ def ViewVolunteering(request):
     })
 
 def ViewVolunteersVolunteeing(request):
-    volunteering = Volunteering.objects.get(id=request.POST.get("volunteering_id"))
+    volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
     restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(validated=False)).order_by("user__last_name")
 

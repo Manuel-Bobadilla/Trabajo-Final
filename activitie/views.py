@@ -3,6 +3,7 @@ from activitie.models import Volunteer, ActivitieDetailPage, User
 from attendances.models import Attendance
 from vehicles.models import Vehicle
 from volunteerings.views import ViewVolunteering
+from django.http import QueryDict
 import datetime
 
 def InscriptionView(request, pk):
@@ -19,10 +20,14 @@ def InscriptionView(request, pk):
         else:
             activitie.volunteers.add(volunteer)
 
+    mutable_get = request.GET.copy()
+    mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
+    request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
+
     return ViewVolunteering(request) #cambiar para que determine la url de retorno de manera dinamica
 
 def VisualizeEnrolledView(request):
-    activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    activitie = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
     vehicles = Vehicle.objects.filter(activitie = activitie)
     volunteersWithVehicle = Volunteer.objects.filter(vehicles__in=vehicles)
@@ -35,7 +40,7 @@ def VisualizeEnrolledView(request):
                   },)
 
 def TakeAttendance(request):
-    activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    activitie = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
     dateAttendance = Attendance.objects.filter(activity = activitie, date = datetime.date.today())
     volunteersPresent = set()
@@ -72,12 +77,16 @@ def AddAttendance(request):
         record.date = datetime.date.today()
         record.activity_title = activity.custom_title
         record.save()
+
+    mutable_get = request.GET.copy()
+    mutable_get['actividad_id'] = request.POST.get("actividad_id")
+    request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
     
     return TakeAttendance(request)
 
 
 def AttendanceRecord(request):
-    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     records = Attendance.objects.filter(activity = activity).order_by('-date', "volunteer__user__last_name")
     recordsDaysList = list()
     for record in records:
@@ -93,7 +102,7 @@ def AttendanceRecord(request):
                   },)
 
 def VolunteerAttendanceRecord(request):
-    activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
+    activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     records = Attendance.objects.filter(activity = activity).order_by("volunteer__user__last_name", '-date')
     recordsVolunteersDict = {}
 
@@ -120,5 +129,9 @@ def RestartInscription(request):
     for vehicle in vehicles:
         vehicle.activitie = None
         vehicle.save()
+
+    mutable_get = request.GET.copy()
+    mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
+    request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
     return ViewVolunteering(request)

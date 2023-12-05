@@ -23,8 +23,7 @@
                         </div>
                         {% if request.user.is_superuser and inscripted == True %}
                             <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'ver_inscriptos' %}" method="POST">
-                                    {% csrf_token %}
+                                <form action="{% url 'ver_inscriptos' %}" method="GET">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Ver inscriptos
@@ -33,8 +32,7 @@
                                 </form>
                             </div>
                             <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'tomar_asistencia' %}" method="POST">
-                                    {% csrf_token %}
+                                <form action="{% url 'tomar_asistencia' %}" method="GET">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Tomar asistencia
@@ -43,8 +41,7 @@
                                 </form>
                             </div>
                             <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'historial_asistencia' %}" method="POST">
-                                    {% csrf_token %}
+                                <form action="{% url 'historial_asistencia' %}" method="GET">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Historial asistencia por día
@@ -53,8 +50,7 @@
                                 </form>
                             </div>
                             <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'historial_asistencia_voluntario' %}" method="POST">
-                                    {% csrf_token %}
+                                <form action="{% url 'historial_asistencia_voluntario' %}" method="GET">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Historial asistencia por voluntario
@@ -175,7 +171,6 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <form action="{% url 'account_login' %}" method="GET">
-                                                        {% csrf_token %}
                                                         <div class="d-grid gap-2">
                                                             <button type="submit", class="btn btn-primary">
                                                                 Inicia sesión

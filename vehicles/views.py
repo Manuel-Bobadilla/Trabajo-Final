@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from vehicles.models import Vehicle, Volunteer, ActivitieDetailPage
 from volunteerings.views import ViewVolunteering
 from users.models import User
+from django.http import QueryDict
 import json
 
 def VehiclesView(request):
@@ -52,6 +53,10 @@ def SelectVehicleView(request):
         vehicle = Vehicle.objects.get(domain=vehicle_domain)
         vehicle.activitie = activitie
         vehicle.save(force_update=True)
+
+    mutable_get = request.GET.copy()
+    mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
+    request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
         
     return ViewVolunteering(request)
 
