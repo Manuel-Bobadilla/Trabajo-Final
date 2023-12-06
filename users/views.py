@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from users.models import User, Volunteer
 from attendances.models import Attendance
+from django.db.models import Q
 
 def VolunteerAttendanceView(request):
     user = User.objects.get(id = request.user.id)
@@ -25,4 +26,18 @@ def VolunteerAttendanceView(request):
                       "recordsActivityList":recordsActivityList,
                   },)
 
-# Create your views here.
+def ViewVolunteers(request):
+    volunteers = None
+    if(request.GET.get("search")):
+        wordsSearch = request.GET.get("search").split()
+        query = Q()
+
+        for word in wordsSearch:
+            query |= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
+            
+        volunteers = Volunteer.objects.filter(query)
+
+    return render(request, "users/volunteers.html",
+                  {
+                      "volunteers": volunteers,
+                  })
