@@ -33,7 +33,7 @@ def ViewVolunteers(request):
         query = Q()
 
         for word in wordsSearch:
-            query |= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
+            query &= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
             
         volunteers = Volunteer.objects.filter(query)
 
