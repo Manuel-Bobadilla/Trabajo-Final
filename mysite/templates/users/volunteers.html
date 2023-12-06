@@ -7,8 +7,9 @@
         <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
+    {% for volunteer in volunteers %}
+        <p>{{ volunteer }}</p>
+    {% endfor %}
 </div>
-{% for volunteer in volunteers %}
-    {{ volunteer }}
-{% endfor %}
+
 {% endblock %}
