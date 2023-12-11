@@ -6,10 +6,10 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
-from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance, AttendanceRecord, VolunteerAttendanceRecord
+from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance, AttendanceRecord, VolunteerAttendanceRecord, RestartInscription
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
 from volunteerings.views import Volunteerings, ViewVolunteering, ViewVolunteersVolunteeing, InscriptionVolunteering
-from users.views import VolunteerAttendanceView
+from users.views import VolunteerAttendanceView, ViewVolunteers
 from django.views.static import serve
 from django.urls import re_path
 
@@ -32,11 +32,13 @@ urlpatterns = [
     path("agregarasistencia/", AddAttendance, name="add_attendance"),
     path("historialasistencia/", AttendanceRecord, name="historial_asistencia"),
     path("asistenciavoluntario/", VolunteerAttendanceRecord, name="historial_asistencia_voluntario"),
+    path("reiniciarinscripcion/", RestartInscription, name="reiniciar_inscripciones"),
     path("voluntariados/", Volunteerings),
     path("voluntariado/", ViewVolunteering, name="ver_voluntariado"),
     path("asistencia/", VolunteerAttendanceView, name="user_attendance"),
     path("inscriptos/", ViewVolunteersVolunteeing, name="inscriptos_voluntariado"),
     path("inscripcion/", InscriptionVolunteering, name="inscription_volunteer"),
+    path("voluntarios/", ViewVolunteers, name="volunteers"),
 ]
 
 

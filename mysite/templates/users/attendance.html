@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                 {% for record in records %}
-                    {% if record.activity == recordActivity %}
+                    {% if record.activity == recordActivity or record.activity_title == recordActivity %}
                         <span class="badge rounded-pill text-bg-primary" style="margin-top: 3%;">
                             {{ record.date|date:'d/m/Y' }}
                         </span>

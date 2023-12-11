@@ -21,8 +21,7 @@
                                 <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
                             </div>
                             <div class="row">
-                                <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="POST">
-                                    {% csrf_token %}
+                                <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="GET">
                                     <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
                                         Ver
                                     </button>
