@@ -39,7 +39,7 @@ def ViewVolunteers(request):
             query &= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
             
         volunteers = Volunteer.objects.filter(query)
-        records = Attendance.objects.filter(volunteer__in = volunteers)
+        records = Attendance.objects.filter(volunteer__in = volunteers).order_by("volunteer__user__last_name", '-date')
         recordsVolunteersDict = {}
 
         for record in records:
@@ -56,4 +56,5 @@ def ViewVolunteers(request):
                   {
                       "volunteers": volunteers,
                       "recordsVolunteersDict": recordsVolunteersDict,
+                      "records": records,
                   })

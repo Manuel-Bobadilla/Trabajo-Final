@@ -8,9 +8,26 @@
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
     {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
-        <p style="margin-top: 3%; margin-left: 3%;">
-            {{ recordVolunteer }}. Cantidad asistencias: {{ attendance }}
-        </p>
+        <div class="card" style="margin-top: 3%;">
+            <div class="card-body">
+                <div class="card-title">
+                    <h5> {{ recordVolunteer }} </h5>
+                    Cantidad asistencias: {{ attendance }}
+                </div>
+                {% if attendance != 0 %}
+                    <div class="card-body">
+                        {% for record in records %}
+                            {% if record.volunteer == recordVolunteer %}
+                                <span class="badge rounded-pill text-bg-primary" style="margin-top: 1%; margin-left: 1%;">
+                                    {{ record.date|date:'d/m/Y' }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            </p>
+        </div>
     {% endfor %}
 </div>
 
