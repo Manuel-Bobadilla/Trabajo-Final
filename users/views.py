@@ -28,6 +28,9 @@ def VolunteerAttendanceView(request):
 
 def ViewVolunteers(request):
     volunteers = None
+    records = None
+    recordsVolunteersDict = None
+
     if(request.GET.get("search")):
         wordsSearch = request.GET.get("search").split()
         query = Q()
@@ -36,8 +39,21 @@ def ViewVolunteers(request):
             query &= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
             
         volunteers = Volunteer.objects.filter(query)
+        records = Attendance.objects.filter(volunteer__in = volunteers)
+        recordsVolunteersDict = {}
+
+        for record in records:
+            if record.volunteer in recordsVolunteersDict:
+                recordsVolunteersDict[record.volunteer] += 1
+            else:
+                recordsVolunteersDict[record.volunteer] = 1
+
+        for volunteer in volunteers:
+            if not volunteer in recordsVolunteersDict:
+                recordsVolunteersDict[volunteer] = 0
 
     return render(request, "users/volunteers.html",
                   {
                       "volunteers": volunteers,
+                      "recordsVolunteersDict": recordsVolunteersDict,
                   })

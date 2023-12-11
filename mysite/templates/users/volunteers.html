@@ -7,8 +7,10 @@
         <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
-    {% for volunteer in volunteers %}
-        <p>{{ volunteer }}</p>
+    {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
+        <p style="margin-top: 3%; margin-left: 3%;">
+            {{ recordVolunteer }}. Cantidad asistencias: {{ attendance }}
+        </p>
     {% endfor %}
 </div>
 
