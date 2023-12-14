@@ -3,6 +3,7 @@ from volunteerings.models import Volunteering
 from activitie.models import ActivitieDetailPage
 from users.models import Volunteer, User
 from django.db.models import Q
+from django.http import QueryDict
 import datetime
 
 def Volunteerings(request):
@@ -79,5 +80,9 @@ def InscriptionVolunteering(request):
     for volunteer in volunteersInscripted:
         if not volunteering.volunteers.filter(id=volunteer.id).exists():
             volunteering.volunteers.add(volunteer)
+
+    mutable_get = request.GET.copy()
+    mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
+    request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
     return ViewVolunteersVolunteeing(request)
