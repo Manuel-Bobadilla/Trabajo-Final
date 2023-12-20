@@ -32,14 +32,23 @@ def ViewVolunteers(request):
     recordsVolunteersDict = None
 
     if(request.GET.get("search")):
+        year = request.GET.get("year")
         wordsSearch = request.GET.get("search").split()
         query = Q()
+        if year:
+            print(year)
+        else:
+            print("no hay año")
 
         for word in wordsSearch:
             query &= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
             
         volunteers = Volunteer.objects.filter(query)
-        records = Attendance.objects.filter(volunteer__in = volunteers).order_by("volunteer__user__last_name", '-date')
+        if(year):
+            records = Attendance.objects.filter(volunteer__in = volunteers, date__year = year).order_by("volunteer__user__last_name", '-date')
+        else:
+            records = Attendance.objects.filter(volunteer__in = volunteers).order_by("volunteer__user__last_name", '-date')
+
         recordsVolunteersDict = {}
 
         for record in records:
