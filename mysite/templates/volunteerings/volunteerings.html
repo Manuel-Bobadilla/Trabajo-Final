@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="col-xxl-1 col-xl-1 col-lg-2 col-md-2 col-sm-3 col-*">
-                    {% if request.user.is_superuser and volunteer in volunteering.volunteers.all %}
+                    {% if request.user.volunteer.coordinador and volunteer in volunteering.volunteers.all or request.user.is_superuser %}
                         <form action="{% url 'inscriptos_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-center">
                                 <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%; margin-top: 3%;">

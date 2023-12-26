@@ -14,6 +14,7 @@ class Volunteer(models.Model):
     birthdate = models.DateField(blank=False, null=True, help_text="Fecha de nacimiento")
     dni = models.CharField(blank=False, null=False, max_length=20, help_text="DNI")
     ingreso = models.DateField(blank=False, null=False, default = datetime.date.today, help_text="Fecha de ingreso al VUCC")
+    coordinador = models.BooleanField(blank=False, null=False, default=False, help_text="Coordinador de voluntariado")
     validated = models.BooleanField(blank=False, null=False, help_text="Voluntario validado")
 
     def __str__(self):
