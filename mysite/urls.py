@@ -10,6 +10,7 @@ from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendan
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
 from volunteerings.views import Volunteerings, ViewVolunteering, ViewVolunteersVolunteeing, InscriptionVolunteering
 from users.views import VolunteerAttendanceView, ViewVolunteers
+from restart.views import RestartYear
 from django.views.static import serve
 from django.urls import re_path
 
@@ -39,6 +40,7 @@ urlpatterns = [
     path("inscriptos/", ViewVolunteersVolunteeing, name="inscriptos_voluntariado"),
     path("inscripcion/", InscriptionVolunteering, name="inscription_volunteer"),
     path("voluntarios/", ViewVolunteers, name="volunteers"),
+    path("reinicioaño/", RestartYear, name="restart_year"),
 ]
 
 

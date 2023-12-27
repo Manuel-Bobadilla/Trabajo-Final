@@ -12,6 +12,17 @@
             {% endif %}
         </h4>
 
+        {% if restartAvailable %}
+            <div class="text-center">
+                <form action="{% url 'restart_year' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        Reiniciar inscripciones a voluntariados
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+
         {% if volunteer.validated %}
             <div class="row justify-content-center" style="margin-bottom: 3%; margin-top: 3%;">
                 {% for volunteering in volunteerings %}

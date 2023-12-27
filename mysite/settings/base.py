@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "attendances",
     "volunteerings",
     "forms",
+    "restart",
 
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
