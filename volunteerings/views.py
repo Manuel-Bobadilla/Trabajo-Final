@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from volunteerings.models import Volunteering
 from activitie.models import ActivitieDetailPage
+from attendances.models import Attendance
+from restart.models import Restart
 from users.models import Volunteer, User
 from django.db.models import Q
 from django.http import QueryDict
@@ -86,3 +88,35 @@ def InscriptionVolunteering(request):
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
     return ViewVolunteersVolunteeing(request)
+
+def AttendanceVolunteering(request):
+    volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
+    volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
+    volunteeringActivities = ActivitieDetailPage.objects.filter(volunteering = volunteering)
+    last_restart = Restart.objects.all().order_by('-date').first()
+
+    if last_restart:
+        last_restart = last_restart.date
+
+    #agrupar por volunteer
+    attendances = Attendance.objects.filter(date__gte = last_restart, volunteer__in = volunteeringVolunteers, activity__in = volunteeringActivities)
+
+    recordsVolunteersDict = {}
+
+    for attendance in attendances:
+        if attendance.volunteer in recordsVolunteersDict:
+            recordsVolunteersDict[attendance.volunteer] += 1
+        else:
+            recordsVolunteersDict[attendance.volunteer] = 1
+    
+    for volunteer in volunteeringVolunteers:
+            if not volunteer in recordsVolunteersDict:
+                recordsVolunteersDict[volunteer] = 0
+
+
+    return render(request, "volunteerings/attendances.html",
+                  {
+                      "volunteers": volunteeringVolunteers,
+                      "recordsVolunteersDict": recordsVolunteersDict,
+                      "attendances": attendances,
+                  })

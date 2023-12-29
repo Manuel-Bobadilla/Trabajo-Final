@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+
+<div class="container">
+    {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
+        <div class="card" style="margin-top: 3%;">
+            <div class="card-body">
+                <div class="card-title">
+                    {{ recordVolunteer }} | Cantidad asistencias: {{ attendance }}
+                </div>
+                {% if attendance != 0 %}
+                    <div class="card-body">
+                        {% for attendance in attendances %}
+                            {% if attendance.volunteer == recordVolunteer %}
+                                <span class="badge rounded-pill text-bg-primary" style="margin-top: 1%; margin-left: 1%;">
+                                    {{ attendance.date|date:'d/m/Y' }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
