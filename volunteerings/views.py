@@ -55,6 +55,9 @@ def ViewVolunteering(request):
     })
 
 def ViewVolunteersVolunteeing(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+    
     volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
     restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(validated=False)).order_by("user__last_name")
@@ -66,6 +69,9 @@ def ViewVolunteersVolunteeing(request):
     })
 
 def InscriptionVolunteering(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+    
     volunteersInscriptedId = set()
     for attendance in request.POST:
         if attendance != "volunteering_id" and attendance != "csrfmiddlewaretoken":
@@ -90,6 +96,9 @@ def InscriptionVolunteering(request):
     return ViewVolunteersVolunteeing(request)
 
 def AttendanceVolunteering(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
     volunteeringActivities = ActivitieDetailPage.objects.filter(volunteering = volunteering)

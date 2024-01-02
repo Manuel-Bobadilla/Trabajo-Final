@@ -5,6 +5,7 @@ from vehicles.models import Vehicle
 from volunteerings.views import ViewVolunteering
 from restart.models import Restart
 from django.http import QueryDict
+from django.db.models import Q
 import datetime
 
 def InscriptionView(request, pk):
@@ -28,6 +29,9 @@ def InscriptionView(request, pk):
     return ViewVolunteering(request) #cambiar para que determine la url de retorno de manera dinamica
 
 def VisualizeEnrolledView(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     activitie = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
     vehicles = Vehicle.objects.filter(activitie = activitie)
@@ -41,6 +45,9 @@ def VisualizeEnrolledView(request):
                   },)
 
 def TakeAttendance(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     activitie = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     volunteers = Volunteer.objects.filter(activities = activitie)
     dateAttendance = Attendance.objects.filter(activity = activitie, date = datetime.date.today())
@@ -58,6 +65,9 @@ def TakeAttendance(request):
                   },)
 
 def AddAttendance(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     volunteersPresentId = set()
     for attendance in request.POST:
         if attendance != "actividad_id" and attendance != "csrfmiddlewaretoken":
@@ -87,6 +97,9 @@ def AddAttendance(request):
 
 
 def AttendanceRecord(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     last_restart = Restart.objects.all().order_by('-date').first()
     
@@ -109,6 +122,9 @@ def AttendanceRecord(request):
                   },)
 
 def VolunteerAttendanceRecord(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
     last_restart = Restart.objects.all().order_by('-date').first()
 
@@ -133,6 +149,9 @@ def VolunteerAttendanceRecord(request):
                   },)
 
 def RestartInscription(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     vehicles = Vehicle.objects.filter(activitie = activity)
 
