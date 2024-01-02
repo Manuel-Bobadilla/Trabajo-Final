@@ -3,6 +3,7 @@ from activitie.models import Volunteer, ActivitieDetailPage, User
 from attendances.models import Attendance
 from vehicles.models import Vehicle
 from volunteerings.views import ViewVolunteering
+from restart.models import Restart
 from django.http import QueryDict
 import datetime
 
@@ -87,7 +88,13 @@ def AddAttendance(request):
 
 def AttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
-    records = Attendance.objects.filter(activity = activity).order_by('-date', "volunteer__user__last_name")
+    last_restart = Restart.objects.all().order_by('-date').first()
+    
+    if last_restart:
+        last_restart = last_restart.date
+
+    records = Attendance.objects.filter(date__gte = last_restart, activity = activity).order_by('-date', "volunteer__user__last_name")
+
     recordsDaysList = list()
     for record in records:
         if record.date not in recordsDaysList:
@@ -103,7 +110,12 @@ def AttendanceRecord(request):
 
 def VolunteerAttendanceRecord(request):
     activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
-    records = Attendance.objects.filter(activity = activity).order_by("volunteer__user__last_name", '-date')
+    last_restart = Restart.objects.all().order_by('-date').first()
+
+    if last_restart:
+        last_restart = last_restart.date
+
+    records = Attendance.objects.filter(date__gte = last_restart, activity = activity).order_by("volunteer__user__last_name", '-date')
     recordsVolunteersDict = {}
 
     for record in records:
