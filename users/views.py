@@ -27,11 +27,15 @@ def VolunteerAttendanceView(request):
                   },)
 
 def ViewVolunteers(request):
+    #verificar que quien acceda sea un coordinador
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+
     volunteers = None
     records = None
     recordsVolunteersDict = None
 
     if(request.GET.get("search")):
+        year = request.GET.get("year")
         wordsSearch = request.GET.get("search").split()
         query = Q()
 
@@ -39,7 +43,12 @@ def ViewVolunteers(request):
             query &= Q(user__first_name__icontains=word) | Q(user__last_name__icontains=word) | Q(dni__icontains=word)
             
         volunteers = Volunteer.objects.filter(query)
-        records = Attendance.objects.filter(volunteer__in = volunteers).order_by("volunteer__user__last_name", '-date')
+
+        if(year):
+            records = Attendance.objects.filter(volunteer__in = volunteers, date__year = year).order_by("volunteer__user__last_name", '-date')
+        else:
+            records = Attendance.objects.filter(volunteer__in = volunteers).order_by("volunteer__user__last_name", '-date')
+
         recordsVolunteersDict = {}
 
         for record in records:
@@ -57,4 +66,6 @@ def ViewVolunteers(request):
                       "volunteers": volunteers,
                       "recordsVolunteersDict": recordsVolunteersDict,
                       "records": records,
+                      "searchText": request.GET.get("search"),
+                      "year": request.GET.get("year"),
                   })

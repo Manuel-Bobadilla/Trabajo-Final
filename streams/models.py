@@ -7,6 +7,9 @@ from wagtail.fields import StreamField
 from streams import blocks
 from users.models import User, Volunteer
 from volunteerings.models import Volunteering
+from restart.models import Restart
+
+import datetime
 
 # Create your models here.
 class BulletinListingPage(Page):
@@ -31,6 +34,11 @@ class BulletinListingPage(Page):
         user = User.objects.get(id=request.user.id)
         volunteer = Volunteer.objects.filter(user = user)
         volunteerings = Volunteering.objects.filter(volunteers__in = volunteer)
+        restartAvailable = (datetime.date.today() >= datetime.date(datetime.date.today().year, 2, 28) 
+        and not Restart.objects.filter(date__year = datetime.date.today().year) 
+        and user.is_superuser)
+
+        context["restartAvailable"] = restartAvailable
         context["volunteer"] = volunteer[0]
         context["volunteerings"] = volunteerings
         return context

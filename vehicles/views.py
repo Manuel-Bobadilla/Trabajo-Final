@@ -7,7 +7,7 @@ import json
 
 def VehiclesView(request):
     user = User.objects.get(id = request.user.id)
-    volunteer = Volunteer.objects.filter(user = user)
+    volunteer = Volunteer.objects.filter(user = user, validated = True)
 
     if not volunteer:
         return render(request, "redirections/user_not_confirmed.html")

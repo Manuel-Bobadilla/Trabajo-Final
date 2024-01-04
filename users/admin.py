@@ -8,7 +8,7 @@ class UserAdmin(ModelAdmin):
     menu_icon = "placeholder"
     add_to_settings_menu = False
     exclude_from_explorer = False
-    list_display = ("Voluntario", "Direccion", "Telefono", "Universidad", "Legajo", "validated")
+    list_display = ("Voluntario", "Direccion", "Telefono", "Universidad", "Legajo", "validated", "coordinador")
     search_fields = ("user__last_name", "user__first_name", "university", "university_file", "dni")
 
     def Voluntario(self,obj):

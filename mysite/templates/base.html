@@ -27,7 +27,7 @@
         <script src="https://kit.fontawesome.com/fb2cb5dd24.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://bootswatch.com/5/litera/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
-        <link rel="icon" type="image/png" href="{% static 'images/icon.png' %}"> 
+        <link rel="icon" type="image/jpeg" href="{% static 'images/voluntariadoUCC.jpeg' %}"> 
 
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
@@ -56,17 +56,18 @@
                       <li class="nav-item">
                         <a class="nav-link" href="/admin/" class="nav-link d-inline">Administrar</a>
                       </li>
+                    {% endif %}
+                    {% if request.user.volunteer.coordinador or request.user.is_superuser %}
                       <li class="nav-item">
                         <a class="nav-link" href="{% url 'volunteers' %}" class="nav-link d-inline">Voluntarios</a>
                       </li>
-                    {% else %}
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_vehicle' %}" class="nav-link d-inline">Vehiculos</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user_attendance' %}" class="nav-link d-inline">Asistencias</a>
-                      </li>
                     {% endif %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'account_vehicle' %}" class="nav-link d-inline">Vehiculos</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'user_attendance' %}" class="nav-link d-inline">Asistencias</a>
+                    </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/boletines/" class="nav-link d-inline">Boletin</a>
                     </li>
