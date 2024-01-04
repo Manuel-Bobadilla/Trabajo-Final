@@ -56,7 +56,7 @@ def ViewVolunteering(request):
 
 def ViewVolunteersVolunteeing(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id"))) | Q(user__is_superuser=True)))
     
     volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
@@ -70,7 +70,7 @@ def ViewVolunteersVolunteeing(request):
 
 def InscriptionVolunteering(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id"))) | Q(user__is_superuser=True)))
     
     volunteersInscriptedId = set()
     for attendance in request.POST:
@@ -97,7 +97,7 @@ def InscriptionVolunteering(request):
 
 def AttendanceVolunteering(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id"))) | Q(user__is_superuser=True)))
 
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
