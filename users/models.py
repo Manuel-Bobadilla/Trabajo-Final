@@ -27,15 +27,12 @@ class Volunteer(models.Model):
             activities = ActivitieDetailPage.objects.filter(volunteers = self)
 
             for volunteering in volunteerings:
-                print(volunteering)
                 volunteering.volunteers.remove(self)
 
             for activity in activities:
-                print(activity)
                 activity.volunteers.remove(self)
                 vehicle = self.vehicles.filter(activitie = activity)
                 if vehicle:
-                    print(vehicle)
                     vehicle[0].activitie = None
                     vehicle[0].save(force_update=True)
 
