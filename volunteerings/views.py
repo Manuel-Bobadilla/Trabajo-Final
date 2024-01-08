@@ -83,6 +83,14 @@ def InscriptionVolunteering(request):
 
     for volunteer in volunteeringVolunteers:
         if volunteer.id not in volunteersInscriptedIdList:
+            activities = ActivitieDetailPage.objects.filter(volunteering = volunteering)
+            for activity in activities:
+                activity.volunteers.remove(volunteer)
+                vehicle = volunteer.vehicles.filter(activitie = activity)
+                if vehicle:
+                    vehicle[0].activitie = None
+                    vehicle[0].save(force_update=True)
+
             volunteering.volunteers.remove(volunteer)
     
     for volunteer in volunteersInscripted:
