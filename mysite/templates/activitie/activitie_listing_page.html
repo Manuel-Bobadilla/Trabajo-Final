@@ -109,7 +109,7 @@
                                     <div class="card-footer bg-transparent border-0">
                                         <div class="row">
                                             <div class="col">
-                                                <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                                                <form action="{% url 'inscripcion_post' %}" method="POST">
                                                     {% csrf_token %}
                                                     <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
                                                     <div class="d-grid gap-2">
@@ -126,7 +126,7 @@
                                         <div class="card-footer bg-transparent border-0">
                                             <div class="row">
                                                 <div class="col">
-                                                    <form action="{% url 'inscripcion_post' post.pk %}" method="POST">
+                                                    <form action="{% url 'inscripcion_post' %}" method="POST">
                                                         {% csrf_token %}
                                                         <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
                                                         <div class="d-grid gap-2">

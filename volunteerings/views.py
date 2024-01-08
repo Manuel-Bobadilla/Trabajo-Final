@@ -101,7 +101,9 @@ def InscriptionVolunteering(request):
     mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
-    return ViewVolunteersVolunteeing(request)
+    url_destino = f'/voluntariados/'
+
+    return redirect(url_destino)
 
 def AttendanceVolunteering(request):
     #verificar que quien acceda sea un coordinador

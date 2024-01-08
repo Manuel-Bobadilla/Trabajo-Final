@@ -8,7 +8,7 @@ from django.http import QueryDict
 from django.db.models import Q
 import datetime
 
-def InscriptionView(request, pk):
+def InscriptionView(request):
     user = get_object_or_404(User, id=request.user.id)
     activitie = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     volunteer = get_object_or_404(Volunteer, user=user)
@@ -26,7 +26,9 @@ def InscriptionView(request, pk):
     mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
-    return ViewVolunteering(request) #cambiar para que determine la url de retorno de manera dinamica
+    url_destino = f'/voluntariado/?volunteering_id={request.POST.get("volunteering_id")}'
+
+    return redirect(url_destino)
 
 def VisualizeEnrolledView(request):
     #verificar que quien acceda sea un coordinador
@@ -93,7 +95,9 @@ def AddAttendance(request):
     mutable_get['actividad_id'] = request.POST.get("actividad_id")
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
     
-    return TakeAttendance(request)
+    url_destino = f'/voluntariado/?volunteering_id={activity.volunteering.id}'
+
+    return redirect(url_destino)
 
 
 def AttendanceRecord(request):
@@ -165,4 +169,6 @@ def RestartInscription(request):
     mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
-    return ViewVolunteering(request)
+    url_destino = f'/voluntariado/?volunteering_id={request.POST.get("volunteering_id")}'
+
+    return redirect(url_destino)

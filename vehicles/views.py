@@ -31,12 +31,16 @@ def AddVehicleView(request):
     vehicle = Vehicle(domain=domain, brand=brand, model=model, proprietary=volunteer, room=room)
     vehicle.save()
 
-    return VehiclesView(request)
+    url_destino = f'/vehiculos/'
+
+    return redirect(url_destino)
 
 def DeleteVehicleView(request):
     Vehicle.objects.get(id=request.POST.get("vehicle_id")).delete()
 
-    return VehiclesView(request)
+    url_destino = f'/vehiculos/'
+
+    return redirect(url_destino)
 
 def SelectVehicleView(request):
     user = User.objects.get(id = request.user.id)
@@ -58,6 +62,8 @@ def SelectVehicleView(request):
     mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
         
-    return ViewVolunteering(request)
+    url_destino = f'/voluntariado/?volunteering_id={request.POST.get("volunteering_id")}'
+
+    return redirect(url_destino)
 
 
