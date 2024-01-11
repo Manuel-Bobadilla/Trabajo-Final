@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.apps import apps
 import datetime
 
 
@@ -16,6 +17,27 @@ class Volunteer(models.Model):
     ingreso = models.DateField(blank=False, null=False, default = datetime.date.today, help_text="Fecha de ingreso al VUCC")
     coordinador = models.BooleanField(blank=False, null=False, default=False, help_text="Coordinador de voluntariado")
     validated = models.BooleanField(blank=False, null=False, help_text="Voluntario validado")
+
+    def save(self, *args, **kwargs):
+        if not self.validated:
+            if self.id:
+                Volunteering = apps.get_model('volunteerings', 'Volunteering')
+                ActivitieDetailPage = apps.get_model('activitie', 'ActivitieDetailPage')
+
+                volunteerings = Volunteering.objects.filter(volunteers = self)
+                activities = ActivitieDetailPage.objects.filter(volunteers = self)
+
+                for volunteering in volunteerings:
+                    volunteering.volunteers.remove(self)
+
+                for activity in activities:
+                    activity.volunteers.remove(self)
+                    vehicle = self.vehicles.filter(activitie = activity)
+                    if vehicle:
+                        vehicle[0].activitie = None
+                        vehicle[0].save(force_update=True)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.user.last_name + " " + self.user.first_name)

@@ -83,6 +83,14 @@ def InscriptionVolunteering(request):
 
     for volunteer in volunteeringVolunteers:
         if volunteer.id not in volunteersInscriptedIdList:
+            activities = ActivitieDetailPage.objects.filter(volunteering = volunteering)
+            for activity in activities:
+                activity.volunteers.remove(volunteer)
+                vehicle = volunteer.vehicles.filter(activitie = activity)
+                if vehicle:
+                    vehicle[0].activitie = None
+                    vehicle[0].save(force_update=True)
+
             volunteering.volunteers.remove(volunteer)
     
     for volunteer in volunteersInscripted:
@@ -93,7 +101,9 @@ def InscriptionVolunteering(request):
     mutable_get['volunteering_id'] = request.POST.get("volunteering_id")
     request.GET = QueryDict(mutable_get.urlencode(), mutable=False)
 
-    return ViewVolunteersVolunteeing(request)
+    url_destino = f'/voluntariados/'
+
+    return redirect(url_destino)
 
 def AttendanceVolunteering(request):
     #verificar que quien acceda sea un coordinador
