@@ -20,21 +20,22 @@ class Volunteer(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.validated:
-            Volunteering = apps.get_model('volunteerings', 'Volunteering')
-            ActivitieDetailPage = apps.get_model('activitie', 'ActivitieDetailPage')
+            if self.id:
+                Volunteering = apps.get_model('volunteerings', 'Volunteering')
+                ActivitieDetailPage = apps.get_model('activitie', 'ActivitieDetailPage')
 
-            volunteerings = Volunteering.objects.filter(volunteers = self)
-            activities = ActivitieDetailPage.objects.filter(volunteers = self)
+                volunteerings = Volunteering.objects.filter(volunteers = self)
+                activities = ActivitieDetailPage.objects.filter(volunteers = self)
 
-            for volunteering in volunteerings:
-                volunteering.volunteers.remove(self)
+                for volunteering in volunteerings:
+                    volunteering.volunteers.remove(self)
 
-            for activity in activities:
-                activity.volunteers.remove(self)
-                vehicle = self.vehicles.filter(activitie = activity)
-                if vehicle:
-                    vehicle[0].activitie = None
-                    vehicle[0].save(force_update=True)
+                for activity in activities:
+                    activity.volunteers.remove(self)
+                    vehicle = self.vehicles.filter(activitie = activity)
+                    if vehicle:
+                        vehicle[0].activitie = None
+                        vehicle[0].save(force_update=True)
 
         super().save(*args, **kwargs)
 
