@@ -57,29 +57,55 @@ def ViewVolunteering(request):
 def ViewVolunteersVolunteeing(request):
     #verificar que quien acceda sea un coordinador
     coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id"))) | Q(user__is_superuser=True)))
-    
     volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
-    volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
-    restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(validated=False)).order_by("user__last_name")
+    volunteeringVolunteers = None
+    restOfVolunteers = None
+    coordinadores = "false"
+
+    if 'coordinadores' in request.GET:
+        if request.GET.get("coordinadores") == "false":
+            volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
+            restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(validated=False)).order_by("user__last_name")
+            coordinadores = "true"
+        else:
+            volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True, coordinador = True).order_by("user__last_name")
+            restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(Q(validated=False) | Q(coordinador = False))).order_by("user__last_name")
+    else:
+        volunteeringVolunteers = Volunteer.objects.filter(volunteering=volunteering, validated = True).order_by("user__last_name")
+        restOfVolunteers = Volunteer.objects.exclude(Q(volunteering=volunteering) | Q(validated=False)).order_by("user__last_name")
+        coordinadores = "true"
+
+        
 
     return render(request, "volunteerings/volunteers.html",{
          "volunteering":volunteering,
          "volunteeringVolunteers":volunteeringVolunteers,
          "restOfVolunteers":restOfVolunteers,
+         "coordinadores":coordinadores,
     })
 
 def InscriptionVolunteering(request):
     #verificar que quien acceda sea un coordinador
     coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id"))) | Q(user__is_superuser=True)))
-    
+    coordinadores = request.POST.get("coordinadores")
     volunteersInscriptedId = set()
+    volunteersInscripted = None
+    volunteering = None
+    volunteeringVolunteers = None
+
     for attendance in request.POST:
-        if attendance != "volunteering_id" and attendance != "csrfmiddlewaretoken":
+        if attendance != "volunteering_id" and attendance != "csrfmiddlewaretoken" and attendance != "coordinadores":
             volunteersInscriptedId.add(attendance)
     volunteersInscriptedIdList = list(volunteersInscriptedId)
-    volunteersInscripted = Volunteer.objects.filter(id__in = volunteersInscriptedIdList)
-    volunteering = get_object_or_404(Volunteering, id=request.POST.get("volunteering_id"))
-    volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
+
+    if coordinadores == "true":
+        volunteersInscripted = Volunteer.objects.filter(id__in = volunteersInscriptedIdList)
+        volunteering = get_object_or_404(Volunteering, id=request.POST.get("volunteering_id"))
+        volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
+    else:
+        volunteersInscripted = Volunteer.objects.filter(id__in = volunteersInscriptedIdList, coordinador = True)
+        volunteering = get_object_or_404(Volunteering, id=request.POST.get("volunteering_id"))
+        volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering, coordinador = True)
 
     for volunteer in volunteeringVolunteers:
         if volunteer.id not in volunteersInscriptedIdList:
