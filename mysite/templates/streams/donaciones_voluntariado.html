@@ -1,0 +1,10 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+
+<div class="container" style="margin-top: 3%;">
+    <h5>{{ self.titulo }}</h5>
+    <h5>{{ self.CBU }}</h5>
+    {% for contacto in self.Contactos %}
+        {% include_block contacto %}
+    {% endfor %}
+</div>

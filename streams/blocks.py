@@ -174,3 +174,24 @@ class ColumnElements(blocks.StructBlock):
         template = "streams/column_elements.html"
         icon = "edit"
         label = "Columnas"
+
+class Instagram(blocks.StructBlock):
+    cuenta = blocks.CharBlock(required=True, help_text="Nombre cuenta instagram")
+
+    class Meta:
+        template = "streams/instagram.html"
+        icon = "edit"
+        label = "Instagram"
+
+class DonacionVoluntariado(blocks.StructBlock):
+    titulo = blocks.CharBlock(required=True, help_text="Titulo del item de donacion")
+    CBU = blocks.IntegerBlock(required=False, help_text="CBU para recibir donaciones")
+    Contactos = blocks.ListBlock(
+        Instagram()
+    )
+
+    class Meta:
+        template = "streams/donaciones_voluntariado.html"
+        icon = "edit"
+        lable = "Donaciones"
+
