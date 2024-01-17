@@ -33,7 +33,10 @@ def InscriptionView(request):
 def VisualizeEnrolledView(request):
     #verificar que quien acceda sea un coordinador
     activitie = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=activitie.volunteering.id)) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activitie.volunteering.id))
 
     volunteers = Volunteer.objects.filter(activities = activitie)
     vehicles = Vehicle.objects.filter(activitie = activitie)
@@ -49,7 +52,10 @@ def VisualizeEnrolledView(request):
 def TakeAttendance(request):
     #verificar que quien acceda sea un coordinador
     activitie = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=activitie.volunteering.id)) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activitie.volunteering.id))
 
     volunteers = Volunteer.objects.filter(activities = activitie)
     dateAttendance = Attendance.objects.filter(activity = activitie, date = datetime.date.today())
@@ -69,7 +75,10 @@ def TakeAttendance(request):
 def AddAttendance(request):
     #verificar que quien acceda sea un coordinador
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id)) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
 
     volunteersPresentId = set()
     for attendance in request.POST:
@@ -103,7 +112,10 @@ def AddAttendance(request):
 def AttendanceRecord(request):
     #verificar que quien acceda sea un coordinador
     activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id)) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
 
     last_restart = Restart.objects.all().order_by('-date').first()
     
@@ -128,7 +140,10 @@ def AttendanceRecord(request):
 def VolunteerAttendanceRecord(request):
     #verificar que quien acceda sea un coordinador
     activity = get_object_or_404(ActivitieDetailPage, id=request.GET.get("actividad_id"))
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id)) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
 
     last_restart = Restart.objects.all().order_by('-date').first()
 
@@ -154,7 +169,10 @@ def VolunteerAttendanceRecord(request):
 
 def RestartInscription(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id"))) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id")))
 
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     vehicles = Vehicle.objects.filter(activitie = activity)
