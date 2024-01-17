@@ -6,6 +6,7 @@ from volunteerings.views import ViewVolunteering
 from restart.models import Restart
 from django.http import QueryDict
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
 def InscriptionView(request):
