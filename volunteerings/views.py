@@ -6,6 +6,7 @@ from restart.models import Restart
 from users.models import Volunteer, User
 from django.db.models import Q
 from django.http import QueryDict
+from django.core.exceptions import ObjectDoesNotExist
 import datetime
 
 def Volunteerings(request):
@@ -56,7 +57,10 @@ def ViewVolunteering(request):
 
 def ViewVolunteersVolunteeing(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id"))) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
     volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
     volunteeringVolunteers = None
     restOfVolunteers = None
@@ -86,7 +90,10 @@ def ViewVolunteersVolunteeing(request):
 
 def InscriptionVolunteering(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id"))) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id")))
     coordinadores = request.POST.get("coordinadores")
     volunteersInscriptedId = set()
     volunteersInscripted = None
@@ -133,7 +140,10 @@ def InscriptionVolunteering(request):
 
 def AttendanceVolunteering(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id"))) | Q(user__is_superuser=True)))
+    try:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
+    except ObjectDoesNotExist:
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
 
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
