@@ -49,13 +49,13 @@ def SelectVehicleView(request):
     activitie = get_object_or_404(ActivitieDetailPage, id=activitieAndVehicle["post_id"])
     vehicle = volunteer.vehicles.filter(activitie = activitie)
     if vehicle:
-        vehicle[0].activitie = None
+        vehicle[0].activitie.remove(activitie)
         vehicle[0].save(force_update=True)
 
     if activitieAndVehicle["vehicle"] != "Ninguno":
         vehicle_domain = activitieAndVehicle["vehicle"]
-        vehicle = Vehicle.objects.get(domain=vehicle_domain)
-        vehicle.activitie = activitie
+        vehicle = Vehicle.objects.get(domain=vehicle_domain, proprietary=volunteer)
+        vehicle.activitie.add(activitie)
         vehicle.save(force_update=True)
 
     mutable_get = request.GET.copy()

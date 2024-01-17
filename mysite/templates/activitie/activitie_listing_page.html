@@ -87,11 +87,13 @@
                             {% else %}
                                 {% if post in activities %}
                                     {% for vehicle in vehicles %}
-                                        {% if vehicle.activitie == post %}
-                                            <div class="card-body">
-                                                Vehiculo seleccionado {{ vehicle }}
-                                            </div>
-                                        {% endif %}
+                                        {% for activitie in vehicle.activitie.all %}
+                                            {% if activitie == post %}
+                                                <div class="card-body">
+                                                    Vehiculo seleccionado {{ vehicle }}
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endfor %}
                                     <div class="card-body">
                                         <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">

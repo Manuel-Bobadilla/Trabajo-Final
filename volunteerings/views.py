@@ -34,7 +34,6 @@ def ViewVolunteering(request):
         if volunteer[0].validated:
             activities = ActivitieDetailPage.objects.filter(volunteers = volunteer[0])
             vehicles = volunteer[0].vehicles.all()
-            vehicles = vehicles
             activities = activities
             volunteer = volunteer[0]
             return render(request, "activitie/activitie_listing_page.html",{
@@ -121,7 +120,7 @@ def InscriptionVolunteering(request):
                 activity.volunteers.remove(volunteer)
                 vehicle = volunteer.vehicles.filter(activitie = activity)
                 if vehicle:
-                    vehicle[0].activitie = None
+                    vehicle[0].activitie.remove(activity)
                     vehicle[0].save(force_update=True)
 
             volunteering.volunteers.remove(volunteer)

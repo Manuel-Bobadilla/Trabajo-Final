@@ -18,7 +18,7 @@ def InscriptionView(request):
             activitie.volunteers.remove(volunteer)
             vehicle = volunteer.vehicles.filter(activitie = activitie)
             if vehicle:
-                vehicle[0].activitie = None
+                vehicle[0].activitie.remove(activitie)
                 vehicle[0].save(force_update=True)
         else:
             activitie.volunteers.add(volunteer)
@@ -181,7 +181,7 @@ def RestartInscription(request):
     activity.volunteers.clear()
     
     for vehicle in vehicles:
-        vehicle.activitie = None
+        vehicle.activitie.remove(activity)
         vehicle.save()
 
     mutable_get = request.GET.copy()

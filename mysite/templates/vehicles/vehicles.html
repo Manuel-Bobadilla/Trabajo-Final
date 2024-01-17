@@ -52,10 +52,14 @@
                             <td>{{ vehicle.brand }}</td>
                             <td>{{ vehicle.model }}</td>
                             <td>{{ vehicle.room }}</td>
-                            {% if vehicle.activitie %}
-                                <td>Inscripto en {{ vehicle.activitie.custom_title }}</td>
+                            {% if vehicle.activitie.all %}
+                                <td>Inscripto en
+                                    {% for activity in vehicle.activitie.all %}
+                                         - {{ activity.custom_title }}
+                                    {% endfor %}
+                                </td>
                             {% else %}
-                                <td>No esta inscripto en ninguna actividad</td>
+                                    <td>No esta inscripto en ninguna actividad</td>
                             {% endif %}
                             <td> 
                                 <form action="{% url 'delete_vehicle' %}" method="POST">
