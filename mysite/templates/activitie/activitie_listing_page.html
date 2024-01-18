@@ -79,21 +79,19 @@
                                 </div>
                             {% else %}
                                 {% if post in activities %}
-                                    {% for vehicle in vehicles %}
-                                        {% for activitie in vehicle.activitie.all %}
-                                            {% if activitie == post %}
-                                                <div style="height: 10vh; margin-left: 5%;">
-                                                    Vehiculo seleccionado {{ vehicle }}
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endfor %}
                                     <div style="height: 10vh; width: 90%; margin-left: 5%;">
                                         <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
                                             <select class="form-select" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
                                                 <option disabled selected hidden>Seleccionar un vehiculo</option> 
+                                            {% for vehicle in vehicles %}
+                                                {% for activitie in vehicle.activitie.all %}
+                                                    {% if activitie == post %}
+                                                        <option disabled selected hidden>Vehiculo {{ vehicle }}</option> 
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
                                                 <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
                                                 {% for vehicle in vehicles %}
                                                     <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
