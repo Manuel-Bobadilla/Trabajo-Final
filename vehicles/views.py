@@ -43,18 +43,25 @@ def DeleteVehicleView(request):
     return redirect(url_destino)
 
 def SelectVehicleView(request):
-    user = User.objects.get(id = request.user.id)
-    volunteer = Volunteer.objects.get(user = user)
+    volunteer = Volunteer.objects.get(user__id = request.user.id)
     activitieAndVehicle = json.loads(request.POST.get("vehicle_option"))
     activitie = get_object_or_404(ActivitieDetailPage, id=activitieAndVehicle["post_id"])
     vehicle = volunteer.vehicles.filter(activitie = activitie)
     if vehicle:
         vehicle[0].activitie.remove(activitie)
         vehicle[0].save(force_update=True)
+        if vehicle[0].domain == "Pasajero":
+            vehicle[0].delete()
 
-    if activitieAndVehicle["vehicle"] != "Ninguno":
+    if activitieAndVehicle["vehicle"] != "Ninguno" and activitieAndVehicle["vehicle"] != "Pasajero":
         vehicle_domain = activitieAndVehicle["vehicle"]
         vehicle = Vehicle.objects.get(domain=vehicle_domain, proprietary=volunteer)
+        vehicle.activitie.add(activitie)
+        vehicle.save(force_update=True)
+
+    if activitieAndVehicle["vehicle"] == "Pasajero":
+        vehicle = Vehicle(domain="Pasajero", brand="", model="", proprietary=volunteer)
+        vehicle.save()
         vehicle.activitie.add(activitie)
         vehicle.save(force_update=True)
 

@@ -93,6 +93,7 @@
                                                 {% endfor %}
                                             {% endfor %}
                                                 <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
+                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Pasajero"}'>Soy pasajero|Me llevan</option>
                                                 {% for vehicle in vehicles %}
                                                     <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
                                                 {% endfor %}

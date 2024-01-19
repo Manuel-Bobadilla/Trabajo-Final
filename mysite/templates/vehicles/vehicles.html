@@ -47,29 +47,31 @@
                 </thead>
                 <tbody>
                     {% for vehicle in vehicles %}
-                        <tr class="table-active">
-                            <th scope="row">{{ vehicle.domain }}</th>
-                            <td>{{ vehicle.brand }}</td>
-                            <td>{{ vehicle.model }}</td>
-                            <td>{{ vehicle.room }}</td>
-                            {% if vehicle.activitie.all %}
-                                <td>Inscripto en
-                                    {% for activity in vehicle.activitie.all %}
-                                         - {{ activity.custom_title }}
-                                    {% endfor %}
+                        {% if vehicle.domain != "Pasajero"%}
+                            <tr class="table-active">
+                                <th scope="row">{{ vehicle.domain }}</th>
+                                <td>{{ vehicle.brand }}</td>
+                                <td>{{ vehicle.model }}</td>
+                                <td>{{ vehicle.room }}</td>
+                                {% if vehicle.activitie.all %}
+                                    <td>Inscripto en
+                                        {% for activity in vehicle.activitie.all %}
+                                            - {{ activity.custom_title }}
+                                        {% endfor %}
+                                    </td>
+                                {% else %}
+                                        <td>No esta inscripto en ninguna actividad</td>
+                                {% endif %}
+                                <td> 
+                                    <form action="{% url 'delete_vehicle' %}" method="POST">
+                                        {% csrf_token %}
+                                        <button type="submit", name="vehicle_id" value="{{ vehicle.id }}", class="btn btn-primary">
+                                            -
+                                        </button>
+                                    </form>  
                                 </td>
-                            {% else %}
-                                    <td>No esta inscripto en ninguna actividad</td>
-                            {% endif %}
-                            <td> 
-                                <form action="{% url 'delete_vehicle' %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit", name="vehicle_id" value="{{ vehicle.id }}", class="btn btn-primary">
-                                        -
-                                    </button>
-                                </form>  
-                            </td>
-                        </tr>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </tbody>
             </table>
