@@ -217,4 +217,5 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_PRESERVE_USERNAME_CASING = False
 ACCOUNT_FORMS = {
     'signup': 'forms.models.CustomSignupForm',
+    'login' : 'forms.models.CustomLoginForm'
 }
