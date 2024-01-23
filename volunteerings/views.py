@@ -147,12 +147,17 @@ def AttendanceVolunteering(request):
     print("Validó voluntarioooo!!!!")
 
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
+    print("obtuvo el voluntariado")
     volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
+    print("obtuvo los voluntarios")
     volunteeringActivities = ActivitieDetailPage.objects.filter(volunteering = volunteering)
+    print("obtuvo las actividades del voluntariado")
     last_restart = Restart.objects.all().order_by('-date').first()
+    print("obtuvo el ultimo reinicio")
 
     if last_restart:
         last_restart = last_restart.date
+    print("asigno la fecha del reinicio")
 
     #agrupar por volunteer
     attendances = Attendance.objects.filter(date__gte = last_restart, volunteer__in = volunteeringVolunteers, activity__in = volunteeringActivities)
