@@ -139,10 +139,12 @@ def InscriptionVolunteering(request):
 
 def AttendanceVolunteering(request):
     #verificar que quien acceda sea un coordinador
+    print("inicio funcion!!!!")
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
+    print("Validó voluntarioooo!!!!")
 
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
     volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
@@ -154,6 +156,7 @@ def AttendanceVolunteering(request):
 
     #agrupar por volunteer
     attendances = Attendance.objects.filter(date__gte = last_restart, volunteer__in = volunteeringVolunteers, activity__in = volunteeringActivities)
+    print("obtuvo asistencias")
 
     recordsVolunteersDict = {}
 
@@ -166,6 +169,7 @@ def AttendanceVolunteering(request):
     for volunteer in volunteeringVolunteers:
             if not volunteer in recordsVolunteersDict:
                 recordsVolunteersDict[volunteer] = 0
+    print("llego al final")
 
 
     return render(request, "volunteerings/attendances.html",
