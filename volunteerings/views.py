@@ -139,35 +139,24 @@ def InscriptionVolunteering(request):
 
 def AttendanceVolunteering(request):
     #verificar que quien acceda sea un coordinador
-    print("inicio funcion!!!!")
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
-    print("Validó voluntarioooo!!!!")
-    print("id voluntariado: ")
-    print(request.GET.get("volunteering_id"))
+
     volunteering = Volunteering.objects.filter(id = request.GET.get("volunteering_id"))
-    print("respuesta voluntariados")
-    print(volunteering)
-
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
-    print("obtuvo el voluntariado")
     volunteeringVolunteers = Volunteer.objects.filter(volunteering = volunteering)
-    print("obtuvo los voluntarios")
     volunteeringActivities = ActivitieDetailPage.objects.filter(volunteering = volunteering)
-    print("obtuvo las actividades del voluntariado")
     last_restart = Restart.objects.all().order_by('-date').first()
-    print("obtuvo el ultimo reinicio")
-
+    attendances = None
+    
     if last_restart:
-        last_restart = last_restart.date
-    print("asigno la fecha del reinicio")
+        attendances = Attendance.objects.filter(date__gte = last_restart.date, volunteer__in = volunteeringVolunteers, activity__in = volunteeringActivities)
+    else:
+        attendances = Attendance.objects.filter(volunteer__in = volunteeringVolunteers, activity__in = volunteeringActivities)
 
     #agrupar por volunteer
-    attendances = Attendance.objects.filter(date__gte = last_restart, volunteer__in = volunteeringVolunteers, activity__in = volunteeringActivities)
-    print("obtuvo asistencias")
-
     recordsVolunteersDict = {}
 
     for attendance in attendances:
@@ -179,8 +168,6 @@ def AttendanceVolunteering(request):
     for volunteer in volunteeringVolunteers:
             if not volunteer in recordsVolunteersDict:
                 recordsVolunteersDict[volunteer] = 0
-    print("llego al final")
-
 
     return render(request, "volunteerings/attendances.html",
                   {
