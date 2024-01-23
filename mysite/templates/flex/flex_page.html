@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <div class="container mt-4">
+    <div class="container mt-4" style="min-height: 75vh;">
         <h3>{{ self.subtitle }}</h3>    
         {% for block in page.content %}
             {% include_block block %}
@@ -18,27 +18,33 @@
             {% if settings.site_settings.SocialMediaSettings.whatsapp %}
                 <a
                     class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="{{ settings.site_settings.SocialMediaSettings.whatsapp }}"
+                    href="https://api.whatsapp.com/send/?phone={{ settings.site_settings.SocialMediaSettings.whatsapp }}&text&type=phone_number&app_absent=1"
                     role="button"
                     data-mdb-ripple-color="dark"
+                    target="_blank"
+                    style="text-decoration: none;"
                     ><i class="fab fa-whatsapp"></i
                 ></a>
             {% endif %}
             {% if settings.site_settings.SocialMediaSettings.instagram %}
                 <a
                     class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="{{ settings.site_settings.SocialMediaSettings.instagram }}"
+                    href="https://www.instagram.com/{{ settings.site_settings.SocialMediaSettings.instagram }}/"
                     role="button"
                     data-mdb-ripple-color="dark"
+                    target="_blank"
+                    style="text-decoration: none;"
                     ><i class="fab fa-instagram"></i
                 ></a>
             {% endif %}
             {% if settings.site_settings.SocialMediaSettings.email %}
                 <a
                     class="btn btn-link btn-floating btn-lg text-dark m-1"
-                    href="{{ settings.site_settings.SocialMediaSettings.email }}"
+                    href="mailto:{{ settings.site_settings.SocialMediaSettings.email }}"
                     role="button"
                     data-mdb-ripple-color="dark"
+                    target="_blank"
+                    style="text-decoration: none;"
                     ><i class="fa-regular fa-envelope"></i
                 ></a>
             {% endif %}
