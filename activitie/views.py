@@ -119,11 +119,12 @@ def AttendanceRecord(request):
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
 
     last_restart = Restart.objects.all().order_by('-date').first()
+    records = None
     
     if last_restart:
-        last_restart = last_restart.date
-
-    records = Attendance.objects.filter(date__gte = last_restart, activity = activity).order_by('-date', "volunteer__user__last_name")
+        records = Attendance.objects.filter(date__gte = last_restart.date, activity = activity).order_by('-date', "volunteer__user__last_name")
+    else:
+        records = Attendance.objects.filter(activity = activity).order_by('-date', "volunteer__user__last_name")
 
     recordsDaysList = list()
     for record in records:
@@ -147,11 +148,14 @@ def VolunteerAttendanceRecord(request):
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
 
     last_restart = Restart.objects.all().order_by('-date').first()
+    records = None
 
     if last_restart:
-        last_restart = last_restart.date
+        records = Attendance.objects.filter(date__gte = last_restart.date, activity = activity).order_by("volunteer__user__last_name", '-date')
+    else:
+        records = Attendance.objects.filter(activity = activity).order_by("volunteer__user__last_name", '-date')
 
-    records = Attendance.objects.filter(date__gte = last_restart, activity = activity).order_by("volunteer__user__last_name", '-date')
+    
     recordsVolunteersDict = {}
 
     for record in records:
