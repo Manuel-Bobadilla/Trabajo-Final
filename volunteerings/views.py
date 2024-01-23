@@ -21,7 +21,7 @@ def Volunteerings(request):
                                                                "volunteer": volunteer,})
 
 def ViewVolunteering(request):
-    volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
+    volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
     posts = ActivitieDetailPage.objects.filter(volunteering=volunteering)
     current_date = datetime.date.today()
     inscripted = False
@@ -145,6 +145,11 @@ def AttendanceVolunteering(request):
     except ObjectDoesNotExist:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
     print("Validó voluntarioooo!!!!")
+    print("id voluntariado: ")
+    print(request.GET.get("volunteering_id"))
+    volunteering = Volunteering.objects.filter(id = request.GET.get("volunteering_id"))
+    print("respuesta voluntariados")
+    print(volunteering)
 
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
     print("obtuvo el voluntariado")
