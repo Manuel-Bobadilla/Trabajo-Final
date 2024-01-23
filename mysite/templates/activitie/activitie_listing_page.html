@@ -5,7 +5,7 @@
     <div class="container mt-4">
         <div class="row justify-content-center">
             {% for post in posts %}
-                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-9 col-10 mt-4 d-flex" style="margin-bottom: 3%;">
+                <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-sm-9 col-10 mt-4 d-flex" style="margin-bottom: 3%;">
                     <div class="card shadow">
                         <div class="card-img-top">
                             {% image post.activitie_image fill-500x500 as activitie_img %}
@@ -23,43 +23,36 @@
                         </div>
                         {% if request.user.volunteer.coordinador and inscripted or request.user.is_superuser %}
                             <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'ver_inscriptos' %}" method="GET">
+                                <form action="{% url 'ver_inscriptos' %}" method="GET" style="margin-bottom: 3%;">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Ver inscriptos
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'tomar_asistencia' %}" method="GET">
+
+                                <form action="{% url 'tomar_asistencia' %}" method="GET" style="margin-bottom: 3%;">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Tomar asistencia
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'historial_asistencia' %}" method="GET">
+                                <form action="{% url 'historial_asistencia' %}" method="GET" style="margin-bottom: 3%;">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Historial asistencia por día
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'historial_asistencia_voluntario' %}" method="GET">
+                                <form action="{% url 'historial_asistencia_voluntario' %}" method="GET" style="margin-bottom: 3%;">
                                     <div class="d-grid gap-2">
                                         <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-primary">
                                             Historial asistencia por voluntario
                                         </button>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="card-footer bg-transparent border-0">
-                                <form action="{% url 'reiniciar_inscripciones' %}" method="POST">
+                                <form action="{% url 'reiniciar_inscripciones' %}" method="POST" style="margin-bottom: 3%;">
                                     {% csrf_token %}
                                     <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
                                     <div class="d-grid gap-2">
@@ -86,20 +79,21 @@
                                 </div>
                             {% else %}
                                 {% if post in activities %}
-                                    {% for vehicle in vehicles %}
-                                        {% if vehicle.activitie == post %}
-                                            <div class="card-body">
-                                                Vehiculo seleccionado {{ vehicle }}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <div class="card-body">
+                                    <div style="height: 10vh; width: 90%; margin-left: 5%;">
                                         <form id="vehicleSelectForm" action="{% url 'select_vehicle' %}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="volunteering_id", value="{{ volunteering.id }}">
                                             <select class="form-select" name="vehicle_option" id="vehicle_option" onchange="this.form.submit()">
                                                 <option disabled selected hidden>Seleccionar un vehiculo</option> 
+                                            {% for vehicle in vehicles %}
+                                                {% for activitie in vehicle.activitie.all %}
+                                                    {% if activitie == post %}
+                                                        <option disabled selected hidden>Vehiculo {{ vehicle }}</option> 
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
                                                 <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
+                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Pasajero"}'>Soy pasajero|Me llevan</option>
                                                 {% for vehicle in vehicles %}
                                                     <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
                                                 {% endfor %}

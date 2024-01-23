@@ -18,8 +18,7 @@ def RestartYear(request):
     volunteerings = Volunteering.objects.all()
 
     for vehicle in vehicles:
-        vehicle.activitie = None
-        vehicle.save()
+        vehicle.activitie.clear()
 
     for activity in activities:
         activity.volunteers.clear()

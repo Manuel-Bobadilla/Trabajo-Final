@@ -1,5 +1,6 @@
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.fields import StreamField
 from datetime import date
 
 class TitleAndTextBlock(blocks.StructBlock):
@@ -174,3 +175,39 @@ class ColumnElements(blocks.StructBlock):
         template = "streams/column_elements.html"
         icon = "edit"
         label = "Columnas"
+
+class Instagram(blocks.StructBlock):
+    cuenta = blocks.CharBlock(required=True, help_text="Nombre cuenta instagram")
+
+    class Meta:
+        template = "streams/instagram.html"
+        icon = "edit"
+        label = "Instagram"
+
+class Whatsapp(blocks.StructBlock):
+    numero = blocks.CharBlock(required=True, help_text="Número celular")
+
+    class Meta:
+        template = "streams/whatsapp.html"
+        icon = "edit"
+        label = "Whatsapp"
+
+class DonacionVoluntariado(blocks.StructBlock):
+    voluntariado = blocks.CharBlock(required=True, help_text="Titulo del item de donacion")
+    imagen = ImageChooserBlock(required=False, help_text="imagen del voluntariado")
+    alias = blocks.CharBlock(required=False, help_text="Alias para recibir donaciones")
+    
+    sugeridos = blocks.ListBlock(
+        blocks.CharBlock(help_text="Elementos sugeridos para donar")
+    )
+
+    contactos = blocks.StreamBlock([
+        ("Instagram", Instagram()),
+        ("Whatsapp", Whatsapp()),
+    ], use_json_field=True)
+
+    class Meta:
+        template = "streams/donaciones_voluntariado.html"
+        icon = "edit"
+        lable = "Donaciones"
+

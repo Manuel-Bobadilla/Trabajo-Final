@@ -1,0 +1,41 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+
+<div class="container col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-6 col-8 border rounded" style="margin-top: 3%;">
+    <div class="fw-bold" style="margin-top: 3%;">
+        {% image self.imagen fill-500x500 as imagen %}
+        <img src="{{ imagen.url }}" class="border rounded-circle" style="height: 4em; aspect-ratio: 1 / 1;">
+        {{ self.voluntariado }}
+    </div>
+    <div style="font-size: 0.89em; margin-bottom: 3%;">
+        {% if self.alias %}
+            <div style="position: relative;">
+                <hr style="margin-top: 8%; margin-bottom: 4%;">
+                <p class="fw-light" style="position: absolute; top: 50%; transform: translate(0%, -50%); z-index: 1; font-size: small; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">Apoyo económico</p>
+            </div>
+            <div style="margin-left: 1%;">alias: {{ self.alias }}</div>
+        {% endif %}
+        {% if self.sugeridos %}
+            <div style="position: relative;">
+                <hr style="margin-top: 8%; margin-bottom: 4%;">
+                <p class="fw-light" style="position: absolute; top: 50%; transform: translate(0%, -50%); z-index: 1; font-size: small; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">Elementos sugeridos</p>
+            </div>
+            <div>
+                {% for sugerido in self.sugeridos %}
+                    <div style="margin-left: 1%;">{{ sugerido }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if self.contactos %}
+            <div style="position: relative;">
+                <hr style="margin-top: 8%; margin-bottom: 4%;">
+                <p style="position: absolute; top: 50%; transform: translate(0%, -50%); z-index: 1; font-size: small; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">Contactos</p>
+            </div>
+            <div style="margin-left: 1%;">
+                {% for contacto in self.contactos %}
+                    {% include_block contacto %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

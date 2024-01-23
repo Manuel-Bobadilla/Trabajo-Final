@@ -28,7 +28,11 @@
                         {% if volunteer in volunteersWithVehicle %}
                             {% for vehicle in vehicles %}
                                 {% if vehicle.proprietary == volunteer %}
-                                    <td>{{ vehicle.brand }} {{ vehicle.model }}<br>{{ vehicle.room }} plazas</td>
+                                    {% if vehicle.domain == "Pasajero" %}
+                                        <td>{{ vehicle.domain }}</td>
+                                    {% else %}
+                                        <td>{{ vehicle.brand }} {{ vehicle.model }}<br>{{ vehicle.room }} plazas</td>
+                                    {% endif %}
                                 {% endif %}
                             {% endfor %}
                         {% else %}
