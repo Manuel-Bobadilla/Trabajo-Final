@@ -198,16 +198,25 @@ class DonacionVoluntariado(blocks.StructBlock):
     alias = blocks.CharBlock(required=False, help_text="Alias para recibir donaciones")
     
     sugeridos = blocks.ListBlock(
-        blocks.CharBlock(help_text="Elementos sugeridos para donar")
-    )
+        blocks.CharBlock(required=False, blank="True", help_text="Elementos sugeridos para donar"), required=False, blank=True
+    )   
 
     contactos = blocks.StreamBlock([
         ("Instagram", Instagram()),
         ("Whatsapp", Whatsapp()),
-    ], use_json_field=True)
+    ], required=False, use_json_field=True)
 
     class Meta:
         template = "streams/donaciones_voluntariado.html"
         icon = "edit"
-        lable = "Donaciones"
+        label = "Donaciones"
 
+class Donaciones(blocks.StructBlock):
+    elemento_donacion = blocks.ListBlock(
+        DonacionVoluntariado(),
+    )
+
+    class Meta:
+        template = "streams/donaciones.html"
+        icon = "edit"
+        label = "Donacion"

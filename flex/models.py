@@ -23,7 +23,7 @@ class FlexPage(Page):
             ("horizontal_allign_elements", blocks.HorizontalAllignElements()),
             ("faq", blocks.FAQ()),
             ("column_elements", blocks.ColumnElements()),
-            ("donaciones_voluntariado", blocks.DonacionVoluntariado()),
+            ("donaciones", blocks.Donaciones()),
         ],
         null=True, blank=True, use_json_field=True)
 

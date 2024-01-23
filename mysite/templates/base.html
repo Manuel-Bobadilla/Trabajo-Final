@@ -39,7 +39,7 @@
 
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="/"><img class="rounded" src="{% static 'images/voluntariadoUCC.jpeg' %}" id="image_navbar"></a>
+              <a class="navbar-brand" href="/"><img class="rounded-circle" src="{% static 'images/voluntariadoUCC.jpeg' %}" id="image_navbar"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -54,7 +54,7 @@
                   {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
                       <li class="nav-item">
-                        <a class="nav-link" href="/admin/" class="nav-link d-inline">Administrar</a>
+                        <a class="nav-link" href="/admin/" target="_blank" class="nav-link d-inline">Administrar</a>
                       </li>
                     {% endif %}
                     {% if request.user.volunteer.coordinador or request.user.is_superuser %}

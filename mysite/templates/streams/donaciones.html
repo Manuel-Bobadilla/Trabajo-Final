@@ -1,0 +1,7 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+<div class="row justify-content-center">
+    {% for elemento_donacion in self.elemento_donacion %}
+        {% include_block elemento_donacion %}
+    {% endfor %}
+</div>

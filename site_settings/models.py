@@ -4,9 +4,9 @@ from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 
 @register_setting
 class SocialMediaSettings(BaseSiteSetting):
-    whatsapp =  models.URLField(blank=True, null=True, help_text="Whatsapp URL")
-    instagram = models.URLField(blank=True, null=True, help_text="Instagram URL")
-    email = models.URLField(blank=True, null=True, help_text="Email URL")
+    whatsapp =  models.CharField(blank=True, null=True, help_text="Número Whatsapp")
+    instagram = models.CharField(blank=True, null=True, help_text="Nombre cuenta Instagram")
+    email = models.CharField(blank=True, null=True, help_text="Dirección Email")
 
     panels = [
         MultiFieldPanel([
