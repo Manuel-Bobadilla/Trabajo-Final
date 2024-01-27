@@ -1,61 +1,115 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailcore_tags %}
 {% block content %}
 
-    <div class="container">
-        <h4 class="mt-3">
-            Hola
-            {% if volunteer.validated %}
-                {{ volunteer.user.first_name }}, bienvenido!
-            {% else %}
-                bienvenido! Su cuenta todavia no ha sido verificada por un coordinador.
-            {% endif %}
-        </h4>
-
-        {% if restartAvailable %}
-            <div class="text-center">
-                <form action="{% url 'restart_year' %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">
-                        Reiniciar inscripciones a voluntariados
-                    </button>
-                </form>
-            </div>
-        {% endif %}
-
         {% if volunteer.validated %}
-            <div class="row justify-content-center" style="margin-top: 3%;">
-                {% for volunteering in volunteerings %}
-                    <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5" style="margin-bottom: 3%;">
-                        <div class="card shadow">
-                            <div class="row justify-content-center">
-                                <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
-                            </div>
-                            <div class="row">
-                                <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="GET">
-                                    <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
-                                        Ver
-                                    </button>
-                                </form>
+            <div class="container">
+                <h4 style="margin-top: 3%;">
+                    Hola {{ volunteer.user.first_name }}, bienvenido!
+                </h4>
+                {% if restartAvailable %}
+                    <div class="text-center">
+                        <form action="{% url 'restart_year' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                Reiniciar inscripciones a voluntariados
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+                <div class="row justify-content-center" style="margin-top: 3%;">
+                    {% for volunteering in volunteerings %}
+                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5" style="margin-bottom: 3%;">
+                            <div class="card shadow">
+                                <div class="row justify-content-center">
+                                    <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
+                                </div>
+                                <div class="row">
+                                    <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="GET">
+                                        <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
+                                            Ver
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                {% if self.content %}
+                    {% for bulletin in self.content %}
+                        <div class="row justify-content-center">
+                            <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-10 col-10 mt-2">
+                                {{ bulletin }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    No hay ninguna novedad!
+                {% endif %}
             </div>
-            {% if self.content %}
-
-                {% for bulletin in self.content %}
-                    <div class="row justify-content-center">
-                        <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-8 col-sm-10 col-10 mt-2">
-                            {{ bulletin }}
-                        </div>
-                    </div>
-                {% endfor %}
-
-            {% else %}
-                No hay ninguna novedad!
-            {% endif %}
+        {% else %}
+            <div class="container">
+                <div style="margin: auto; text-align: center;">
+                    <h4 style="margin-top: 3%;">
+                        ¡Bienvenido!
+                        <br>
+                        Su cuenta todavía no ha sido validada.
+                    </h4>
+                    <img src="{% static 'images/tiempo-restante.png' %}" style="width:  15%; aspect-ratio: 1 / 1;margin-top: 3%;">
+                    <h5 style="margin-top: 5%;">
+                        Cualquier consulta comuníquese con su coordinador o directivo del VUCC.
+                    </h5>
+                </div>
+            </div>
+            <footer class="text-center text-white mt-4" style="background-color: #f1f1f1;">
+                <!-- Grid container -->
+                <div class="container pt-4">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    {% if settings.site_settings.SocialMediaSettings.whatsapp %}
+                        <a
+                            class="btn btn-link btn-floating btn-lg text-dark m-1"
+                            href="https://api.whatsapp.com/send/?phone={{ settings.site_settings.SocialMediaSettings.whatsapp }}&text&type=phone_number&app_absent=1"
+                            role="button"
+                            data-mdb-ripple-color="dark"
+                            target="_blank"
+                            style="text-decoration: none;"
+                            ><i class="fab fa-whatsapp"></i
+                        ><div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.whatsapp }}</div></a>
+                    {% endif %}
+                    {% if settings.site_settings.SocialMediaSettings.instagram %}
+                        <a
+                            class="btn btn-link btn-floating btn-lg text-dark m-1"
+                            href="https://www.instagram.com/{{ settings.site_settings.SocialMediaSettings.instagram }}/"
+                            role="button"
+                            data-mdb-ripple-color="dark"
+                            target="_blank"
+                            style="text-decoration: none;"
+                            ><i class="fab fa-instagram"></i
+                        ><div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.instagram }}</div></a>
+                    {% endif %}
+                    {% if settings.site_settings.SocialMediaSettings.email %}
+                        <a class="btn btn-link btn-floating btn-lg text-dark m-1"
+                            href="mailto:{{ settings.site_settings.SocialMediaSettings.email }}"
+                            role="button"
+                            data-mdb-ripple-color="dark"
+                            target="_blank"
+                            style="text-decoration: none;">
+                            <i class="fa-regular fa-envelope"></i>
+                            <div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.email }}</div>
+                        </a>
+                    {% endif %}
+                </section>
+                <!-- Section: Social media -->
+                </div>
+                <!-- Grid container -->
+            
+                <!-- Copyright -->
+                <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    Voluntariado Universidad Católica de Córdoba
+                </div>
+                <!-- Copyright -->
+            </footer>
         {% endif %}
-    </div>
 
 {% endblock content %}
