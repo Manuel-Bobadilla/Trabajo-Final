@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load static i18n %}
+
+{% block title %}{% trans "Verificación eMail" %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin: auto; text-align: center;">
+            <h4 style="margin-top: 3%;">
+                {% trans "Verifica tu casilla de mail" %}
+            </h4>
+            <img src="{% static 'images/email.png' %}" style="width:  15%; aspect-ratio: 1 / 1;">
+            <div>
+                Te enviamos un email para que puedas realizar la verificación. Haz click en el link que te enviamos para confirmar tu registro.
+            </div>
+        </div>
+    </div>
+{% endblock content %}
