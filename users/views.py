@@ -54,6 +54,7 @@ def ViewVolunteers(request):
         for record in records:
             if record.volunteer in recordsVolunteersDict:
                 recordsVolunteersDict[record.volunteer] += 1
+                
             else:
                 recordsVolunteersDict[record.volunteer] = 1
 

@@ -1,28 +1,42 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
-<div class="row justify-content-center">
-    <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-9 col-10">
-    {% for recordActivity, attendance in recordsActivityList.items %}
-        <div class="card-body card shadow" style="margin-top: 5%;">
-            <div class="card-title" style="margin-bottom: 0;">
-                <h4>{{ recordActivity }}</h4>
-                <p style="margin-bottom: 0;">Asistencias: {{attendance}}</p>
-            </div>
-            <div class="card-body">
-            {% for record in records %}
-                {% if record.activity == recordActivity or record.activity_title == recordActivity %}
-                    <span class="badge rounded-pill text-bg-primary" style="margin-top: 3%;">
-                        {{ record.date|date:'d/m/Y' }}
-                    </span>
-                {% endif %}
-            {% endfor %}
+    {% if recordsActivityList.items %}
+        <div class="row justify-content-center">
+            <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-6 col-sm-9 col-10">
+                {% for recordActivity, attendance in recordsActivityList.items %}
+                    <div class="card-body card shadow" style="margin-top: 5%;">
+                        <div class="card-title" style="margin-bottom: 0;">
+                            <h4>{{ recordActivity }}</h4>
+                            <p style="margin-bottom: 0;">Asistencias: {{attendance}}</p>
+                        </div>
+                        <div class="card-body">
+                        {% for record in records %}
+                            {% if record.activity == recordActivity or record.activity_title == recordActivity %}
+                                <span class="badge rounded-pill text-bg-primary" style="margin-top: 3%;">
+                                    {{ record.date|date:'d/m/Y' }}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-    {% endfor %}
-    </div>
-</div>
+    {% else %}
+        <div class="container">
+            <div style="margin: auto; text-align: center;">
+                <h4 style="margin-top: 3%;">
+                    No cuentas con asistencias registradas.
+                </h4>
+                <img src="{% static 'images/lista-de-verificacion.png' %}" style="width:  15%; aspect-ratio: 1 / 1;margin-top: 3%;">
+                <h5 style="margin-top: 5%;">
+                    Cualquier consulta comuníquese con su coordinador o directivo del VUCC.
+                </h5>
+            </div>
+        </div>
+    {% endif %}
 
 
 {% endblock %}
