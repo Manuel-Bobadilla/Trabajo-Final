@@ -93,9 +93,11 @@
                                                 {% endfor %}
                                             {% endfor %}
                                                 <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
-                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Pasajero"}'>Soy pasajero|Me llevan</option>
+                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Pasajero"}'>Soy pasajero, me llevan</option>
                                                 {% for vehicle in vehicles %}
-                                                    <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
+                                                    {% if vehicle.domain != "Pasajero" %}
+                                                        <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option>
+                                                    {% endif %} 
                                                 {% endfor %}
                                             </select>
                                         </form>
