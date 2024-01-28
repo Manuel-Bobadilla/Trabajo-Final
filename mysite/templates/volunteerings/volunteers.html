@@ -2,8 +2,8 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
     <div class="container">
-        <h2 style="margin-top: 5%;">{{ volunteering.name }}</h2>
-        <form class="d-flex" method="GET" action="{% url 'inscriptos_voluntariado' %}" style="margin-top: 1%;">
+        <h2 style="margin-top: 3%;">{{ volunteering.name }}</h2>
+        <form class="d-flex" method="GET" action="{% url 'inscriptos_voluntariado' %}" style="margin-top: 1.5%;">
             {% if coordinadores == "true" %}
                 <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}">Solo coordinadores</button>
             {% else %}
@@ -13,7 +13,7 @@
         </form>
         <form action="{% url 'inscription_volunteer' %}" method="POST">
             <input type="hidden", name="coordinadores", value="{{ coordinadores }}">
-            <h5 style="margin-top: 1%;">Voluntarios inscriptos</h5>
+            <h5 style="margin-top: 1.5%;">Voluntarios inscriptos</h5>
             <table class="table table-hover">
                 <thead>
                     <tr>
