@@ -17,7 +17,7 @@
                     {% if request.user.is_superuser %}
                         <form action="{% url 'coordinadores_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-top: 3%; min-width: 8.5em;">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-top: 3%; min-width: 9em; margin-right: 2%;">
                                     Coordinadores
                                 </button>
                             </div>
@@ -26,14 +26,14 @@
                     {% if request.user.volunteer.coordinador and volunteer in volunteering.coordinadores.all or request.user.is_superuser %}
                         <form action="{% url 'inscriptos_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%; margin-top: 3%; min-width: 8.5em;">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%; margin-top: 3%; min-width: 9em; margin-right: 2%;">
                                     Inscriptos
                                 </button>
                             </div>
                         </form>
                         <form action="{% url 'asistencia_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 8.5em;">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 9em; margin-right: 2%;">
                                     Asistencias
                                 </button>
                             </div>
@@ -41,7 +41,7 @@
                     {% endif %}
                     <form action="{% url 'ver_voluntariado' %}" method="GET">
                         <div class="d-grid d-md-flex justify-content-md-end">
-                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 8.5em;">
+                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 9em; margin-right: 2%;">
                                 Ver
                             </button>
                         </div>
