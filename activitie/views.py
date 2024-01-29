@@ -20,6 +20,8 @@ def InscriptionView(request):
             if vehicle:
                 vehicle[0].activitie.remove(activitie)
                 vehicle[0].save(force_update=True)
+                if vehicle[0].domain == "Pasajero":
+                    vehicle[0].delete()
         else:
             activitie.volunteers.add(volunteer)
 

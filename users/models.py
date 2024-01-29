@@ -38,8 +38,10 @@ class Volunteer(models.Model):
                     activity.volunteers.remove(self)
                     vehicle = self.vehicles.filter(activitie = activity)
                     if vehicle:
-                        vehicle[0].activitie.remove(activitie)
+                        vehicle[0].activitie.remove(activity)
                         vehicle[0].save(force_update=True)
+                        if vehicle[0].domain == "Pasajero":
+                            vehicle[0].delete()
         
         if not self.coordinador:
             Volunteering = apps.get_model('volunteerings', 'Volunteering')
