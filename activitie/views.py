@@ -84,8 +84,10 @@ def AddAttendance(request):
     volunteersPresentId = set()
     for attendance in request.POST:
         if attendance != "actividad_id" and attendance != "csrfmiddlewaretoken":
-            volunteersPresentId.add(attendance)
+            volunteersPresentId.add(int(attendance))
+    
     volunteersPresentIdList = list(volunteersPresentId)
+    print(volunteersPresentIdList)
     volunteersPresent = Volunteer.objects.filter(id__in = volunteersPresentIdList)
     volunteers = Volunteer.objects.filter(activities = activity)
     records = Attendance.objects.filter(volunteer__in = volunteers, activity = activity, date = datetime.date.today())

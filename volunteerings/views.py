@@ -120,7 +120,7 @@ def CoordinatorVolunteering(request):
 
     for attendance in request.POST:
         if attendance != "volunteering_id" and attendance != "csrfmiddlewaretoken":
-            volunteersInscriptedId.add(attendance)
+            volunteersInscriptedId.add(int(attendance))
 
     volunteersInscriptedIdList = list(volunteersInscriptedId)
 
