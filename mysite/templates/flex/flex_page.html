@@ -24,7 +24,7 @@
                     target="_blank"
                     style="text-decoration: none;"
                     ><i class="fab fa-whatsapp"></i
-                ></a>
+                ><div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.whatsapp }}</div></a>
             {% endif %}
             {% if settings.site_settings.SocialMediaSettings.instagram %}
                 <a
@@ -35,18 +35,18 @@
                     target="_blank"
                     style="text-decoration: none;"
                     ><i class="fab fa-instagram"></i
-                ></a>
+                ><div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.instagram }}</div></a>
             {% endif %}
             {% if settings.site_settings.SocialMediaSettings.email %}
-                <a
-                    class="btn btn-link btn-floating btn-lg text-dark m-1"
+                <a class="btn btn-link btn-floating btn-lg text-dark m-1"
                     href="mailto:{{ settings.site_settings.SocialMediaSettings.email }}"
                     role="button"
                     data-mdb-ripple-color="dark"
                     target="_blank"
-                    style="text-decoration: none;"
-                    ><i class="fa-regular fa-envelope"></i
-                ></a>
+                    style="text-decoration: none;">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.email }}</div>
+                </a>
             {% endif %}
           </section>
           <!-- Section: Social media -->
