@@ -59,7 +59,7 @@ def ViewVolunteersVolunteeing(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=request.GET.get("volunteering_id")))
     volunteering = Volunteering.objects.get(id=request.GET.get("volunteering_id"))
     volunteeringVolunteers = None
     restOfVolunteers = None
@@ -153,7 +153,7 @@ def InscriptionVolunteering(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id")))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=request.POST.get("volunteering_id")))
     coordinadores = request.POST.get("coordinadores")
     volunteersInscriptedId = set()
     volunteersInscripted = None
@@ -206,7 +206,7 @@ def AttendanceVolunteering(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.GET.get("volunteering_id")))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=request.GET.get("volunteering_id")))
 
     volunteering = Volunteering.objects.filter(id = request.GET.get("volunteering_id"))
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))

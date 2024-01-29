@@ -37,7 +37,7 @@ def VisualizeEnrolledView(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activitie.volunteering.id))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=activitie.volunteering.id))
 
     volunteers = Volunteer.objects.filter(activities = activitie)
     vehicles = Vehicle.objects.filter(activitie = activitie)
@@ -56,7 +56,7 @@ def TakeAttendance(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activitie.volunteering.id))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=activitie.volunteering.id))
 
     volunteers = Volunteer.objects.filter(activities = activitie)
     dateAttendance = Attendance.objects.filter(activity = activitie, date = datetime.date.today())
@@ -79,7 +79,7 @@ def AddAttendance(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=activity.volunteering.id))
 
     volunteersPresentId = set()
     for attendance in request.POST:
@@ -118,7 +118,7 @@ def AttendanceRecord(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=activity.volunteering.id))
 
     last_restart = Restart.objects.all().order_by('-date').first()
     records = None
@@ -147,7 +147,7 @@ def VolunteerAttendanceRecord(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=activity.volunteering.id))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=activity.volunteering.id))
 
     last_restart = Restart.objects.all().order_by('-date').first()
     records = None
@@ -179,7 +179,7 @@ def RestartInscription(request):
     try:
         coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(user__is_superuser=True))
     except ObjectDoesNotExist:
-        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(volunteering__id=request.POST.get("volunteering_id")))
+        coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & Q(coordinador=True) & Q(coordina__id=request.POST.get("volunteering_id")))
 
     activity = get_object_or_404(ActivitieDetailPage, id=request.POST.get("actividad_id"))
     vehicles = Vehicle.objects.filter(activitie = activity)
