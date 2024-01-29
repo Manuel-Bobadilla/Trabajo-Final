@@ -38,7 +38,7 @@ class Volunteer(models.Model):
                     activity.volunteers.remove(self)
                     vehicle = self.vehicles.filter(activitie = activity)
                     if vehicle:
-                        vehicle[0].activitie = None
+                        vehicle[0].activitie.remove(activitie)
                         vehicle[0].save(force_update=True)
         
         if not self.coordinador:
