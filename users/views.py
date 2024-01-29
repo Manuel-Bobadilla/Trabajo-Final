@@ -28,7 +28,7 @@ def VolunteerAttendanceView(request):
 
 def ViewVolunteers(request):
     #verificar que quien acceda sea un coordinador
-    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & (Q(coordinador=True) | Q(user__is_superuser=True)))
+    coordinator = Volunteer.objects.get(Q(user__id=request.user.id) & ((Q(coordinador=True) & Q(validated=True))| Q(user__is_superuser=True)))
 
     volunteers = None
     records = None

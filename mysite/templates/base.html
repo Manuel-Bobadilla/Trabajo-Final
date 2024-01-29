@@ -57,7 +57,7 @@
                         <a class="nav-link" href="/admin/" target="_blank" class="nav-link d-inline">Administrar</a>
                       </li>
                     {% endif %}
-                    {% if request.user.volunteer.coordinador or request.user.is_superuser %}
+                    {% if request.user.volunteer.coordinador and request.user.volunteer.validated or request.user.is_superuser %}
                       <li class="nav-item">
                         <a class="nav-link" href="{% url 'volunteers' %}" class="nav-link d-inline">Voluntarios</a>
                       </li>
