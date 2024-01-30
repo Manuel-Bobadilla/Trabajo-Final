@@ -3,6 +3,7 @@
 {% block content %}
     <div class="container">
         <h2 style="margin-top: 3%;">{{ volunteering.name }}</h2>
+        <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search" oninput="filtrarVoluntario(this.value)">
         <form class="d-flex" method="GET" action="{% url 'inscriptos_voluntariado' %}" style="margin-top: 1.5%;">
             {% if coordinadores == "true" %}
                 <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}">Solo coordinadores</button>
@@ -24,7 +25,7 @@
                 <tbody>
                     <input type="hidden" name="volunteering_id" value='{{ volunteering.id }}'/>
                     {% for volunteer in volunteeringVolunteers %}
-                        <tr class="table-default">
+                        <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
                             <td>{{ volunteer }}</td>
                             <td>
                                 <input checked="checked" name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
@@ -47,7 +48,7 @@
                 </thead>
                 <tbody>
                     {% for volunteer in restOfVolunteers %}
-                        <tr class="table-default">
+                        <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
                             <td>{{ volunteer }}</td>
                             <td>
                                 <input name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
