@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailcore_tags %}
 {% block content %}
 
+{% if posts %}
     <div class="container mt-4">
         <div class="row justify-content-center">
             {% for post in posts %}
@@ -197,5 +198,16 @@
             {% endfor %}
         </div>
     </div>
+{% else %}
+    <div style="margin: auto; text-align: center;">
+        <h4 style="margin-top: 3%;">
+            ¡Por el momento no hay actividades cargadas!
+        </h4>
+        <img src="{% static 'images/voluntario.png' %}" style="width:  15em; aspect-ratio: 1 / 1;margin-top: 3%;">
+        <h5 style="margin-top: 3%;">
+            ¡Revisa nuevamente más adeltante! 
+        </h5>
+    </div>
+{% endif %}
 
 {% endblock content %}

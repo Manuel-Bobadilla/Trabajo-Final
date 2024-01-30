@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
 
@@ -42,13 +42,14 @@
             </tbody>
         </table>
     {% else %}
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <h3>
-                    No hay inscriptos
-                </h3> 
-            </div>
+    <div class="container">
+        <div style="margin: auto; text-align: center;">
+            <h4 style="margin-top: 3%;">
+                No hay inscriptos hasta el momento.
+            </h4>
+            <img src="{% static 'images/lista-de-verificacion.png' %}" style="width:  10em; aspect-ratio: 1 / 1;margin-top: 3%;">
         </div>
+    </div>
     {% endif %}
 </div>
 
