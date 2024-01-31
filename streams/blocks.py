@@ -128,7 +128,6 @@ class HorizontalAllignElements(blocks.StructBlock):
         label = "Elementos Horizontales"
 
 class Question(blocks.StructBlock):
-    number = blocks.IntegerBlock(required=True, help_text="Número de pregunta, asegurese de que no se repita")
     question = blocks.CharBlock(required=True, help_text="Pregunta")
     responses = blocks.ListBlock(
         blocks.StructBlock([

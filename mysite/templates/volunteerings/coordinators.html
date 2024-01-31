@@ -1,21 +1,12 @@
 {% extends "base.html" %}
 {% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
-{% if volunteeringVolunteers or restOfVolunteers %}
+{% if volunteeringCoordinators or restOfCoordinators %}
     <div class="container">
         <h2 style="margin-top: 3%;">{{ volunteering.name }}</h2>
         <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search" oninput="filtrarVoluntario(this.value)">
-        <form class="d-flex" method="GET" action="{% url 'inscriptos_voluntariado' %}" style="margin-top: 1.5%;">
-            {% if coordinadores == "true" %}
-                <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}">Solo coordinadores</button>
-            {% else %}
-                <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}">Todo voluntario</button>
-            {% endif %}
-            <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
-        </form>
-        <form action="{% url 'inscription_volunteer' %}" method="POST">
-            <input type="hidden", name="coordinadores", value="{{ coordinadores }}">
-            <h5 style="margin-top: 1.5%;">Voluntarios inscriptos</h5>
+        <form action="{% url 'inscription_coordinator' %}" method="POST">
+            <h5 style="margin-top: 1.5%;">Coordinadores inscriptos</h5>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -25,7 +16,7 @@
                 </thead>
                 <tbody>
                     <input type="hidden" name="volunteering_id" value='{{ volunteering.id }}'/>
-                    {% for volunteer in volunteeringVolunteers %}
+                    {% for volunteer in volunteeringCoordinators %}
                         <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
                             <td>{{ volunteer }}</td>
                             <td>
@@ -39,7 +30,7 @@
             <button type="submit", class="btn btn-primary">
                 Guardar
             </button>
-            <h5 style="margin-top: 3%;">Voluntarios no inscriptos</h5>
+            <h5 style="margin-top: 3%;">Coordinadores no inscriptos</h5>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -48,7 +39,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for volunteer in restOfVolunteers %}
+                    {% for volunteer in restOfCoordinators %}
                         <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
                             <td>{{ volunteer }}</td>
                             <td>

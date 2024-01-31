@@ -26,16 +26,31 @@ class Volunteer(models.Model):
 
                 volunteerings = Volunteering.objects.filter(volunteers = self)
                 activities = ActivitieDetailPage.objects.filter(volunteers = self)
+                volunteeringCoordinator = Volunteering.objects.filter(coordinadores = self)
 
                 for volunteering in volunteerings:
                     volunteering.volunteers.remove(self)
+
+                for volunteering in volunteeringCoordinator:
+                    volunteering.coordinadores.remove(self)
 
                 for activity in activities:
                     activity.volunteers.remove(self)
                     vehicle = self.vehicles.filter(activitie = activity)
                     if vehicle:
-                        vehicle[0].activitie = None
+                        vehicle[0].activitie.remove(activity)
                         vehicle[0].save(force_update=True)
+                        if vehicle[0].domain == "Pasajero":
+                            vehicle[0].delete()
+        
+        if not self.coordinador:
+            Volunteering = apps.get_model('volunteerings', 'Volunteering')
+
+            volunteeringCoordinator = Volunteering.objects.filter(coordinadores = self)
+
+            for volunteering in volunteeringCoordinator:
+                volunteering.coordinadores.remove(self)
+
 
         super().save(*args, **kwargs)
 

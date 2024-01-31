@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% load wagtailimages_tags wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailcore_tags %}
 {% block content %}
 
+{% if posts %}
     <div class="container mt-4">
         <div class="row justify-content-center">
             {% for post in posts %}
@@ -21,7 +22,7 @@
                                 <p>Fin actividad: {{ post.activity_end_date|date:"d m Y" }}</p>
                             </p>
                         </div>
-                        {% if request.user.volunteer.coordinador and inscripted or request.user.is_superuser %}
+                        {% if request.user.volunteer.coordinador and volunteer in volunteering.coordinadores.all or request.user.is_superuser %}
                             <div class="card-footer bg-transparent border-0">
                                 <form action="{% url 'ver_inscriptos' %}" method="GET" style="margin-bottom: 3%;">
                                     <div class="d-grid gap-2">
@@ -93,9 +94,11 @@
                                                 {% endfor %}
                                             {% endfor %}
                                                 <option value='{"post_id": "{{ post.id }}", "vehicle": "Ninguno"}'>Ninguno</option>
-                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Pasajero"}'>Soy pasajero|Me llevan</option>
+                                                <option value='{"post_id": "{{ post.id }}", "vehicle": "Pasajero"}'>Soy pasajero, me llevan</option>
                                                 {% for vehicle in vehicles %}
-                                                    <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option> 
+                                                    {% if vehicle.domain != "Pasajero" %}
+                                                        <option value='{"post_id": "{{ post.id }}", "vehicle": "{{ vehicle }}"}'>{{ vehicle }}</option>
+                                                    {% endif %} 
                                                 {% endfor %}
                                             </select>
                                         </form>
@@ -195,5 +198,16 @@
             {% endfor %}
         </div>
     </div>
+{% else %}
+    <div style="margin: auto; text-align: center;">
+        <h4 style="margin-top: 3%;">
+            ¡Por el momento no hay actividades cargadas!
+        </h4>
+        <img src="{% static 'images/voluntario.png' %}" style="width:  15em; aspect-ratio: 1 / 1;margin-top: 3%; max-width: 90%;">
+        <h5 style="margin-top: 3%;">
+            ¡Revisa nuevamente más adeltante! 
+        </h5>
+    </div>
+{% endif %}
 
 {% endblock content %}

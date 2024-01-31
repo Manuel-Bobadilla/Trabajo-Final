@@ -1,36 +1,48 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
-<div class="container mt-4">
-    <h3> {{ activity }} </h3> 
-    {% for recordDay in recordsDaysList %}
-        <div class="accordion" id="accordionExample">
-            <div class="accordion-item" style="margin-bottom: 1%;">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{recordDay|date:'dmY'}}" aria-expanded="false" aria-controls="collapse{{recordDay|date:'dmY'}}">
-                        {{ recordDay|date:'d/m/Y' }}
-                    </button>
-                </h2>
-                <div id="collapse{{recordDay|date:'dmY'}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        {% for record in records %}
-                            {% if record.date == recordDay %}
-                                <p>
-                                    <strong>
-                                        • {{ record.volunteer }}, 
-                                        {{ record.volunteer.university }}, 
-                                        {{ record.volunteer.university_file }}
-                                    </strong>
-                                </p>
-                            {% endif %}
-                        {% endfor %}
+{% if recordsDaysList %}
+    <div class="container" style="margin-top: 1%;">
+        <h3> {{ activity }} </h3> 
+        {% for recordDay in recordsDaysList %}
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item" style="margin-bottom: 1%;">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{recordDay|date:'dmY'}}" aria-expanded="false" aria-controls="collapse{{recordDay|date:'dmY'}}">
+                            {{ recordDay|date:'d/m/Y' }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{recordDay|date:'dmY'}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% for record in records %}
+                                {% if record.date == recordDay %}
+                                    <p>
+                                        <strong>
+                                            • {{ record.volunteer }}, 
+                                            {{ record.volunteer.university }}, 
+                                            {{ record.volunteer.university_file }}
+                                        </strong>
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="container" style="margin-top: 1%;">
+        <h3> {{ activity }} </h3> 
+        <div style="margin: auto; text-align: center;">
+            <h4 style="margin-top: 3%;">
+                No hay asistencias registradas
+            </h4>
+            <img src="{% static 'images/lista-de-verificacion.png' %}" style="width:  10em; aspect-ratio: 1 / 1;margin-top: 3%; max-width: 90%;">
         </div>
-    {% endfor %}
-</div>
+    </div>
+{% endif %}
 
 
 {% endblock %}

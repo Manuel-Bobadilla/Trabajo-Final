@@ -40,7 +40,7 @@
         <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
             <div class="container-fluid">
               <a class="navbar-brand" href="/"><img class="rounded-circle" src="{% static 'images/voluntariadoUCC.jpeg' %}" id="image_navbar"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+              <button class="navbar-toggler" type="button" style="border: none; outline: none; box-shadow: none;" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarColor01">
@@ -57,7 +57,7 @@
                         <a class="nav-link" href="/admin/" target="_blank" class="nav-link d-inline">Administrar</a>
                       </li>
                     {% endif %}
-                    {% if request.user.volunteer.coordinador or request.user.is_superuser %}
+                    {% if request.user.volunteer.coordinador and request.user.volunteer.validated or request.user.is_superuser %}
                       <li class="nav-item">
                         <a class="nav-link" href="{% url 'volunteers' %}" class="nav-link d-inline">Voluntarios</a>
                       </li>
@@ -85,7 +85,59 @@
             </div>
           </nav>
 
+        <div style="min-height: 72vh;">
         {% block content %}{% endblock %}
+        </div>
+
+        <footer class="text-center text-white" style="background-color: #f1f1f1; margin-top: 3%;">
+          <!-- Grid container -->
+          <div class="container pt-4">
+          <!-- Section: Social media -->
+            <section class="mb-4">
+              {% if settings.site_settings.SocialMediaSettings.whatsapp %}
+                  <a
+                      class="btn btn-link btn-floating btn-lg text-dark m-1"
+                      href="https://api.whatsapp.com/send/?phone={{ settings.site_settings.SocialMediaSettings.whatsapp }}&text&type=phone_number&app_absent=1"
+                      role="button"
+                      data-mdb-ripple-color="dark"
+                      target="_blank"
+                      style="text-decoration: none;"
+                      ><i class="fab fa-whatsapp"></i
+                  ><div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.whatsapp }}</div></a>
+              {% endif %}
+              {% if settings.site_settings.SocialMediaSettings.instagram %}
+                  <a
+                      class="btn btn-link btn-floating btn-lg text-dark m-1"
+                      href="https://www.instagram.com/{{ settings.site_settings.SocialMediaSettings.instagram }}/"
+                      role="button"
+                      data-mdb-ripple-color="dark"
+                      target="_blank"
+                      style="text-decoration: none;"
+                      ><i class="fab fa-instagram"></i
+                  ><div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.instagram }}</div></a>
+              {% endif %}
+              {% if settings.site_settings.SocialMediaSettings.email %}
+                  <a class="btn btn-link btn-floating btn-lg text-dark m-1"
+                      href="mailto:{{ settings.site_settings.SocialMediaSettings.email }}"
+                      role="button"
+                      data-mdb-ripple-color="dark"
+                      target="_blank"
+                      style="text-decoration: none;">
+                      <i class="fa-regular fa-envelope"></i>
+                      <div style="font-size: small;">{{ settings.site_settings.SocialMediaSettings.email }}</div>
+                  </a>
+              {% endif %}
+            </section>
+          <!-- Section: Social media -->
+          </div>
+          <!-- Grid container -->
+      
+          <!-- Copyright -->
+          <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+              Voluntariado Universidad Católica de Córdoba
+          </div>
+          <!-- Copyright -->
+        </footer>
 
         {# Global javascript #}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

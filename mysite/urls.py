@@ -8,7 +8,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance, AttendanceRecord, VolunteerAttendanceRecord, RestartInscription
 from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView
-from volunteerings.views import Volunteerings, ViewVolunteering, ViewVolunteersVolunteeing, InscriptionVolunteering, AttendanceVolunteering
+from volunteerings.views import Volunteerings, ViewVolunteering, ViewVolunteersVolunteeing, InscriptionVolunteering, AttendanceVolunteering, ViewCoordinatorsVolunteering, CoordinatorVolunteering
 from users.views import VolunteerAttendanceView, ViewVolunteers
 from restart.views import RestartYear
 from django.views.static import serve
@@ -42,6 +42,8 @@ urlpatterns = [
     path("voluntarios/", ViewVolunteers, name="volunteers"),
     path("reinicioaño/", RestartYear, name="restart_year"),
     path("asistenciavoluntariado/", AttendanceVolunteering, name="asistencia_voluntariado"),
+    path("coordinadores/", ViewCoordinatorsVolunteering, name="coordinadores_voluntariado"),
+    path("coordinadorvoluntariado/", CoordinatorVolunteering, name="inscription_coordinator"),
 ]
 
 

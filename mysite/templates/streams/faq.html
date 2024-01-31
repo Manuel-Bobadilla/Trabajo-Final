@@ -5,11 +5,11 @@
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{question.number}}" aria-expanded="false" aria-controls="collapse{{question.number}}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
                 {{ question.question }}
             </button>
         </h2>
-        <div id="collapse{{question.number}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 {% for responses in question.responses %}
                     <p>
