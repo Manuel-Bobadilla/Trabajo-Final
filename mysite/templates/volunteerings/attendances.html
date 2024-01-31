@@ -1,28 +1,39 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
-<div class="container">
-    {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
-        <div class="card" style="margin-top: 3%;">
-            <div class="card-body">
-                <div class="card-title">
-                    {{ recordVolunteer }} | Cantidad asistencias: {{ attendance }}
-                </div>
-                {% if attendance != 0 %}
-                    <div class="card-body">
-                        {% for attendance in attendances %}
-                            {% if attendance.volunteer == recordVolunteer %}
-                                <span class="badge rounded-pill text-bg-primary" style="margin-top: 1%; margin-left: 1%;">
-                                    {{ attendance.date|date:'d/m/Y' }}
-                                </span>
-                            {% endif %}
-                        {% endfor %}
+{% if recordsVolunteersDict %}
+    <div class="container">
+        {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
+            <div class="card" style="margin-top: 3%;">
+                <div class="card-body">
+                    <div class="card-title">
+                        {{ recordVolunteer }} | Cantidad asistencias: {{ attendance }}
                     </div>
-                {% endif %}
+                    {% if attendance != 0 %}
+                        <div class="card-body">
+                            {% for attendance in attendances %}
+                                {% if attendance.volunteer == recordVolunteer %}
+                                    <span class="badge rounded-pill text-bg-primary" style="margin-top: 1%; margin-left: 1%;">
+                                        {{ attendance.date|date:'d/m/Y' }}
+                                    </span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="container">
+        <div style="margin: auto; text-align: center;">
+            <h4 style="margin-top: 3%;">
+                No hay asistencias registradas
+            </h4>
+            <img src="{% static 'images/lista-de-verificacion.png' %}" style="width:  15em; aspect-ratio: 1 / 1;margin-top: 3%; max-width: 90%;">
         </div>
-    {% endfor %}
-</div>
+    </div>
+{% endif %}
 
 {% endblock %}

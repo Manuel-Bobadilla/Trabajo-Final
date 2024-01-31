@@ -1,34 +1,48 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
 
-<div class="container mt-4">
-    <h3> {{ activity }} </h3> 
-    {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
-        <div class="accordion" style="margin-bottom: 1%;">
-            <div class="accordion-item">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
-                        {{ recordVolunteer }} - {{ recordVolunteer.university }} - {{ recordVolunteer.university_file }} - asistencias: {{ attendance }}
-                    </button>
-                </h2>
-                <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        {% for record in records %}
-                            {% if record.volunteer == recordVolunteer %}
-                                <p>
-                                    <strong>
-                                        • {{ record.date|date:'d/m/Y' }}
-                                    </strong>
-                                </p>
-                            {% endif %}
-                        {% endfor %}
+{% if recordsVolunteersDict %}
+    <div class="container" style="margin-top: 1%;">
+        <h3> {{ activity }} </h3> 
+        {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
+            <div class="accordion" style="margin-bottom: 1%;">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false" aria-controls="collapse{{forloop.counter}}">
+                            {{ recordVolunteer }} - {{ recordVolunteer.university }} - {{ recordVolunteer.university_file }} - asistencias: {{ attendance }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            {% for record in records %}
+                                {% if record.volunteer == recordVolunteer %}
+                                    <p>
+                                        <strong>
+                                            • {{ record.date|date:'d/m/Y' }}
+                                        </strong>
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="container" style="margin-top: 1%;">
+        <h3> {{ activity }} </h3>
+        <div style="margin: auto; text-align: center;">
+            <h4 style="margin-top: 3%;">
+                No hay inscriptos hasta el momento
+            </h4>
+            <img src="{% static 'images/lista-de-verificacion.png' %}" style="width:  10em; aspect-ratio: 1 / 1;margin-top: 3%; max-width: 90%;">
         </div>
-    {% endfor %}
-</div>
+    </div>
+
+
+{% endif %}
 
 
 {% endblock %}
