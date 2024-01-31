@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 {% block content %}
+{% if volunteeringVolunteers or restOfVolunteers %}
     <div class="container">
         <h2 style="margin-top: 3%;">{{ volunteering.name }}</h2>
         <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search" oninput="filtrarVoluntario(this.value)">
@@ -63,4 +64,14 @@
             </button>
         </form>        
     </div>
+{% else %}
+    <div class="container">
+        <div style="margin: auto; text-align: center;">
+            <h4 style="margin-top: 3%;">
+                No hay voluntarios validados
+            </h4>
+            <img src="{% static 'images/caridad.png' %}" style="width:  15em; aspect-ratio: 1 / 1;margin-top: 3%; max-width: 90%;">
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
