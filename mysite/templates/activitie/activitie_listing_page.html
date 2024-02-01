@@ -56,10 +56,9 @@
                                 <form action="{% url 'reiniciar_inscripciones' %}" method="POST" style="margin-bottom: 3%;">
                                     {% csrf_token %}
                                     <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
+                                    <input type="hidden" name="actividad_id", value="{{ post.id }}">
                                     <div class="d-grid gap-2">
-                                        <button type="submit", name="actividad_id", value="{{ post.id }}", class="btn btn-danger">
-                                            Reiniciar inscripciones
-                                        </button>
+                                        <input type="button" value="Reiniciar inscripciones", onclick="confirmReiniciar(this, '{{ post.custom_title }}')", class="btn btn-danger">
                                     </div>
                                 </form>
                             </div>

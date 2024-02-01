@@ -9,3 +9,9 @@ function filtrarVoluntario(caracter) {
         }
     })
 }
+
+function confirmReiniciar(button, actividad){
+    if (confirm("¿Estás seguro de que deseas reiniciar las inscripciones a la actividad " + actividad + "?")){
+        button.parentNode.parentNode.submit();
+    }
+}
