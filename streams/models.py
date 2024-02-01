@@ -34,7 +34,7 @@ class BulletinListingPage(Page):
         user = User.objects.get(id=request.user.id)
         volunteer = Volunteer.objects.filter(user = user)
         volunteerings = Volunteering.objects.filter(volunteers__in = volunteer)
-        restartAvailable = (datetime.date.today() >= datetime.date(datetime.date.today().year, 2, 28) 
+        restartAvailable = (datetime.date.today() >= datetime.date(datetime.date.today().year, 2, 1) 
         and not Restart.objects.filter(date__year = datetime.date.today().year) 
         and user.is_superuser)
 

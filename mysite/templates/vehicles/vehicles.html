@@ -65,9 +65,8 @@
                                 <td> 
                                     <form action="{% url 'delete_vehicle' %}" method="POST">
                                         {% csrf_token %}
-                                        <button type="submit", name="vehicle_id" value="{{ vehicle.id }}", class="btn btn-primary">
-                                            -
-                                        </button>
+                                        <input type="hidden" name="vehicle_id", value="{{ vehicle.id }}">
+                                        <input type="button" value="-", onclick="eliminarVehiculo(this, '{{ vehicle.domain }}')", class="btn btn-primary">
                                     </form>  
                                 </td>
                             </tr>
