@@ -22,6 +22,13 @@ function eliminarVehiculo(button, patente){
     }
 }
 
+function modificarVehiculo(button, patente){
+    if (confirm("¿Estás seguro de que deseas modificar el vehículo " + patente + "?")){
+        console.log(button.parentNode.parentNode);
+        button.parentNode.parentNode.submit();
+    }
+}
+
 function reiniciarVUCC(button){
     if (confirm("¿Deseas iniciar un nuevo ciclo del VUCC?\nEsto anulará todas las inscripciones a los voluntariados para dar inicio a un nuevo año de actividades dentro del VUCC.\nNo se eliminarán voluntarios ni voluntariados.")){
         button.parentNode.submit();

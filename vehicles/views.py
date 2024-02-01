@@ -35,6 +35,23 @@ def AddVehicleView(request):
 
     return redirect(url_destino)
 
+def ModifyVehicleView(request):
+    print("holaaaaaaa")
+    vehicle = Vehicle.objects.get(id=request.POST.get("vehicle_id"))
+
+    print("holaaaaaaa")
+    print(request.POST)
+    #vehicle.brand = request.POST.get("brand")
+    #vehicle.model = request.POST.get("model")
+    #vehicle.domain = request.POST.get("domain")
+    #vehicle.room = request.POST.get("room")
+
+    #vehicle.save()
+
+    url_destino = f'/vehiculos/'
+
+    return redirect(url_destino)
+
 def DeleteVehicleView(request):
     Vehicle.objects.get(id=request.POST.get("vehicle_id")).delete()
 
