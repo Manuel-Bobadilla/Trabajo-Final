@@ -3,7 +3,22 @@
 {% block content %}
     <div class="container" style="max-width: 90%;">
         {% for volunteering in volunteerings %}
-            <div class="row align-items-center rounded border border-1 border-primary shadow" style="margin-top: 5%;">
+            <div class="row align-items-center rounded border border-1 border-primary" style="margin-top: 5%; position: relative">
+                {% if volunteer in volunteering.coordinadores.all %}
+                    <div class="d-flex" style="position: absolute; z-index: 1; top: 0;">
+                        <div class="fw-light" style="top: -0.95em; font-size: small; position: relative; z-index: 1; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">
+                            Inscripto como coordinador
+                        </div>
+                    </div>
+                {% else %}
+                    {% if volunteer in volunteering.volunteers.all %}
+                        <div class="d-flex" style="position: absolute; z-index: 1; top: 0;">
+                            <div class="fw-light" style="top: -0.95em; font-size: small; position: relative; z-index: 1; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">
+                                Inscripto como voluntario
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
                 <div class="col-xxl-1 col-xl-1 col-lg-1 col-md-2 col-sm-2 col-3">
                     <img src="{{ volunteering.image.url }}" style="height: 5em; aspect-ratio: 1 / 1; padding: 3%;">
                 </div>
