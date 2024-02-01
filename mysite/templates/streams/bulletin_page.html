@@ -17,24 +17,40 @@
                         </form>
                     </div>
                 {% endif %}
-                <div class="row justify-content-center" style="margin-top: 3%;">
-                    {% for volunteering in volunteerings %}
-                        <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5" style="margin-bottom: 3%;">
-                            <div class="card shadow">
-                                <div class="row justify-content-center">
-                                    <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
-                                </div>
-                                <div class="row">
-                                    <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="GET">
-                                        <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
-                                            Ver
-                                        </button>
-                                    </form>
+                {% if volunteerings %}
+                    <div class="row justify-content-center" style="margin-top: 3%;">
+                        <h5 style="text-align: center; margin-bottom: 3%;">
+                            Tus voluntariados
+                        </h5>
+                        {% for volunteering in volunteerings %}
+                            <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-4 col-5" style="margin-bottom: 3%;">
+                                <div class="card shadow">
+                                    <div class="row justify-content-center">
+                                        <img src="{{ volunteering.image.url }}" style="width: 100%; aspect-ratio: 1 / 1; padding: 10%;">
+                                    </div>
+                                    <div style="text-align: center; font-size: small; margin-top: -10%; margin-bottom: 10%;">
+                                        {% if volunteer in volunteering.coordinadores.all %}
+                                            Coordinador
+                                        {% else %}
+                                            {% if volunteer in volunteering.volunteers.all %}
+                                                Voluntario
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="row">
+                                        <form action="{% url 'ver_voluntariado' %}" class="justify-content-center d-flex" style="padding-bottom: 10%;" method="GET">
+                                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary">
+                                                Ver
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    
+                {% endif %}
                 {% if self.content %}
                     {% for bulletin in self.content %}
                         <div class="row justify-content-center">
