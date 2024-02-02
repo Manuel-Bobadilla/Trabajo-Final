@@ -34,3 +34,13 @@ function reiniciarVUCC(button){
         button.parentNode.submit();
     }
 }
+
+function formatoURL(button, url){
+    let subURL = url.split('/');
+    let segmentoURL = subURL[4].split('-');
+    let actionURL = "/password/reset/key/" + segmentoURL[0] + "-set-password/";
+    let form = button.parentNode;
+
+    form.action = actionURL;
+    form.submit();
+}
