@@ -1,0 +1,7 @@
+{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name %}¡Saludos desde el VUCC!{% endblocktrans %}
+
+{% block content %}{% endblock content %}
+
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Muchas gracias y saludos desde el voluntariado!
+Voluntariado Universidad Católica de Córdoba.{% endblocktrans %}
+{% endautoescape %}
