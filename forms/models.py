@@ -71,6 +71,7 @@ class CustomSignupForm(SignupForm):
         self.fields["username"].required = False
         self.fields["username"].initial = "default_username"
         self.fields["email"].widget.attrs['class'] = 'form-control'
+        self.fields["email"].required = True
         self.fields["email"].widget.attrs['placeholder'] = 'Email'
         self.fields["email"].label = ''
         self.fields["password1"].widget.attrs['class'] = 'form-control'
@@ -84,7 +85,7 @@ class CustomSignupForm(SignupForm):
         user = super(CustomSignupForm, self).save(request)
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        user.username = user.first_name + user.last_name
+        user.username = self.cleaned_data['email']
         user.save()
         datosExtra = {
             "address": self.cleaned_data['address'],
