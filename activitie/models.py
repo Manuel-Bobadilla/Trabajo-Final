@@ -10,8 +10,6 @@ from users.models import Volunteer, User
 from volunteerings.models import Volunteering
 
 class ActivitieListingPage(Page):
-    custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
-    
     template = "activitie/activitie_listing_page.html"
 
     #related_document = models.ForeignKey(
@@ -20,10 +18,7 @@ class ActivitieListingPage(Page):
     #)
 
 
-    content_panels = Page.content_panels + [
-            FieldPanel("custom_title"),
-            #FieldPanel("related_document"),
-        ]
+    content_panels = Page.content_panels 
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -43,11 +38,12 @@ class ActivitieListingPage(Page):
         context["volunteer"] = None
         return context
 
+ActivitieListingPage._meta.get_field("title").help_text = "Nombre de la sección, no visto por el público. Para facilitar la organización interna de las páginas"
 
 class ActivitieDetailPage(Page):
-    custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
+    custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="Título de la actividad")
     volunteers = models.ManyToManyField(Volunteer, related_name="activities")
-    volunteering = models.ForeignKey(Volunteering, related_name="activities", on_delete=models.SET_NULL, null=True)
+    volunteering = models.ForeignKey(Volunteering, related_name="activities", on_delete=models.SET_NULL, null=True, blank=False)
     activitie_image = models.ForeignKey(
         "wagtailimages.Image",
         blank=False, 
@@ -56,20 +52,14 @@ class ActivitieDetailPage(Page):
         on_delete=models.SET_NULL,
     )
 
-    activity_start_date = models.DateField(blank=True, null=True, help_text="fecha inicio de vigencia del post de la actividad")
-    activity_end_date = models.DateField(blank=True, null=True, help_text="fecha inicio de vigencia del post de la actividad")
+    activity_start_date = models.DateField(blank=False, null=False, help_text="Fecha inicio de vigencia del post de la actividad", default=datetime.date(datetime.date.today().year, 2, 28))
+    activity_end_date = models.DateField(blank=False, null=False, help_text="Fecha inicio de vigencia del post de la actividad", default=datetime.date(datetime.date.today().year, 11, 30))
 
     content = StreamField(
         [
             ("title_and_text", blocks.TitleAndTextBlock()),
             ("full_rich_text", blocks.RichTextBlock()),
             ("simple_rich_text", blocks.SimpleTextBlock()),
-            ("meeting_point", blocks.MeetingPoint()),
-            ("material_publication", blocks.MaterialPublication()),
-            ("raffle", blocks.Raffle()),
-            ("contacts", blocks.Contacts()),
-            ("images", blocks.ImagePost()),
-            ("bulletins", blocks.Bulletin()),
         ],
         null=True, blank=True, use_json_field=True)
     
@@ -82,5 +72,6 @@ class ActivitieDetailPage(Page):
         FieldPanel("content"),
     ]
     
+ActivitieDetailPage._meta.get_field("title").help_text = "Nombre de la sección, no visto por el público. Para facilitar la organización interna de las páginas"
 
 
