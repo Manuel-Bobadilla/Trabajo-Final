@@ -7,7 +7,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from activitie.views import InscriptionView, VisualizeEnrolledView, TakeAttendance, AddAttendance, AttendanceRecord, VolunteerAttendanceRecord, RestartInscription
-from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView, ModifyVehicleView
+from vehicles.views import VehiclesView, AddVehicleView, DeleteVehicleView, SelectVehicleView, RoomUpVehicle, RoomDownVehicle
 from volunteerings.views import Volunteerings, ViewVolunteering, ViewVolunteersVolunteeing, InscriptionVolunteering, AttendanceVolunteering, ViewCoordinatorsVolunteering, CoordinatorVolunteering
 from users.views import VolunteerAttendanceView, ViewVolunteers
 from restart.views import RestartYear
@@ -26,7 +26,8 @@ urlpatterns = [
     path("inscripcion/", InscriptionView, name="inscripcion_post"),
     path("vehiculos/", VehiclesView, name="account_vehicle"),
     path("agregarvehiculo/", AddVehicleView, name="add_vehicle"),
-    path("modificarvehiculo/", ModifyVehicleView, name="modify_vehicle"),
+    path("aumentarplaza/", RoomUpVehicle, name="room_up_vehicle"),
+    path("disminuirplaza/", RoomDownVehicle, name="room_down_vehicle"),
     path("eliminarvehiculo/", DeleteVehicleView, name="delete_vehicle"),
     path("seleccionarvehiculo/", SelectVehicleView, name="select_vehicle"),
     path("verinscriptos/", VisualizeEnrolledView, name="ver_inscriptos"),

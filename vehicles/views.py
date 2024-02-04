@@ -12,7 +12,7 @@ def VehiclesView(request):
     if not volunteer:
         return render(request, "redirections/user_not_confirmed.html")
     
-    vehicles = Vehicle.objects.filter(proprietary = volunteer[0])
+    vehicles = Vehicle.objects.filter(proprietary = volunteer[0]).order_by("domain")
     
     return render(request,"vehicles/vehicles.html",
                   {
@@ -35,18 +35,19 @@ def AddVehicleView(request):
 
     return redirect(url_destino)
 
-def ModifyVehicleView(request):
-    print("holaaaaaaa")
+def RoomUpVehicle(request):
     vehicle = Vehicle.objects.get(id=request.POST.get("vehicle_id"))
+    vehicle.room += 1
+    vehicle.save()
 
-    print("holaaaaaaa")
-    print(request.POST)
-    #vehicle.brand = request.POST.get("brand")
-    #vehicle.model = request.POST.get("model")
-    #vehicle.domain = request.POST.get("domain")
-    #vehicle.room = request.POST.get("room")
+    url_destino = f'/vehiculos/'
 
-    #vehicle.save()
+    return redirect(url_destino)
+
+def RoomDownVehicle(request):
+    vehicle = Vehicle.objects.get(id=request.POST.get("vehicle_id"))
+    vehicle.room -= 1
+    vehicle.save()
 
     url_destino = f'/vehiculos/'
 
