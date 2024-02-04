@@ -6,38 +6,44 @@ from users.models import Volunteer
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=25,
         label='',
-        widget=forms.TextInput(attrs={"placeholder":("Nombre"), "class":("form-control")}),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder":("Nombre"), "class":("form-control"), "required": "required"}),
     )
                                 
     last_name = forms.CharField(max_length=25,
         label='',
-        widget=forms.TextInput(attrs={"placeholder":("Apellido"), "class":("form-control")}),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder":("Apellido"), "class":("form-control"), "required": "required"}),
     )
 
     address = forms.CharField(max_length=40,
         label='',
-        widget=forms.TextInput(attrs={"placeholder":("Direccion"), "class":("form-control")}),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder":("Direccion"), "class":("form-control"), "required": "required"}),
     )
 
     neighborhood = forms.CharField(max_length=40,
         label='',
-        widget=forms.TextInput(attrs={"placeholder":("Barrio"), "class":("form-control")}),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder":("Barrio"), "class":("form-control"), "required": "required"}),
     )
 
     phone = forms.CharField(max_length=40,
         label='',
-        widget=forms.TextInput(attrs={"placeholder":("Telefono"), "class":("form-control")}),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder":("Telefono"), "class":("form-control"), "required": "required"}),
     )
 
     birthdate = forms.DateField(
         label='Fecha de Nacimiento',
-        widget=forms.DateInput(attrs={"type": "date", "class":("form-control")}),
+        required=True,
+        widget=forms.DateInput(attrs={"type": "date", "class":("form-control"), "required": "required"}),
     )
 
     dni = forms.CharField(
         label='',
-        widget=forms.TextInput(attrs={"placeholder": "Ingrese su DNI", "class":("form-control")}),
-        #validators=[validators.RegexValidator(r'^\d{1,10}$', 'Ingrese un número válido.')],
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "Ingrese su DNI", "class":("form-control"), "required": "required"}),
     )
 
     UNIVERSITY_CHOICES = [
@@ -47,6 +53,7 @@ class CustomSignupForm(SignupForm):
         ('UBP', 'Universidad Blas Pascal'),
         ('SIGLO21', 'Universidad Siglo 21'),
         ('IUA', 'Instituto Universitario Aeronáutico'),
+        ('Sin universidad', 'Sin universidad')
     ]
 
     university = forms.ChoiceField(
@@ -73,12 +80,15 @@ class CustomSignupForm(SignupForm):
         self.fields["email"].widget.attrs['class'] = 'form-control'
         self.fields["email"].required = True
         self.fields["email"].widget.attrs['placeholder'] = 'Email'
+        self.fields["email"].widget.attrs['required'] = 'required'
         self.fields["email"].label = ''
         self.fields["password1"].widget.attrs['class'] = 'form-control'
         self.fields["password1"].widget.attrs['placeholder'] = 'Contraseña'
+        self.fields["password1"].required = True
         self.fields["password1"].label = ''
         self.fields["password2"].widget.attrs['class'] = 'form-control'
         self.fields["password2"].widget.attrs['placeholder'] = 'Repita su contraseña'
+        self.fields["password2"].required = True
         self.fields["password2"].label = ''
 
     def save(self, request):
