@@ -14,7 +14,35 @@
 
             <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <p>{{ form.email }}</p>
+                <p>{{ form.first_name }}</p>
+                <p>{{ form.last_name }}</p>
+                <p>{{ form.address }}</p>
+                <p>{{ form.neighborhood }}</p>
+                <p>{{ form.phone }}</p>
+                <div style="position: relative;">
+                    <div style="position: relative;">
+                        <div class="d-flex" style="position: absolute; z-index: 1; top: 0; min-width: 15em;">
+                            <div class="fw-light" style="top: -0.8em; font-size: small; position: relative; z-index: 1; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 5%;">
+                                {{ form.birthdate.label }}
+                            </div>
+                        </div>
+                        <p>{{ form.birthdate }}</p>
+                    </div>
+                </div>
+                <p>{{ form.dni }}</p>
+                <div class="rounded border border-1" style="padding: 3%; position: relative;">
+                    <div class="d-flex" style="position: absolute; z-index: 1; top: 0; min-width: 15em;">
+                        <div class="fw-light" style="top: -0.95em; font-size: small; position: relative; z-index: 1; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">
+                            Datos universitarios
+                        </div>
+                    </div>
+                    <p>{{ form.university }}</p>
+                    <p>{{ form.university_file }}</p>
+                    <p style="margin-bottom: 0;">{{ form.career }}</p>
+                </div>
+                <p style="margin-top: 3%;">{{ form.password1 }}</p>
+                <p>{{ form.password2 }}</p>
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}

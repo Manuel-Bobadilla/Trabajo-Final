@@ -35,7 +35,7 @@ class CustomSignupForm(SignupForm):
     )
 
     birthdate = forms.DateField(
-        label='Fecha de Nacimiento',
+        label='Fecha de nacimiento',
         required=True,
         widget=forms.DateInput(attrs={"type": "date", "class":("form-control"), "required": "required"}),
     )
@@ -47,19 +47,20 @@ class CustomSignupForm(SignupForm):
     )
 
     UNIVERSITY_CHOICES = [
+        ('Sin universidad', 'Sin universidad'),
         ('UCC', 'Universidad Católica de Córdoba'),
         ('UTN', 'Universidad Tecnológica Nacional'),
         ('UNC', 'Universidad Nacional de Córdoba'),
         ('UBP', 'Universidad Blas Pascal'),
         ('SIGLO21', 'Universidad Siglo 21'),
         ('IUA', 'Instituto Universitario Aeronáutico'),
-        ('Sin universidad', 'Sin universidad')
+        ('Otra universidad', 'Otra universidad'),
     ]
 
     university = forms.ChoiceField(
         choices=UNIVERSITY_CHOICES,
         label='',
-        widget=forms.Select(attrs={"placeholder": "Selecciona una universidad", "class":("form-select")}),
+        widget=forms.Select(attrs={"class": "form-select"}),
     )
 
     university_file = forms.CharField(max_length=20,
