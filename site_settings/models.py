@@ -15,3 +15,7 @@ class SocialMediaSettings(BaseSiteSetting):
             FieldPanel("email"),
         ], heading="Redes Sociales")
     ]
+
+    class Meta:
+        verbose_name = "Contacto redes sociales"
+        verbose_name_plural = "Contactos redes sociales"
