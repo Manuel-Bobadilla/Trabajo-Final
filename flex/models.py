@@ -24,7 +24,7 @@ class FlexPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel("titulo"),
-        FieldPanel("content"),
+        FieldPanel("content", heading="Contenido"),
     ]
 
     class Meta:
