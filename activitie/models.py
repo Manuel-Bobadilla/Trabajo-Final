@@ -38,6 +38,10 @@ class ActivitieListingPage(Page):
         context["volunteer"] = None
         return context
 
+    class Meta:
+        verbose_name = "Página de listado de actividades"
+        verbose_name_plural = "Páginas de listado de actividades"
+
 ActivitieListingPage._meta.get_field("title").help_text = "Nombre de la sección, no visto por el público. Para facilitar la organización interna de las páginas"
 
 class ActivitieDetailPage(Page):
@@ -71,6 +75,10 @@ class ActivitieDetailPage(Page):
         FieldPanel("activity_end_date"),
         FieldPanel("content"),
     ]
+
+    class Meta:
+        verbose_name = "Actividad"
+        verbose_name_plural = "Actividades"    
     
 ActivitieDetailPage._meta.get_field("title").help_text = "Nombre de la sección, no visto por el público. Para facilitar la organización interna de las páginas"
 

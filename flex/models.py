@@ -9,31 +9,26 @@ from streams import blocks
 class FlexPage(Page):
     template = "flex/flex_page.html"
 
+    titulo = models.CharField(max_length=100,null=True,blank=True,help_text="Título de la página")
+
     content = StreamField(
         [
             ("title_and_text", blocks.TitleAndTextBlock()),
             ("full_rich_text", blocks.RichTextBlock()),
             ("simple_rich_text", blocks.SimpleTextBlock()),
-            ("meeting_point", blocks.MeetingPoint()),
-            ("material_publication", blocks.MaterialPublication()),
-            ("raffle", blocks.Raffle()),
-            ("contacts", blocks.Contacts()),
-            ("images", blocks.ImagePost()),
-            ("bulletins", blocks.Bulletin()),
             ("horizontal_allign_elements", blocks.HorizontalAllignElements()),
             ("faq", blocks.FAQ()),
-            ("column_elements", blocks.ColumnElements()),
             ("donaciones", blocks.Donaciones()),
         ],
         null=True, blank=True, use_json_field=True)
 
-    subtitle = models.CharField(max_length=100,null=True,blank=True)
-
     content_panels = Page.content_panels + [
-        FieldPanel("subtitle"),
+        FieldPanel("titulo"),
         FieldPanel("content"),
     ]
 
     class Meta:
-        verbose_name = "Flex Page"
-        verbose_name_plural = "Flex Pages"
+        verbose_name = "Página flexible"
+        verbose_name_plural = "Páginas flexibles"
+
+FlexPage._meta.get_field("title").help_text = "Nombre de la sección, no visto por el público. Para facilitar la organización interna de las páginas"
