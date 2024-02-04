@@ -4,20 +4,20 @@ from wagtail.fields import StreamField
 from datetime import date
 
 class TitleAndTextBlock(blocks.StructBlock):
-    title = blocks.CharBlock(required=True, help_text="Add a title")
-    text = blocks.TextBlock(required=True, help_text="Add a text")
+    title = blocks.CharBlock(required=True, help_text="Título de la sección", label="Título")
+    text = blocks.TextBlock(required=True, help_text="Texto de la sección", label="Texto")
 
     class Meta:
         template = "streams/title_and_text_block.html"
         icon = "edit"
-        label = "Title & Text"
+        label = "Título y texto"
 
 class RichTextBlock(blocks.RichTextBlock):
 
     class Meta:
         template = "streams/rich_text_block.html"
         icon = "edit"
-        label = "Rich Text"
+        label = "Campo de texto enriquecido"
 
 class SimpleTextBlock(blocks.RichTextBlock):
 
@@ -42,7 +42,7 @@ class SimpleTextBlock(blocks.RichTextBlock):
     class Meta:
         template = "streams/rich_text_block.html"
         icon = "edit"
-        label = "Simple Text"
+        label = "Campo de texto simple"
 
 class MeetingPoint(blocks.StructBlock):
     title = blocks.CharBlock(required=True, help_text="Nombre punto de encuentro")
@@ -97,18 +97,18 @@ class ImagePost(ImageChooserBlock):
         label = "Imagen"
 
 class Bulletin(blocks.StructBlock):
-    content = blocks.RichTextBlock(required=True, help_text="Contenido")
-    date = blocks.DateBlock(required=True, default=date.today())
+    content = blocks.RichTextBlock(required=True, help_text="Contenido boletín", label="Contenido")
+    date = blocks.DateBlock(required=True, default=date.today(), label="Fecha", help_text="Fecha del boletín")
 
     class Meta:
         template = "streams/bulletin.html"
         icon = "edit"
-        label = "Boletin"
+        label = "Boletines"
 
 class CardElement(blocks.StructBlock):
-    image = ImageChooserBlock(required=True, help_text="imagen")
-    text = blocks.RichTextBlock(required=True, help_text="Contenido")
-    link = blocks.URLBlock(required=False, help_text="URL, si es necesario")
+    image = ImageChooserBlock(required=True, label="Imagen")
+    text = blocks.RichTextBlock(required=True, help_text="Contenido", label="Texto")
+    link = blocks.URLBlock(required=False, help_text="URL de la página a redireccionar en caso de desearlo, de no ser así ignorar este campo", label="Link")
 
     class Meta:
         template ="streams/card_element.html"
@@ -119,7 +119,7 @@ class HorizontalAllignElements(blocks.StructBlock):
     elements = blocks.ListBlock(
         blocks.StructBlock([
             ("element", CardElement()),
-        ])
+        ]), label="Elementos"
     )
 
     class Meta:
@@ -128,11 +128,11 @@ class HorizontalAllignElements(blocks.StructBlock):
         label = "Elementos Horizontales"
 
 class Question(blocks.StructBlock):
-    question = blocks.CharBlock(required=True, help_text="Pregunta")
+    question = blocks.CharBlock(required=True, label="Pregunta")
     responses = blocks.ListBlock(
         blocks.StructBlock([
-            ("response", blocks.CharBlock(required=True, help_text="Respuesta")),
-        ])
+            ("response", blocks.CharBlock(required=True, label="Respuesta")),
+        ]), label="Respuestas"
     )
 
     class Meta:
@@ -143,7 +143,7 @@ class Question(blocks.StructBlock):
 
 class FAQ(blocks.StructBlock):
     questions = blocks.ListBlock(
-        Question()
+        Question(), label="Preguntas"
     )
 
     class Meta:
@@ -192,8 +192,8 @@ class Whatsapp(blocks.StructBlock):
         label = "Whatsapp"
 
 class DonacionVoluntariado(blocks.StructBlock):
-    voluntariado = blocks.CharBlock(required=True, help_text="Titulo del item de donacion")
-    imagen = ImageChooserBlock(required=False, help_text="imagen del voluntariado")
+    voluntariado = blocks.CharBlock(required=True, help_text="Título del item de donacion, por ejemplo, nombre del voluntariado", label="Título campaña donación")
+    imagen = ImageChooserBlock(required=False, help_text="Imagen de la campaña de donación, por ejemplo, imagen del voluntariado")
     alias = blocks.CharBlock(required=False, help_text="Alias para recibir donaciones")
     
     sugeridos = blocks.ListBlock(
@@ -208,7 +208,7 @@ class DonacionVoluntariado(blocks.StructBlock):
     class Meta:
         template = "streams/donaciones_voluntariado.html"
         icon = "edit"
-        label = "Donaciones"
+        label = "Campaña donación"
 
 class Donaciones(blocks.StructBlock):
     elemento_donacion = blocks.ListBlock(
@@ -218,4 +218,4 @@ class Donaciones(blocks.StructBlock):
     class Meta:
         template = "streams/donaciones.html"
         icon = "edit"
-        label = "Donacion"
+        label = "Donaciones"

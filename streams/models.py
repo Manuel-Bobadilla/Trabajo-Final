@@ -12,9 +12,7 @@ from restart.models import Restart
 import datetime
 
 # Create your models here.
-class BulletinListingPage(Page):
-    custom_title = models.CharField(max_length=100, blank=False, null=False, help_text="overwrites the default title")
-    
+class BulletinListingPage(Page):    
     template = "streams/bulletin_page.html"
 
     content = StreamField(
@@ -24,8 +22,7 @@ class BulletinListingPage(Page):
         null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-            FieldPanel("custom_title"),
-            FieldPanel("content")
+            FieldPanel("content", heading="Boletines")
         ]
     
     def get_context(self, request, *args, **kwargs):
@@ -43,3 +40,8 @@ class BulletinListingPage(Page):
         context["volunteerings"] = volunteerings
         return context
     
+    class Meta:
+        verbose_name = "Página boletines"
+        verbose_name_plural = "Páginas boletines"
+    
+BulletinListingPage._meta.get_field("title").help_text = "Nombre de la sección, no visto por el público. Para facilitar la organización interna de las páginas"
