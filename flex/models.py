@@ -23,7 +23,7 @@ class FlexPage(Page):
         null=True, blank=True, use_json_field=True)
 
     content_panels = Page.content_panels + [
-        FieldPanel("titulo"),
+        FieldPanel("titulo", heading="Título"),
         FieldPanel("content", heading="Contenido"),
     ]
 
