@@ -26,4 +26,10 @@ class UserAdmin(ModelAdmin):
     def Legajo(self,obj):
         return obj.university_file
 
+    def Validado(self,obj):
+        return obj.validated
+
+    def Coordinador(self,obj):
+        return obj.coordinador
+
 modeladmin_register(UserAdmin)
