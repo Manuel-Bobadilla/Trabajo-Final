@@ -18,11 +18,11 @@
                             {% for record in records %}
                                 {% if record.date == recordDay %}
                                     <p>
-                                        <strong>
-                                            • {{ record.volunteer }}, 
-                                            {{ record.volunteer.university }}, 
+                                        • {{ record.volunteer }}, 
+                                        {{ record.volunteer.university }}
+                                        {% if record.volunteer.university_file %}
                                             {{ record.volunteer.university_file }}
-                                        </strong>
+                                        {% endif %} 
                                     </p>
                                 {% endif %}
                             {% endfor %}
