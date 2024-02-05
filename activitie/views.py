@@ -89,21 +89,27 @@ def AddAttendance(request):
             volunteersPresentId.add(int(attendance))
     
     volunteersPresentIdList = list(volunteersPresentId)
-    print(volunteersPresentIdList)
     volunteersPresent = Volunteer.objects.filter(id__in = volunteersPresentIdList)
     volunteers = Volunteer.objects.filter(activities = activity)
     records = Attendance.objects.filter(volunteer__in = volunteers, activity = activity, date = datetime.date.today())
+
+    volunteersRecorded = set()
+
+    for record in records:
+        volunteersRecorded.add(record.volunteer)
+
     for record in records:
         if record.volunteer.id not in volunteersPresentIdList:
             record.delete()
 
     for volunteer in volunteersPresent:
-        record = Attendance()
-        record.activity = activity
-        record.volunteer = volunteer
-        record.date = datetime.date.today()
-        record.activity_title = activity.custom_title
-        record.save()
+        if volunteer not in volunteersRecorded:
+            record = Attendance()
+            record.activity = activity
+            record.volunteer = volunteer
+            record.date = datetime.date.today()
+            record.activity_title = activity.custom_title
+            record.save()
 
     mutable_get = request.GET.copy()
     mutable_get['actividad_id'] = request.POST.get("actividad_id")

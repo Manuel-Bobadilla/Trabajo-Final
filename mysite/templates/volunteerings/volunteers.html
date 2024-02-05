@@ -5,63 +5,64 @@
     <div class="container">
         <h2 style="margin-top: 3%;">{{ volunteering.name }}</h2>
         <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search" oninput="filtrarVoluntario(this.value)">
-        <form class="d-flex" method="GET" action="{% url 'inscriptos_voluntariado' %}" style="margin-top: 1.5%;">
+        <form class="d-flex" method="GET" action="{% url 'inscriptos_voluntariado' %}" style="margin-top: 1.5%; ">
             {% if coordinadores == "true" %}
-                <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}">Solo coordinadores</button>
+                <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}" style="display: none;">Solo coordinadores</button>
             {% else %}
-                <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}">Todo voluntario</button>
+                <button class="btn btn-outline-success" type="submit" name="coordinadores" value="{{ coordinadores }}" style="display: none;">Todo voluntario</button>
             {% endif %}
             <input type="hidden", name="volunteering_id", value="{{ volunteering.id }}">
         </form>
         <form action="{% url 'inscription_volunteer' %}" method="POST">
             <input type="hidden", name="coordinadores", value="{{ coordinadores }}">
-            <h5 style="margin-top: 1.5%;">Voluntarios inscriptos</h5>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Inscripto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <input type="hidden" name="volunteering_id" value='{{ volunteering.id }}'/>
-                    {% for volunteer in volunteeringVolunteers %}
-                        <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
-                            <td>{{ volunteer }}</td>
-                            <td>
-                                <input checked="checked" name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
-                            </td>
+            <input type="hidden" name="volunteering_id" value='{{ volunteering.id }}'>
+            {% if volunteeringVolunteers %}
+                <h5 style="margin-top: 1.5%;">Voluntarios inscriptos</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 80%;">Nombre</th>
+                            <th scope="col" style="width: 20%; text-align: center;">Inscripto</th>
                         </tr>
-                    {% endfor %}
-                    {% csrf_token %}
-                </tbody>
-            </table>
-            <button type="submit", class="btn btn-primary">
-                Guardar
-            </button>
-            <h5 style="margin-top: 3%;">Voluntarios no inscriptos</h5>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Inscripto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for volunteer in restOfVolunteers %}
-                        <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
-                            <td>{{ volunteer }}</td>
-                            <td>
-                                <input name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
-                            </td>
+                    </thead>
+                    <tbody>
+                        {% for volunteer in volunteeringVolunteers %}
+                            <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
+                                <td>{{ volunteer }} - {{ volunteer.dni }}</td>
+                                <td style="text-align: center;">
+                                    <input checked="checked" name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% csrf_token %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% if restOfVolunteers %}
+                <h5 style="margin-top: 3%;">Voluntarios no inscriptos</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 80%;">Nombre</th>
+                            <th scope="col" style="width: 20%; text-align: center;">Inscripto</th>
                         </tr>
-                    {% endfor %}
-                    {% csrf_token %}
-                </tbody>
-            </table>
-            <button type="submit", class="btn btn-primary">
-                Guardar
-            </button>
+                    </thead>
+                    <tbody>
+                        {% for volunteer in restOfVolunteers %}
+                            <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
+                                <td>{{ volunteer }} - {{ volunteer.dni }}</td>
+                                <td style="text-align: center;">
+                                    <input name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% csrf_token %}
+                    </tbody>
+                </table>
+            {% endif %}
+            <div style="position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; text-align: center; padding: 10px; background-color: #f8f9fa;">
+                <button type="submit" class="btn btn-primary">Guardar inscripciones</button>
+            </div>
         </form>        
     </div>
 {% else %}

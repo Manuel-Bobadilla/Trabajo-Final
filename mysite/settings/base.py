@@ -150,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es"
 
 TIME_ZONE = "America/Buenos_Aires"
 
@@ -190,7 +190,7 @@ if not DEBUG:
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "mysite"
+WAGTAIL_SITE_NAME = "VUCC"
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html

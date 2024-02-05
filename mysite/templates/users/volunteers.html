@@ -5,9 +5,9 @@
 <div class="container">
     <form class="d-flex" method="GET" action="{% url 'volunteers' %}" style="margin-top: 5%;">
         {% if searchText %}
-            <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search" value="{{ searchText }}">
+            <input class="form-control me-2" name="search" type="search" placeholder="Voluntario | Nombre - Apellido - DNI" aria-label="Search" value="{{ searchText }}">
         {% else %}
-            <input class="form-control me-2" name="search" type="search" placeholder="Voluntario" aria-label="Search">
+            <input class="form-control me-2" name="search" type="search" placeholder="Voluntario | Nombre - Apellido - DNI" aria-label="Search">
         {% endif %}
         {% if year %}
             <input class="form-control me-2" name="year" type="text" inputmode="numeric" pattern="\d*" placeholder="Año asistencia" aria-label="Search" value="{{ year }}" style="max-width: 25%;" title="Ingrese solo números para el año">
@@ -19,8 +19,14 @@
     {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
         <div class="card" style="margin-top: 3%;">
             <div class="card-body">
-                <div class="card-title">
-                    <h5> {{ recordVolunteer }} </h5>
+                <div class="card-title" style="margin-bottom: 0;">
+                    <h5> 
+                        {{ recordVolunteer }} - 
+                        {{ recordVolunteer.university }}
+                        {% if recordVolunteer.university_file %}
+                             {{ recordVolunteer.university_file }}
+                        {% endif %}
+                    </h5>
                     Cantidad asistencias: {{ attendance }}
                 </div>
                 {% if attendance != 0 %}

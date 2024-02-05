@@ -5,18 +5,18 @@ import datetime
 
 
 class Volunteer(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    address = models.CharField(blank=False, null=False, max_length=80, help_text="Direccon")
-    phone = models.CharField(blank=False, null=False, max_length=20, help_text="Telefono")
-    neighborhood = models.CharField(blank=False, null=False, max_length=80, help_text="Barrio")
-    university = models.CharField(blank=False, null=False, max_length=80, help_text="Universidad")
-    university_file = models.CharField(blank=False, null=False, max_length=20, help_text="Legajo universidad")
-    career = models.CharField(blank=True, null=True, max_length=30, help_text="Carrera")
-    birthdate = models.DateField(blank=False, null=True, help_text="Fecha de nacimiento")
-    dni = models.CharField(blank=False, null=False, max_length=20, help_text="DNI")
-    ingreso = models.DateField(blank=False, null=False, default = datetime.date.today, help_text="Fecha de ingreso al VUCC")
-    coordinador = models.BooleanField(blank=False, null=False, default=False, help_text="Coordinador de voluntariado")
-    validated = models.BooleanField(blank=False, null=False, help_text="Voluntario validado")
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, verbose_name="Usuario vinculado")
+    address = models.CharField(blank=False, null=False, max_length=80, verbose_name="Dirección")
+    phone = models.CharField(blank=False, null=False, max_length=20, verbose_name="Teléfono")
+    neighborhood = models.CharField(blank=False, null=False, max_length=80, verbose_name="Barrio")
+    birthdate = models.DateField(blank=False, null=False, default=datetime.date.today, verbose_name="Fecha de nacimiento")
+    dni = models.CharField(blank=False, null=False, max_length=20, verbose_name="DNI")
+    ingreso = models.DateField(blank=False, null=False, default = datetime.date.today, verbose_name="Fecha de ingreso al VUCC")
+    university = models.CharField(blank=True, null=True, max_length=80, verbose_name="Universidad")
+    university_file = models.CharField(blank=True, null=True, max_length=20, verbose_name="Legajo universitario")
+    career = models.CharField(blank=True, null=True, max_length=30, verbose_name="Carrera")
+    coordinador = models.BooleanField(blank=False, null=False, default=False, verbose_name="Coordinador del VUCC")
+    validated = models.BooleanField(blank=False, null=False, default=False, help_text="Voluntario validado", verbose_name="Validado")
 
     def save(self, *args, **kwargs):
         if not self.validated:

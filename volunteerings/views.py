@@ -98,9 +98,6 @@ def ViewCoordinatorsVolunteering(request):
     volunteeringCoordinators = Volunteer.objects.filter(coordina=volunteering, validated = True, coordinador=True).order_by("user__last_name")
     restOfCoordinators = Volunteer.objects.exclude(Q(coordina=volunteering) | Q(validated=False) | Q(coordinador=False)).order_by("user__last_name")
 
-    print(volunteeringCoordinators)
-    print(restOfCoordinators)
-
     return render(request, "volunteerings/coordinators.html",{
          "volunteering":volunteering,
          "volunteeringCoordinators":volunteeringCoordinators,
