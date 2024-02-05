@@ -60,16 +60,19 @@ class CustomSignupForm(SignupForm):
     university = forms.ChoiceField(
         choices=UNIVERSITY_CHOICES,
         label='',
+        required=False,
         widget=forms.Select(attrs={"class": "form-select"}),
     )
 
     university_file = forms.CharField(max_length=20,
         label='',
+        required=False,
         widget=forms.TextInput(attrs={"placeholder":("Legajo universitario"), "class":("form-control")}),
     )
 
     career = forms.CharField(max_length=40,
         label='',
+        required=False,
         widget=forms.TextInput(attrs={"placeholder":("Carrera universitaria"), "class":("form-control")}),
     )
 

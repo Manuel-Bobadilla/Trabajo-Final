@@ -14,6 +14,14 @@
 
             <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                      {% for error in errors %}
+                        <li>{{ field }}: {{ error }}</li>
+                      {% endfor %}
+                    {% endfor %}
+                </ul>
+                
                 <p>{{ form.email }}</p>
                 <p>{{ form.first_name }}</p>
                 <p>{{ form.last_name }}</p>
@@ -42,11 +50,14 @@
                     <p style="margin-bottom: 0;">{{ form.career }}</p>
                 </div>
                 <p style="margin-top: 3%;">{{ form.password1 }}</p>
-                <p>{{ form.password2 }}</p>
+                <p>
+                    {{ form.password2 }}
+                    {{ form.username }}
+                </p>
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-primary" type="submit">{% trans "Registrarse" %}</button>
+                <input type="button" class="btn btn-primary" value="Registrarse" onclick="cargarUsername(this)">
             </form>
         </div>
     </div>

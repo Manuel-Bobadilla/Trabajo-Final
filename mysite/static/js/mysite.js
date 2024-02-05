@@ -37,3 +37,10 @@ function formatoURL(button, url){
     form.action = actionURL;
     form.submit();
 }
+
+function cargarUsername(button){
+    let username = document.getElementById("id_username");
+    username.value = "default_user";
+    let form = button.parentNode;
+    form.submit();
+}
