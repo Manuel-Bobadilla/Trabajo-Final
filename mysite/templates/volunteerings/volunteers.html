@@ -28,7 +28,7 @@
                     <tbody>
                         {% for volunteer in volunteeringVolunteers %}
                             <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
-                                <td>{{ volunteer }}</td>
+                                <td>{{ volunteer }} - {{ volunteer.dni }}</td>
                                 <td style="text-align: center;">
                                     <input checked="checked" name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
                                 </td>
@@ -50,7 +50,7 @@
                     <tbody>
                         {% for volunteer in restOfVolunteers %}
                             <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
-                                <td>{{ volunteer }}</td>
+                                <td>{{ volunteer }} - {{ volunteer.dni }}</td>
                                 <td style="text-align: center;">
                                     <input name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
                                 </td>
