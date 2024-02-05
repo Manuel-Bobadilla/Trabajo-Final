@@ -41,7 +41,7 @@
                     <tbody>
                         {% for volunteer in restOfCoordinators %}
                             <tr class="table-default voluntario" nombreVoluntario="{{ volunteer.user.first_name }}" apellidoVoluntario="{{ volunteer.user.last_name }}">
-                                <td>{{ volunteer } - {{ volunteer.dni }}}</td>
+                                <td>{{ volunteer }} - {{ volunteer.dni }}</td>
                                 <td style="text-align: center;">
                                     <input name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"volunteering_id": "{{ volunteering.id }}", "volunteer": "{{ volunteer.id }}"}'>
                                 </td>
