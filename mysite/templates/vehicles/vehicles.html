@@ -51,20 +51,20 @@
                                 {% else %}
                                     <div class="card-text">No está inscrito en ninguna actividad</div>
                                 {% endif %}
-                                <form action="{% url 'delete_vehicle' %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="vehicle_id", value="{{ vehicle.id }}">
-                                    <input type="button" value="Eliminar", onclick="eliminarVehiculo(this, '{{ vehicle.domain }}')", class="btn btn-danger" style="margin-top: 3%; width: 20%;">
-                                </form>
                                 <form action="{% url 'room_up_vehicle' %}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="vehicle_id", value="{{ vehicle.id }}">
-                                    <input type="submit" value="Aumentar plazas", class="btn btn-success" style="margin-top: 3%; width: 40%;">
+                                    <input type="submit" value="Aumentar plazas", class="btn btn-primary" style="margin-top: 3%; width: 100%;">
                                 </form>
                                 <form action="{% url 'room_down_vehicle' %}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="vehicle_id", value="{{ vehicle.id }}">
-                                    <input type="submit" value="Disminuir plazas", class="btn btn-success" style="margin-top: 3%; width: 40%;">
+                                    <input type="submit" value="Disminuir plazas", class="btn btn-primary" style="margin-top: 3%; width: 100%;">
+                                </form>
+                                <form action="{% url 'delete_vehicle' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="vehicle_id", value="{{ vehicle.id }}">
+                                    <input type="button" value="Eliminar", onclick="eliminarVehiculo(this, '{{ vehicle.domain }}')", class="btn btn-danger" style="margin-top: 3%; width: 100%;">
                                 </form>
                             </div>
                         </div>
