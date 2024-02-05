@@ -23,6 +23,7 @@ class VolunteeringAdmin(ModelAdmin):
     panels = [
         CustomVolunteeringPanel('name'),
         CustomVolunteeringPanel('description'),
+        CustomVolunteeringPanel('short_description'),
         CustomVolunteeringPanel('image'),
     ]
 

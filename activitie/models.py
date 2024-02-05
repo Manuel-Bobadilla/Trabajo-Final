@@ -68,12 +68,12 @@ class ActivitieDetailPage(Page):
         null=True, blank=True, use_json_field=True)
     
     content_panels = Page.content_panels + [
-        FieldPanel("custom_title"),
-        FieldPanel("activitie_image"),
-        FieldPanel("volunteering"),
-        FieldPanel("activity_start_date"),
-        FieldPanel("activity_end_date"),
-        FieldPanel("content"),
+        FieldPanel("custom_title", heading="Título"),
+        FieldPanel("activitie_image", heading="Imagen"),
+        FieldPanel("volunteering", heading="Voluntariado"),
+        FieldPanel("activity_start_date", heading="Fecha inicio de la actividad"),
+        FieldPanel("activity_end_date", heading="Fecha finalización de la actividad"),
+        FieldPanel("content", heading="Contenido"),
     ]
 
     class Meta:
