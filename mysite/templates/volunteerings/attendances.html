@@ -7,8 +7,14 @@
         {% for recordVolunteer, attendance in recordsVolunteersDict.items %}
             <div class="card" style="margin-top: 3%;">
                 <div class="card-body">
-                    <div class="card-title">
-                        {{ recordVolunteer }} | Cantidad asistencias: {{ attendance }}
+                    <div class="card-title" style="margin-bottom: 0;">
+                        {{ recordVolunteer }} - 
+                        {{ recordVolunteer.university }}
+                        {% if recordVolunteer.university_file %}
+                             {{ recordVolunteer.university_file }}
+                        {% endif %}
+                        <br>
+                        Cantidad asistencias: {{ attendance }}
                     </div>
                     {% if attendance != 0 %}
                         <div class="card-body">
