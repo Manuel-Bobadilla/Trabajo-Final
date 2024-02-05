@@ -10,15 +10,15 @@
                 <thead>
                     <tr>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Asistió</th>
+                        <th scope="col" style="text-align: center;">Asistió</th>
                     </tr>
                 </thead>
                 <tbody>
                     <input type="hidden" name="actividad_id" value='{{ activity.id }}' />
                     {% for volunteer in volunteers %}
                         <tr class="table-default">
-                            <td>{{ volunteer }}</td>
-                            <td>
+                            <td>{{ volunteer }} - {{ volunteer.dni }}</td>
+                            <td style="text-align: center;">
                                 {% if volunteer in volunteersPresentList %}
                                         <input checked="checked" name="{{volunteer.id}}" class="form-check-input" type="checkbox" value='{"activity_id": "{{ activity.id }}", "volunteer": "{{ volunteer.id }}"}'>
                                 {% else %}
