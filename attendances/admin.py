@@ -15,7 +15,10 @@ class UserAdmin(ModelAdmin):
         return obj.volunteer
     
     def Actividad(self,obj):
-        return obj.activity_title
+        if obj.activity:
+            return obj.activity
+        else:
+            return obj.activity_title
     
     def Fecha(self,obj):
         return obj.date
