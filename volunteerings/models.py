@@ -13,5 +13,5 @@ class Volunteering(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Voluntario"
-        verbose_name_plural = "Voluntarios"  
+        verbose_name = "Voluntariado"
+        verbose_name_plural = "Voluntariados"  
