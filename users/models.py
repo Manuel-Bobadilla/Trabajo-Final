@@ -56,4 +56,8 @@ class Volunteer(models.Model):
 
     def __str__(self):
         return str(self.user.last_name + " " + self.user.first_name)
+
+    class Meta:
+        verbose_name = "Voluntario"
+        verbose_name_plural = "Voluntarios"  
     

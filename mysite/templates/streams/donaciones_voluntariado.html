@@ -8,7 +8,7 @@
         {{ self.voluntariado }}
     </div>
     <div style="font-size: 0.89em; margin-bottom: 3%;">
-        {% if self.alias %}
+        {% if self.alias and request.user.volunteer.validated %}
             <div style="position: relative;">
                 <hr style="margin-top: 8%; margin-bottom: 4%;">
                 <p class="fw-light" style="position: absolute; top: 50%; transform: translate(0%, -50%); z-index: 1; font-size: small; background-color: white; padding-left: 1%; padding-right: 1%; margin-left: 2%;">Apoyo económico</p>

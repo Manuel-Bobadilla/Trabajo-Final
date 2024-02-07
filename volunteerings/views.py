@@ -22,7 +22,7 @@ def Volunteerings(request):
 
 def ViewVolunteering(request):
     volunteering = Volunteering.objects.get(id = request.GET.get("volunteering_id"))
-    posts = ActivitieDetailPage.objects.filter(volunteering=volunteering)
+    posts = ActivitieDetailPage.objects.live().public().filter(volunteering=volunteering)
     current_date = datetime.date.today()
     inscripted = False
     if request.user.id:
