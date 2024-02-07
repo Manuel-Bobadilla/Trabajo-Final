@@ -12,3 +12,6 @@ class Volunteering(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Voluntario"
+        verbose_name_plural = "Voluntarios"  
