@@ -12,9 +12,7 @@
         <div id="collapse{{forloop.counter}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 {% for responses in question.responses %}
-                    <p>
-                        <strong>• {{ responses.response }}</strong>
-                    </p>
+                    {{ responses.response }}
                 {% endfor %}
             </div>
         </div>
