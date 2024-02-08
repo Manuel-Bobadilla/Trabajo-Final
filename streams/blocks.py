@@ -131,7 +131,7 @@ class Question(blocks.StructBlock):
     question = blocks.CharBlock(required=True, label="Pregunta")
     responses = blocks.ListBlock(
         blocks.StructBlock([
-            ("response", blocks.CharBlock(required=True, label="Respuesta")),
+            ("response", blocks.RichTextBlock(required=True, label="Respuesta")),
         ]), label="Respuestas"
     )
 
