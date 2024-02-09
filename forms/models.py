@@ -81,11 +81,7 @@ class CustomSignupForm(SignupForm):
         self.fields["username"].widget = forms.HiddenInput()
         self.fields["username"].required = False
         self.fields["username"].initial = "default_username"
-        self.fields["email"].widget.attrs['class'] = 'form-control'
-        self.fields["email"].required = True
-        self.fields["email"].widget.attrs['placeholder'] = 'Email'
-        self.fields["email"].widget.attrs['required'] = 'required'
-        self.fields["email"].label = ''
+        self.fields["email"] = forms.EmailField(label='username', required=True, widget=forms.EmailInput(attrs={"placeholder":("Email"), "class":("form-control"), "required": "required", "autocomplete":"username"}),)
         self.fields["password1"].widget.attrs['class'] = 'form-control'
         self.fields["password1"].widget.attrs['placeholder'] = 'Contraseña'
         self.fields["password1"].required = True
