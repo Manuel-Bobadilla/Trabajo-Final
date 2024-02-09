@@ -42,5 +42,6 @@ function cargarUsername(button){
     let username = document.getElementById("id_username");
     username.value = "default_user";
     let form = button.parentNode;
+    button.style.display = 'none';
     form.submit();
 }
