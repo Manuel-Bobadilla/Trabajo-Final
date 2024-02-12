@@ -24,16 +24,36 @@
                 </div>
                 <div class="col-xxl-10 col-xl-9 col-lg-9 col-md-8 col-sm-7 col-9">
                     <div class="card-body">
-                        <h5 class="card-title">{{ volunteering.name }}</h5>
-                        <p class="card-text d-md-block d-none" style="text-align: justify;">{{ volunteering.description }}</p>
-                        {% if volunteering.short_description %}<p class="card-text d-md-none d-block" style="text-align: justify;">{{ volunteering.short_description }}</p>{% endif %}
+                        <h5 class="card-title" style="margin-top: 5px;">{{ volunteering.name }}</h5>
+                        <p class="card-text d-md-block d-none" style="margin-bottom: 5px;">{{ volunteering.description }}</p>
+                        {% if volunteering.short_description %}<p class="card-text d-md-none d-block" style="margin-bottom: 5px;">{{ volunteering.short_description }}</p>{% endif %}
+                        {% if volunteering.Whatsapp %}
+                            <a  class="btn btn-link btn-floating btn-lg text-dark m-1"
+                                href="https://api.whatsapp.com/send/?phone={{ volunteering.Whatsapp }}&text&type=phone_number&app_absent=1"
+                                role="button"
+                                data-mdb-ripple-color="dark"
+                                target="_blank"
+                                style="text-decoration: none; margin-top: 0px !important; margin-bottom: 0px !important; padding: 0px;">
+                                    <i class="fab fa-whatsapp"></i>
+                            </a>
+                        {% endif %}
+                        {% if volunteering.Instagram %}
+                            <a  class="btn btn-link btn-floating btn-lg text-dark m-1"
+                                href="https://www.instagram.com/{{ volunteering.Instagram }}/"
+                                role="button"
+                                data-mdb-ripple-color="dark"
+                                target="_blank"
+                                style="text-decoration: none; padding: 0px; margin-top: 0px !important; margin-bottom: 0px !important;">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-*">
+                <div class="col-xxl-1 col-xl-2 col-lg-2 col-md-2 col-sm-3 col-*" style="padding-right: 5px;">
                     {% if request.user.is_superuser %}
                         <form action="{% url 'coordinadores_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-top: 3%; min-width: 9.85em; margin-right: 2%; font-size: 0.7em;">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-top: 3%; min-width: 9.85em; font-size: 0.7em;">
                                     Coordinadores
                                 </button>
                             </div>
@@ -42,14 +62,14 @@
                     {% if request.user.volunteer.coordinador and volunteer in volunteering.coordinadores.all or request.user.is_superuser %}
                         <form action="{% url 'inscriptos_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%; margin-top: 3%; min-width: 9.2em; margin-right: 2%; font-size: 0.75em;">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%; margin-top: 3%; min-width: 9.2em; font-size: 0.75em;">
                                     Inscriptos
                                 </button>
                             </div>
                         </form>
                         <form action="{% url 'asistencia_voluntariado' %}" method="GET">
                             <div class="d-grid d-md-flex justify-content-md-end">
-                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 9.2em; margin-right: 2%; font-size: 0.75em;">
+                                <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 9.2em; font-size: 0.75em;">
                                     Asistencias
                                 </button>
                             </div>
@@ -57,7 +77,7 @@
                     {% endif %}
                     <form action="{% url 'ver_voluntariado' %}" method="GET">
                         <div class="d-grid d-md-flex justify-content-md-end">
-                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 9.2em; margin-right: 2%; font-size: 0.75em;">
+                            <button type="submit", name="volunteering_id", value="{{ volunteering.id }}", class="btn btn-primary" style="margin-bottom: 3%;min-width: 9.2em; font-size: 0.75em;">
                                 Ver
                             </button>
                         </div>

@@ -25,6 +25,8 @@ class VolunteeringAdmin(ModelAdmin):
         CustomVolunteeringPanel('description'),
         CustomVolunteeringPanel('short_description'),
         CustomVolunteeringPanel('image'),
+        CustomVolunteeringPanel('Whatsapp'),
+        CustomVolunteeringPanel('Instagram'),
     ]
 
 modeladmin_register(VolunteeringAdmin)
