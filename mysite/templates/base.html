@@ -62,9 +62,11 @@
                         <a class="nav-link" href="{% url 'volunteers' %}" class="nav-link d-inline">Voluntarios</a>
                       </li>
                     {% endif %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'account_vehicle' %}" class="nav-link d-inline">Vehiculos</a>
-                    </li>
+                    {% if request.user.volunteer.validated %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_vehicle' %}" class="nav-link d-inline">Vehiculos</a>
+                      </li>
+                    {% endif %}
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'user_attendance' %}" class="nav-link d-inline">Asistencias</a>
                     </li>
